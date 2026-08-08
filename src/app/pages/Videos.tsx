@@ -2229,7 +2229,42 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
-        {Array.from({ length: 6 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/KNAeDkqbX5o"
+          thumbnail="https://img.youtube.com/vi/KNAeDkqbX5o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/KNAeDkqbX5o")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/uJfohyL35gI"
+          thumbnail="https://img.youtube.com/vi/uJfohyL35gI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uJfohyL35gI")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/4Tbqxo5koLo"
+          thumbnail="https://img.youtube.com/vi/4Tbqxo5koLo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/4Tbqxo5koLo")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/AAEgC0QfmlY"
+          thumbnail="https://img.youtube.com/vi/AAEgC0QfmlY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/AAEgC0QfmlY")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/d4DtXy0JieI"
+          thumbnail="https://img.youtube.com/vi/d4DtXy0JieI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/d4DtXy0JieI")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/EN3VZ4pxhJs"
+          thumbnail="https://img.youtube.com/vi/EN3VZ4pxhJs/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/EN3VZ4pxhJs")}
+        />
       </div>
 
       {/* SIGNAL / ARTICLE / INTERPRETATION */}
@@ -2255,25 +2290,28 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/AOS_Goal_art.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/Aos_goal_int.jpg" />
         </div>
       </div>
 
       {/* PRESENTATION */}
       <SubSectionBadge label="PRESENTATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 28 }}>
-        <DocCard />
-        <DocCard />
+        <DocCard link="https://www.refereevision.com/PAOS_ppt.jpg" />
+        <DocCard link="https://www.refereevision.com/Goal_ppt.jpg" />
       </div>
 
       {/* COVERING A SHOT */}
       <SubSectionBadge label="COVERING A SHOT (1 - 2 - 3 TECHNIQUE)" />
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
-        <div
+        <a
+          href="https://www.refereevision.com/coveringashot.png"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             width: isMobile ? 180 : 220,
             aspectRatio: "4 / 3",
@@ -2283,12 +2321,17 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 4,
+            overflow: "hidden",
+            textDecoration: "none",
+            cursor: "pointer",
           }}
         >
-          <span style={{ fontFamily: BARLOW, fontSize: 11, color: T.grey, textTransform: "uppercase", letterSpacing: "1px", textAlign: "center", padding: "0 8px" }}>
-            Technique Diagram
-          </span>
-        </div>
+          <img
+            src="https://www.refereevision.com/coveringashot.png"
+            alt="Covering a shot technique diagram"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </a>
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
         <span style={{ fontFamily: DM, fontSize: 14, color: T.orange, fontStyle: "italic", letterSpacing: "0.5px" }}>
@@ -2312,7 +2355,54 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
           margin: "0 auto 8px",
         }}
       >
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/sczWpL0H0Tc"
+          thumbnail="https://img.youtube.com/vi/sczWpL0H0Tc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/sczWpL0H0Tc")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/PDC0WfLsZZw"
+          thumbnail="https://img.youtube.com/vi/PDC0WfLsZZw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/PDC0WfLsZZw")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/OXsueJ5yvpM"
+          thumbnail="https://img.youtube.com/vi/OXsueJ5yvpM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/OXsueJ5yvpM")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/7sZdvH81jGM"
+          thumbnail="https://img.youtube.com/vi/7sZdvH81jGM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/7sZdvH81jGM")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/6D_XuyoDba8"
+          thumbnail="https://img.youtube.com/vi/6D_XuyoDba8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/6D_XuyoDba8")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/f3fpwuKx9gY"
+          thumbnail="https://img.youtube.com/vi/f3fpwuKx9gY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f3fpwuKx9gY")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/hL-JyBsJuSY"
+          thumbnail="https://img.youtube.com/vi/hL-JyBsJuSY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/hL-JyBsJuSY")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/ArtWET26h1k"
+          thumbnail="https://img.youtube.com/vi/ArtWET26h1k/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ArtWET26h1k")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhq3ceh6FqY0CZxtlZfs6bJb")} />
 
@@ -2867,10 +2957,24 @@ function TimeoutSubSection({
   title,
   procedureCount = 1,
   videoCount,
+  articleLink,
+  interpretationLink,
+  ruleLink,
+  procedureLinks,
+  summaryLink,
+  videos,
+  onPlay,
 }: {
   title: string;
   procedureCount?: number;
   videoCount: number;
+  articleLink?: string;
+  interpretationLink?: string;
+  ruleLink?: string;
+  procedureLinks?: string[];
+  summaryLink?: string;
+  videos?: { link: string; thumbnail: string }[];
+  onPlay?: (url: string) => void;
 }) {
   return (
     <div style={{ marginBottom: 48 }}>
@@ -2903,12 +3007,18 @@ function TimeoutSubSection({
           marginBottom: 28,
         }}
       >
-        {["SIGNAL", "ARTICLE", "INTERPRETATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link={articleLink} />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link={interpretationLink} />
+        </div>
       </div>
 
       {/* Row 2: RULE / PROCEDURE / SUMMARY */}
@@ -2923,36 +3033,84 @@ function TimeoutSubSection({
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE" />
-          <DocCard />
+          <DocCard link={ruleLink} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="PROCEDURE" />
           <div style={{ display: "flex", gap: 8 }}>
-            {Array.from({ length: procedureCount }).map((_, i) => <DocCard key={i} cols={2} />)}
+            {Array.from({ length: procedureCount }).map((_, i) => <DocCard key={i} cols={2} link={procedureLinks?.[i]} />)}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SUMMARY" />
-          <DocCard />
+          <DocCard link={summaryLink} />
         </div>
       </div>
 
       {/* FIBA Educational Videos */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-        {Array.from({ length: videoCount }).map((_, i) => <VideoCard key={i} index={i} />)}
+        {Array.from({ length: videoCount }).map((_, i) => {
+          const vid = videos?.[i];
+          if (vid && onPlay) {
+            return (
+              <VideoThumb
+                key={i}
+                index={i}
+                link={vid.link}
+                thumbnail={vid.thumbnail}
+                onPlay={() => onPlay(vid.link)}
+              />
+            );
+          }
+          return <VideoCard key={i} index={i} />;
+        })}
       </div>
     </div>
   );
 }
 
 function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <SectionBadge label="TIME-OUT & SUBSTITUTION" />
       <div style={{ marginTop: 32 }}>
-        <TimeoutSubSection title="TIME-OUT" procedureCount={2} videoCount={5} />
-        <TimeoutSubSection title="SUBSTITUTION" procedureCount={1} videoCount={2} />
+        <TimeoutSubSection
+          title="TIME-OUT"
+          procedureCount={2}
+          videoCount={5}
+          articleLink="https://www.refereevision.com/timeout_art.png"
+          interpretationLink="https://www.refereevision.com/to_int.jpg"
+          ruleLink="https://www.refereevision.com/to_rule.jpg"
+          procedureLinks={["https://www.refereevision.com/to_procedure1.jpg", "https://www.refereevision.com/to_procedure2.jpg"]}
+          summaryLink="https://www.refereevision.com/to_summary.jpg"
+          onPlay={setActiveVideo}
+          videos={[
+            { link: "https://library.fibairef.basketball/cdn/TOM303_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl12.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM304_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl12.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM301_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM302_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM300_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl13.png" },
+          ]}
+        />
+        <TimeoutSubSection
+          title="SUBSTITUTION"
+          procedureCount={1}
+          videoCount={2}
+          onPlay={setActiveVideo}
+          articleLink="https://www.refereevision.com/sub_art.jpg"
+          interpretationLink="https://www.refereevision.com/to_int.jpg"
+          ruleLink="https://www.refereevision.com/sub_rule.jpg"
+          procedureLinks={["https://www.refereevision.com/sub_procedure.jpg"]}
+          summaryLink="https://www.refereevision.com/sub_summary.jpg"
+          videos={[
+            { link: "https://library.fibairef.basketball/cdn/TOM600_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl15.png" },
+            { link: "https://library.fibairef.basketball/cdn/TOM601_EN?autoplay=1", thumbnail: "https://www.refereevision.com/tbloffl15.png" }
+          ]}
+        />
       </div>
     </div>
   );
@@ -2961,8 +3119,11 @@ function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean;
 // ─── ALTERNATING POSSESSION Content ──────────────────────────────────────────
 
 function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <SectionBadge label="ALTERNATING POSSESSION" />
 
       {/* RULE / ARTICLE / INTERPRETATION */}
@@ -2978,17 +3139,17 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard />
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/apa_rule.jpg" />
+            <DocCard link="https://www.refereevision.com/apa_specs.jpg" />
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/apa_art.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/jumpball_int.jpg" />
         </div>
       </div>
 
@@ -3004,11 +3165,11 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="OPERATION" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/apa_rule.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="PRESENTATION" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/jumpball_ppt.jpg" />
         </div>
       </div>
 
@@ -3035,7 +3196,7 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
               CHANGE ARROW DIRECTION
             </span>
           </div>
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/apa_change.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div
@@ -3050,7 +3211,7 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
               DO NOT CHANGE ARROW DIRECTION
             </span>
           </div>
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/apa_nochange.jpg" />
         </div>
       </div>
 
@@ -3065,7 +3226,54 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
           margin: "0 auto",
         }}
       >
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://library.fibairef.basketball/cdn/TOM403_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM403_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://library.fibairef.basketball/cdn/TOM404_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM404_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://library.fibairef.basketball/cdn/TOM402_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM402_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://library.fibairef.basketball/cdn/TOM400_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM400_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://library.fibairef.basketball/cdn/TOM405_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM405_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://library.fibairef.basketball/cdn/TOM401_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM401_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://library.fibairef.basketball/cdn/TOM406_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM406_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://library.fibairef.basketball/cdn/TOM407_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl10.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM407_EN?autoplay=1")}
+        />
       </div>
     </div>
   );
@@ -3093,7 +3301,12 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
-          <DocCard />
+          <VideoThumb
+            index={0}
+            link="https://youtu.be/gCQ5BqrA638"
+            thumbnail="https://img.youtube.com/vi/gCQ5BqrA638/0.jpg"
+            onPlay={() => setActiveVideo("https://youtu.be/gCQ5BqrA638")}
+          />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNALS" />
@@ -3114,12 +3327,18 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
           margin: "0 auto 40px",
         }}
       >
-        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/Dribble_art.jpg" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/Dribble_int.jpg" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <DocCard link="https://www.refereevision.com/Dribble_ppt.jpg" />
+        </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
@@ -3128,13 +3347,77 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
       {/* CARRYING THE BALL */}
       <SubSectionBadge label="CARRYING THE BALL" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/PQM5LNNcWGk"
+          thumbnail="https://img.youtube.com/vi/PQM5LNNcWGk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/PQM5LNNcWGk")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/_i3fkM0lZFQ"
+          thumbnail="https://img.youtube.com/vi/_i3fkM0lZFQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/_i3fkM0lZFQ")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/CvZ2-eljIPU"
+          thumbnail="https://img.youtube.com/vi/CvZ2-eljIPU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/CvZ2-eljIPU")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/W0sAsp3L5eg"
+          thumbnail="https://img.youtube.com/vi/W0sAsp3L5eg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/W0sAsp3L5eg")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/ToRqc1hans0"
+          thumbnail="https://img.youtube.com/vi/ToRqc1hans0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ToRqc1hans0")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/TcG8h1hZeTQ"
+          thumbnail="https://img.youtube.com/vi/TcG8h1hZeTQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/TcG8h1hZeTQ")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/ZRQktHjSKlQ"
+          thumbnail="https://img.youtube.com/vi/ZRQktHjSKlQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ZRQktHjSKlQ")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/waR_1GlN44M"
+          thumbnail="https://img.youtube.com/vi/waR_1GlN44M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/waR_1GlN44M")}
+        />
       </div>
 
       {/* DOUBLE DRIBBLE */}
       <SubSectionBadge label="DOUBLE DRIBBLE" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/EWwrOyKMK3o"
+          thumbnail="https://img.youtube.com/vi/EWwrOyKMK3o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/EWwrOyKMK3o")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/21yzPenKjz0"
+          thumbnail="https://img.youtube.com/vi/21yzPenKjz0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/21yzPenKjz0")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/NQV7HdT0o6s"
+          thumbnail="https://img.youtube.com/vi/NQV7HdT0o6s/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/NQV7HdT0o6s")}
+        />
       </div>
 
       {/* ADDITIONAL VIDEOS */}
@@ -3243,7 +3526,18 @@ function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
-        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/H8bbQZCHSF8"
+          thumbnail="https://img.youtube.com/vi/H8bbQZCHSF8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/H8bbQZCHSF8")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/3tDw8GJ50HQ"
+          thumbnail="https://img.youtube.com/vi/3tDw8GJ50HQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/3tDw8GJ50HQ")}
+        />
       </div>
 
       {/* SIGNAL / ARTICLE / PRESENTATION */}
@@ -3256,18 +3550,71 @@ function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
           margin: "0 auto 32px",
         }}
       >
-        {["SIGNAL", "ARTICLE", "PRESENTATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/Scr.png" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <DocCard link="https://www.refereevision.com/Screen_ppt.jpg" />
+        </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/uIjQ79n4dgI"
+          thumbnail="https://img.youtube.com/vi/uIjQ79n4dgI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uIjQ79n4dgI")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/Ak5rwEJbGZU"
+          thumbnail="https://img.youtube.com/vi/Ak5rwEJbGZU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Ak5rwEJbGZU")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/kG-_jALi2zI"
+          thumbnail="https://img.youtube.com/vi/kG-_jALi2zI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kG-_jALi2zI")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/8m3njOKQnbw"
+          thumbnail="https://img.youtube.com/vi/8m3njOKQnbw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/8m3njOKQnbw")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/FaculEWfWS4"
+          thumbnail="https://img.youtube.com/vi/FaculEWfWS4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/FaculEWfWS4")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/kno4-CGLUV4"
+          thumbnail="https://img.youtube.com/vi/kno4-CGLUV4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kno4-CGLUV4")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/Dm0yfez_jbE"
+          thumbnail="https://img.youtube.com/vi/Dm0yfez_jbE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Dm0yfez_jbE")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/5osVMl2toAs"
+          thumbnail="https://img.youtube.com/vi/5osVMl2toAs/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/5osVMl2toAs")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhpOd89By2pV2zkDq_w4JCi2")} />
 
