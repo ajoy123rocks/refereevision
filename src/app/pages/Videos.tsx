@@ -3440,7 +3440,30 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
-        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/davbp5FQ2ik"
+          thumbnail="https://img.youtube.com/vi/davbp5FQ2ik/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/davbp5FQ2ik")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/WGnFkdmk2iQ"
+          thumbnail="https://img.youtube.com/vi/WGnFkdmk2iQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/WGnFkdmk2iQ")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/Gilvt0ArbYE"
+          thumbnail="https://img.youtube.com/vi/t2dSjlh8guQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Gilvt0ArbYE")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/OD4SOZwI4jY"
+          thumbnail="https://img.youtube.com/vi/OD4SOZwI4jY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/OD4SOZwI4jYnp")}
+        />
       </div>
 
       {/* SIGNAL / ARTICLE / INTERPRETATION */}
@@ -3453,12 +3476,18 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
           margin: "0 auto 32px",
         }}
       >
-        {["SIGNAL", "ARTICLE", "INTERPRETATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="SIGNAL" />
+          <DocCard />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/USF_art.jpg" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/USF_int.jpg" />
+        </div>
       </div>
 
       {/* PROTOCOL */}
@@ -3469,7 +3498,10 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
         </span>
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
-        <div
+        <a
+          href="https://www.refereevision.com/ufoul_protocol.png"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             width: isMobile ? 180 : 240,
             aspectRatio: "16 / 9",
@@ -3479,34 +3511,322 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 4,
+            overflow: "hidden",
+            textDecoration: "none",
+            cursor: "pointer",
           }}
         >
-          <span style={{ fontFamily: BARLOW, fontSize: 11, color: T.grey, textTransform: "uppercase", letterSpacing: "1px", textAlign: "center", padding: "0 8px" }}>
-            Technique Diagram
-          </span>
-        </div>
+          <img
+            src="https://www.refereevision.com/ufoul_protocol.png"
+            alt="0 - 1 - 2 Technique Diagram"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </a>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
 
-      {["CRITERIA 1", "CRITERIA 2", "CRITERIA 3", "CRITERIA 4"].map((criteria, ci) => (
-        <div key={criteria}>
-          <SubSectionBadge label={criteria} />
-          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-            {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={ci * 8 + i} />)}
-          </div>
-        </div>
-      ))}
+      {/* CRITERIA 1 */}
+      <SubSectionBadge label="CRITERIA 1" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/dtSE7fwAF-M"
+          thumbnail="https://img.youtube.com/vi/dtSE7fwAF-M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/dtSE7fwAF-M")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/QGmRbRgztN8"
+          thumbnail="https://img.youtube.com/vi/QGmRbRgztN8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QGmRbRgztN8")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/aqQ574sbejc"
+          thumbnail="https://img.youtube.com/vi/aqQ574sbejc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aqQ574sbejc")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/JY32dKYDmZ4"
+          thumbnail="https://img.youtube.com/vi/JY32dKYDmZ4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/JY32dKYDmZ4")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/_oBqupqxcqg"
+          thumbnail="https://img.youtube.com/vi/_oBqupqxcqg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/_oBqupqxcqg")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/rNmorkKtmZQ"
+          thumbnail="https://img.youtube.com/vi/rNmorkKtmZQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rNmorkKtmZQ")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/SEvW7x4DZh4"
+          thumbnail="https://img.youtube.com/vi/SEvW7x4DZh4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/SEvW7x4DZh4")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/rhbe_-fMkxY"
+          thumbnail="https://img.youtube.com/vi/rhbe_-fMkxY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rhbe_-fMkxY")}
+        />
+      </div>
+
+      {/* CRITERIA 2 */}
+      <SubSectionBadge label="CRITERIA 2" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/rj3jBtxyioU"
+          thumbnail="https://img.youtube.com/vi/rj3jBtxyioU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rj3jBtxyioU")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/9_5do6CblUo"
+          thumbnail="https://img.youtube.com/vi/9_5do6CblUo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/9_5do6CblUo")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/agfa0JtlAUg"
+          thumbnail="https://img.youtube.com/vi/agfa0JtlAUg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/agfa0JtlAUg")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/oe_sx4ONpHY"
+          thumbnail="https://img.youtube.com/vi/oe_sx4ONpHY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oe_sx4ONpHY")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/XUWXYVi6OJg"
+          thumbnail="https://img.youtube.com/vi/XUWXYVi6OJg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/XUWXYVi6OJg")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/by-6hyJAqFk"
+          thumbnail="https://img.youtube.com/vi/by-6hyJAqFk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/by-6hyJAqFk")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/QFfFrr8ub18"
+          thumbnail="https://img.youtube.com/vi/QFfFrr8ub18/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QFfFrr8ub18")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/Xs_WanyUFME"
+          thumbnail="https://img.youtube.com/vi/Xs_WanyUFME/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Xs_WanyUFME")}
+        />
+      </div>
+
+      {/* CRITERIA 3 */}
+      <SubSectionBadge label="CRITERIA 3" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/M-tG3tdtcjM"
+          thumbnail="https://img.youtube.com/vi/M-tG3tdtcjM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/M-tG3tdtcjM")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/aZByfO9iHl4"
+          thumbnail="https://img.youtube.com/vi/aZByfO9iHl4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aZByfO9iHl4")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/M_Kcfn3b47M"
+          thumbnail="https://img.youtube.com/vi/M_Kcfn3b47M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/M_Kcfn3b47M")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/kQw0KLGiac0"
+          thumbnail="https://img.youtube.com/vi/kQw0KLGiac0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kQw0KLGiac0")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/cTBHqCcC9ws"
+          thumbnail="https://img.youtube.com/vi/cTBHqCcC9ws/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/cTBHqCcC9ws")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/k8ahz-lxgQE"
+          thumbnail="https://img.youtube.com/vi/k8ahz-lxgQE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/k8ahz-lxgQE")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/DT0MG87rz-4"
+          thumbnail="https://img.youtube.com/vi/DT0MG87rz-4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/DT0MG87rz-4")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/GIIhLTBA15Y"
+          thumbnail="https://img.youtube.com/vi/GIIhLTBA15Y/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/GIIhLTBA15Y")}
+        />
+      </div>
+
+      {/* CRITERIA 4 */}
+      <SubSectionBadge label="CRITERIA 4" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/oxKbVLYWeOM"
+          thumbnail="https://img.youtube.com/vi/oxKbVLYWeOM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oxKbVLYWeOM")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/uMV7qsGl-I0"
+          thumbnail="https://img.youtube.com/vi/uMV7qsGl-I0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/uMV7qsGl-I0")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/Hu6emwArPtg"
+          thumbnail="https://img.youtube.com/vi/Hu6emwArPtg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Hu6emwArPtg")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/k8ahz-lxgQE"
+          thumbnail="https://img.youtube.com/vi/k8ahz-lxgQE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/k8ahz-lxgQE")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/f0XA0wM6ohE"
+          thumbnail="https://img.youtube.com/vi/f0XA0wM6ohE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f0XA0wM6ohE")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/60BV2Mq7x6g"
+          thumbnail="https://img.youtube.com/vi/60BV2Mq7x6g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/60BV2Mq7x6g")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/d8wUMArTNow"
+          thumbnail="https://img.youtube.com/vi/d8wUMArTNow/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/d8wUMArTNow")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/u0I8oi2F3G4"
+          thumbnail="https://img.youtube.com/vi/u0I8oi2F3G4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/u0I8oi2F3G4")}
+        />
+      </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhonpS-wdc1xNPfD-peHds-Z")} />
 
       {/* ADDITIONAL VIDEOS */}
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 5 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/R2omwSU7ZQ8"
+          thumbnail="https://img.youtube.com/vi/R2omwSU7ZQ8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/R2omwSU7ZQ8")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/6w9SufPot_g"
+          thumbnail="https://img.youtube.com/vi/6w9SufPot_g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/6w9SufPot_g")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/GnzA1IT9xo8"
+          thumbnail="https://img.youtube.com/vi/GnzA1IT9xo8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/GnzA1IT9xo8")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/sqV61aTcPc8"
+          thumbnail="https://img.youtube.com/vi/sqV61aTcPc8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/sqV61aTcPc8")}
+        />
+        <VideoThumb
+          index={4}
+          link=""
+          thumbnail="https://img.youtube.com/vi/PcZig1RHLc8/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={5}
+          link=""
+          thumbnail="https://img.youtube.com/vi/la3bRSXEGbI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={6}
+          link=""
+          thumbnail="https://img.youtube.com/vi/oNNWWXxJQhM/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={7}
+          link=""
+          thumbnail="https://img.youtube.com/vi/k9b8NQC2wbI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={8}
+          link=""
+          thumbnail="https://img.youtube.com/vi/alD4OsGN_nE/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={9}
+          link=""
+          thumbnail="https://img.youtube.com/vi/mMAJzD7vNYI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={10}
+          link=""
+          thumbnail="https://img.youtube.com/vi/F58kDJswUBI/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={11}
+          link=""
+          thumbnail="https://img.youtube.com/vi/HdRz1tddafA/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={12}
+          link="https://youtu.be/xpIHJ9gOR64"
+          thumbnail="https://img.youtube.com/vi/xpIHJ9gOR64/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/xpIHJ9gOR64")}
+        />
+        <VideoThumb
+          index={13}
+          link="https://youtu.be/kuGQj8t0goc"
+          thumbnail="https://img.youtube.com/vi/kuGQj8t0goc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/kuGQj8t0goc")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp7WUnx9O_1gB5nzeERoxsz")} />
     </div>
@@ -3648,8 +3968,16 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
         {/* RULE EXPLANATION */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            {Array.from({ length: 4 }).map((_, i) => <DocCard key={i} />)}
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/NJdAnBApDgA"
+              thumbnail="https://img.youtube.com/vi/NJdAnBApDgA/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/NJdAnBApDgA")}
+            />
+            <VideoThumb index={1} link="https://youtu.be/9o3d6Gx_vws" thumbnail="https://img.youtube.com/vi/9o3d6Gx_vws/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/9o3d6Gx_vws")} />
+            <VideoThumb index={2} link="https://youtu.be/t_4-9VaXmPI" thumbnail="https://img.youtube.com/vi/t_4-9VaXmPI/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/t_4-9VaXmPI")} />
+            <VideoThumb index={3} link="https://youtu.be/ISTCyzF88X8" thumbnail="https://img.youtube.com/vi/ISTCyzF88X8/0.jpg" onPlay={() => setActiveVideo("https://youtu.be/ISTCyzF88X8")} />
           </div>
         </div>
 
@@ -3675,21 +4003,21 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
         {/* ARTICLE */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/block_charge.jpg" />
         </div>
 
         {/* INTERPRETATION */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/contact_int.jpg" />
         </div>
 
         {/* PRESENTATION */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="PRESENTATION" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard />
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/Contact_LGP_ppt.jpg" />
+            <DocCard link="https://www.refereevision.com/Contact_ChargeBlock_ppt.jpg" />
           </div>
         </div>
       </div>
@@ -3700,21 +4028,162 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
       {/* BLOCK */}
       <SubSectionBadge label="BLOCK" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/fj9ZI-GEhU4"
+          thumbnail="https://img.youtube.com/vi/fj9ZI-GEhU4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/fj9ZI-GEhU4")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/f3PQ-6bdIsQ"
+          thumbnail="https://img.youtube.com/vi/f3PQ-6bdIsQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f3PQ-6bdIsQ")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/3lbSbClOunA"
+          thumbnail="https://img.youtube.com/vi/3lbSbClOunA/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/3lbSbClOunA")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/f5EfxqOaW_I"
+          thumbnail="https://img.youtube.com/vi/f5EfxqOaW_I/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/f5EfxqOaW_I")}
+        />
+        <VideoThumb
+          index={4}
+          link=""
+          thumbnail="https://img.youtube.com/vi/YMpJrM3SzcU/0.jpg"
+          onPlay={() => setActiveVideo("")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/zfNiuTKkU8A"
+          thumbnail="https://img.youtube.com/vi/zfNiuTKkU8A/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/zfNiuTKkU8A")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/EySvurQk0D8"
+          thumbnail="https://img.youtube.com/vi/EySvurQk0D8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/EySvurQk0D8")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/qQ-rsABrQhY"
+          thumbnail="https://img.youtube.com/vi/qQ-rsABrQhY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/qQ-rsABrQhY")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhq6btKmGY-fvTQ-ZDuauGK-")} />
 
       {/* CHARGE */}
       <SubSectionBadge label="CHARGE" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/0d6c3_oXfxk"
+          thumbnail="https://img.youtube.com/vi/0d6c3_oXfxk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/0d6c3_oXfxk")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/UvXzkF8LzUg"
+          thumbnail="https://img.youtube.com/vi/UvXzkF8LzUg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/UvXzkF8LzUg")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/9e9T1zTu1wU"
+          thumbnail="https://img.youtube.com/vi/9e9T1zTu1wU/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/9e9T1zTu1wU")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/2a342GsWBTQ"
+          thumbnail="https://img.youtube.com/vi/2a342GsWBTQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/2a342GsWBTQ")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/Vg7ywIXV-o0"
+          thumbnail="https://img.youtube.com/vi/Vg7ywIXV-o0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Vg7ywIXV-o0")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/JOfPPgOhPaE"
+          thumbnail="https://img.youtube.com/vi/JOfPPgOhPaE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/JOfPPgOhPaE")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/HWRIaGc2La0"
+          thumbnail="https://img.youtube.com/vi/HWRIaGc2La0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/HWRIaGc2La0")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/VjnbMSHofng"
+          thumbnail="https://img.youtube.com/vi/VjnbMSHofng/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/VjnbMSHofng")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhqNgMC8U9X8oBKGHoWXgB02")} />
 
       {/* PASS AND CRASH */}
       <SubSectionBadge label="PASS AND CRASH" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/Ud1xUkbPFc0"
+          thumbnail="https://img.youtube.com/vi/Ud1xUkbPFc0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Ud1xUkbPFc0")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/TR51tcqH6zA"
+          thumbnail="https://img.youtube.com/vi/TR51tcqH6zA/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/TR51tcqH6zA")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/ac7R6Dz47TI"
+          thumbnail="https://img.youtube.com/vi/ac7R6Dz47TI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ac7R6Dz47TI")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/GrsJ2SFuiLI"
+          thumbnail="https://img.youtube.com/vi/GrsJ2SFuiLI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/GrsJ2SFuiLI")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/bAZmMY9YGh8"
+          thumbnail="https://img.youtube.com/vi/bAZmMY9YGh8/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/bAZmMY9YGh8")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/qDnXUGZNDVs"
+          thumbnail="https://img.youtube.com/vi/qDnXUGZNDVs/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/qDnXUGZNDVs")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/5czhR1szMpo"
+          thumbnail="https://img.youtube.com/vi/5czhR1szMpo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/5czhR1szMpo")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/QtS3PrC5Ybo"
+          thumbnail="https://img.youtube.com/vi/QtS3PrC5Ybo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QtS3PrC5Ybo")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhrcuPnh-Lp0NxxSNQYphqbc")} />
 
@@ -3728,14 +4197,28 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
 // ─── NO-CHARGE SEMICIRCLE Content ──────────────────────────────────────────────
 
 function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <SectionBadge label="NO-CHARGE SEMICIRCLE" />
 
       {/* RULE EXPLANATION */}
       <CylinderSectionHeader label="RULE EXPLANATION" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 28 }}>
-        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/l4Ojjp5W0Xc"
+          thumbnail="https://img.youtube.com/vi/l4Ojjp5W0Xc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/l4Ojjp5W0Xc")}
+        />
+        <VideoCard
+          index={1}
+          link="https://img.youtube.com/vi/wfov5Mco8pY/0.jpg"
+          thumbnail="https://youtu.be/wfov5Mco8pY"
+          onPlay={() => setActiveVideo("https://img.youtube.com/vi/wfov5Mco8pY/0.jpg")}
+        />
       </div>
 
       {/* ARTICLE / INTERPRETATION */}
@@ -3748,24 +4231,127 @@ function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; 
           margin: "0 auto 32px",
         }}
       >
-        {["ARTICLE", "INTERPRETATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://refereevision.com/NC_art.png" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://refereevision.com/NC_Int.png" />
+        </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={16 + i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/QGclW689z5A"
+          thumbnail="https://img.youtube.com/vi/QGclW689z5A/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QGclW689z5A")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/71JE9wIgcEc"
+          thumbnail="https://img.youtube.com/vi/71JE9wIgcEc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/71JE9wIgcEc")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/v69Sn7d7kFI"
+          thumbnail="https://img.youtube.com/vi/v69Sn7d7kFI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/v69Sn7d7kFI")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/DaDI7jcdv2o"
+          thumbnail="https://img.youtube.com/vi/DaDI7jcdv2o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/DaDI7jcdv2o")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/QwHwGpdxrT4"
+          thumbnail="https://img.youtube.com/vi/QwHwGpdxrT4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QwHwGpdxrT4")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/ESiyTV3y88g"
+          thumbnail="https://img.youtube.com/vi/ESiyTV3y88g/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/ESiyTV3y88g")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/bKKvrWHBqlc"
+          thumbnail="https://img.youtube.com/vi/bKKvrWHBqlc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/bKKvrWHBqlc")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/k6RW9tsjozY"
+          thumbnail="https://img.youtube.com/vi/k6RW9tsjozY/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/k6RW9tsjozY")}
+        />
+        <VideoThumb
+          index={8}
+          link="https://youtu.be/n6AITdqQfkk"
+          thumbnail="https://img.youtube.com/vi/n6AITdqQfkk/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/n6AITdqQfkk")}
+        />
+        <VideoThumb
+          index={9}
+          link="https://youtu.be/wCNkmpV0Hjc"
+          thumbnail="https://img.youtube.com/vi/wCNkmpV0Hjc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/wCNkmpV0Hjc")}
+        />
+        <VideoThumb
+          index={10}
+          link="https://youtu.be/wSDS_tAByLI"
+          thumbnail="https://img.youtube.com/vi/wSDS_tAByLI/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/wSDS_tAByLI")}
+        />
+        <VideoThumb
+          index={11}
+          link="https://youtu.be/SuLJvSSIK5o"
+          thumbnail="https://img.youtube.com/vi/SuLJvSSIK5o/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/SuLJvSSIK5o")}
+        />
+        <VideoThumb
+          index={12}
+          link="https://youtu.be/WwLjzCzoHlg"
+          thumbnail="https://img.youtube.com/vi/WwLjzCzoHlg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/WwLjzCzoHlg")}
+        />
+        <VideoThumb
+          index={13}
+          link="https://youtu.be/FjbtLyprR2A"
+          thumbnail="https://img.youtube.com/vi/FjbtLyprR2A/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/FjbtLyprR2A")}
+        />
+        <VideoThumb
+          index={14}
+          link="https://youtu.be/hr0xMctng1Y"
+          thumbnail="https://img.youtube.com/vi/hr0xMctng1Y/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/hr0xMctng1Y")}
+        />
+        <VideoThumb
+          index={15}
+          link="https://youtu.be/rPIza17Nd8A"
+          thumbnail="https://img.youtube.com/vi/rPIza17Nd8A/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/rPIza17Nd8A")}
+        />
+        <VideoThumb
+          index={16}
+          link="https://youtu.be/-tK4C2utHK0"
+          thumbnail="https://img.youtube.com/vi/-tK4C2utHK0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/-tK4C2utHK0")}
+        />
+        <VideoThumb
+          index={17}
+          link="https://youtu.be/CniXqqEsDss"
+          thumbnail="https://img.youtube.com/vi/CniXqqEsDss/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/CniXqqEsDss")}
+        />
       </div>
     </div>
   );
@@ -3891,7 +4477,18 @@ function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: bool
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/HIWn3uM0mQ4"
+              thumbnail="https://img.youtube.com/vi/HIWn3uM0mQ4/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/HIWn3uM0mQ4")}
+            />
+            <VideoThumb
+              index={1}
+              link="https://youtu.be/l7DkpTvR1Ms"
+              thumbnail="https://img.youtube.com/vi/l7DkpTvR1Ms/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/l7DkpTvR1Ms")}
+            />
           </div>
         </div>
 
@@ -3914,25 +4511,100 @@ function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: bool
           margin: "0 auto 32px",
         }}
       >
-        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        {/* ARTICLE */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/brtbc_art.jpg" />
+        </div>
+
+        {/* INTERPRETATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/brtbc_int.jpg" />
+        </div>
+
+        {/* PRESENTATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <DocCard link="https://www.refereevision.com/brtbc_ppt.jpg" />
+        </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 7 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/OpYtpdHrz9M"
+          thumbnail="https://img.youtube.com/vi/OpYtpdHrz9M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/OpYtpdHrz9M")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/aXC-P-EgI8M"
+          thumbnail="https://img.youtube.com/vi/aXC-P-EgI8M/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/aXC-P-EgI8M")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/p-3PEzo-q1Y"
+          thumbnail="https://img.youtube.com/vi/p-3PEzo-q1Y/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/p-3PEzo-q1Y")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/knQqqRW-cIo"
+          thumbnail="https://img.youtube.com/vi/knQqqRW-cIo/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/knQqqRW-cIo")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/5s01qZV_Muc"
+          thumbnail="https://img.youtube.com/vi/5s01qZV_Muc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/5s01qZV_Muc")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/FLPDBo0NjQ0"
+          thumbnail="https://img.youtube.com/vi/FLPDBo0NjQ0/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/FLPDBo0NjQ0")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/qv_8RmytI3c"
+          thumbnail="https://img.youtube.com/vi/qv_8RmytI3c/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/qv_8RmytI3c")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkho35A2lU_EBS2Cee0la1tqt")} />
 
       {/* ADDITIONAL VIDEOS */}
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={7 + i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/MDLYxEUMEfc"
+          thumbnail="https://img.youtube.com/vi/MDLYxEUMEfc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/MDLYxEUMEfc")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/oWRmmuxN6ok"
+          thumbnail="https://img.youtube.com/vi/oWRmmuxN6ok/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/oWRmmuxN6ok")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/Rvs584U67Yw"
+          thumbnail="https://img.youtube.com/vi/Rvs584U67Yw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Rvs584U67Yw")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/VifubbcFxKQ"
+          thumbnail="https://img.youtube.com/vi/VifubbcFxKQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/VifubbcFxKQ")}
+        />
       </div>
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp9mFEAj79coq3fnyxrge_l")} />
     </div>
