@@ -56,6 +56,7 @@ export default function SiteHeader() {
             const isVideos = item === 'VIDEOS';
             const isWebinars = item === 'WEBINARS';
             const isCoaches = item === 'COACHES';
+            const isVault = item === 'VAULT';
 
             let isActive = false;
             let toPath = `/#${item.toLowerCase()}`;
@@ -75,10 +76,14 @@ export default function SiteHeader() {
             } else if (isCoaches) {
               isActive = location.pathname === '/coaches';
               toPath = '/coaches';
+            } else if (isVault) {
+              isActive = location.pathname === '/vault';
+              toPath = '/vault';
             } else {
               isActive = location.hash === `#${item.toLowerCase()}`;
             }
 
+            const isVaultPage = false;
 
             return (
               <Link
@@ -86,9 +91,18 @@ export default function SiteHeader() {
                 to={toPath}
                 onMouseEnter={() => setHoveredNav(item)}
                 onMouseLeave={() => setHoveredNav(null)}
-                style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2px' }}
-                className={`text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap ${isActive || hoveredNav === item ? 'text-[var(--orange)]' : 'text-white'
-                  }`}
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 600,
+                  letterSpacing: '2px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  height: '100%',
+                  padding: '0 4px',
+                  color: isActive || hoveredNav === item ? 'var(--orange)' : '#FFFFFF',
+                  transition: 'color 0.15s',
+                }}
+                className="text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap"
               >
                 {item}
                 {(isActive || hoveredNav === item) && (

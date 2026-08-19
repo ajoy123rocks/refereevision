@@ -9,6 +9,7 @@ import Books from "./app/pages/Books.tsx";
 import Videos from "./app/pages/Videos.tsx";
 import Webinars from "./app/pages/Webinars.tsx";
 import Coaches from "./app/pages/Coaches.tsx";
+import Vault from "./app/pages/Vault.tsx";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/videos" element={<Videos />} />
           <Route path="/webinars" element={<Webinars />} />
           <Route path="/coaches" element={<Coaches />} />
+          <Route path="/vault" element={<Vault />} />
         </Routes>
       </main>
       <SiteFooter />

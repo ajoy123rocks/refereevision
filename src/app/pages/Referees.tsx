@@ -1961,6 +1961,8 @@ export default function Referees() {
             <MechanicsContent isMobile={isMobile} />
           ) : activeTab === "DUTIES" ? (
             <DutiesContent isMobile={isMobile} />
+          ) : activeTab === "SIGNALS" ? (
+            <SignalsContent />
           ) : activeTab === "FITNESS TESTS" ? (
             <FitnessTestsContent isMobile={isMobile} />
           ) : activeTab === "PHYSICAL TRAINING" ? (
@@ -1979,6 +1981,393 @@ export default function Referees() {
             <PlaceholderContent tab={activeTab} />
           )}
         </main>
+      </div>
+    </div>
+  );
+}
+
+function SignalsCard({
+  label,
+  sublabel,
+  image,
+  index,
+  onClick,
+}: {
+  label?: string;
+  sublabel?: string;
+  image?: string;
+  index?: number;
+  onClick?: () => void;
+}) {
+  const h = useHover();
+  return (
+    <div
+      onMouseEnter={h.onMouseEnter}
+      onMouseLeave={h.onMouseLeave}
+      onClick={onClick}
+      style={{
+        width: 110,
+        height: 150,
+        background: "#FFFFFF",
+        border: h.on ? `2px solid ${T.orange}` : `1.5px solid ${T.border}`,
+        borderRadius: 6,
+        padding: 6,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-between",
+        boxSizing: "border-box",
+        transition: "transform 0.15s, border-color 0.15s",
+        transform: h.on ? "scale(1.04)" : "scale(1)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        cursor: "pointer",
+      }}
+    >
+      {label && (
+        <div style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 9, color: "#111", textAlign: "center", textTransform: "uppercase", lineHeight: 1.1 }}>
+          {label}
+        </div>
+      )}
+      <div style={{ flex: 1, width: "100%", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", margin: "4px 0" }}>
+        <img
+          src={image || `PLACEHOLDER_signal_${index || 1}.png`}
+          alt={label || "Signal"}
+          style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
+          onError={e => {
+            const el = e.target as HTMLImageElement;
+            el.style.display = "none";
+            const parent = el.parentElement;
+            if (parent && !parent.querySelector(".sig-icon")) {
+              const div = document.createElement("div");
+              div.className = "sig-icon";
+              div.style.cssText = "font-size:32px;color:#E8651A;";
+              div.innerHTML = "🙋‍♂️";
+              parent.appendChild(div);
+            }
+          }}
+        />
+      </div>
+      {sublabel && (
+        <div style={{ fontFamily: DM, fontSize: 8, color: "#555", textAlign: "center", lineHeight: 1.1 }}>
+          {sublabel}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function SignalsSectionBadge({ label }: { label: string }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", margin: "24px 0 16px" }}>
+      <div style={{ border: `2px solid ${T.orange}`, borderRadius: 20, padding: "6px 28px", background: "transparent" }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          {label}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function SignalsContent() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  const gameClockSignals = [
+    { label: "STOP THE CLOCK", sublabel: "Open palm" },
+    { label: "STOP THE CLOCK FOR FOUL", sublabel: "One clenched fist" },
+    { label: "START THE CLOCK", sublabel: "Chop with hand" },
+  ];
+
+  const scoringSignals = [
+    { label: "1 POINT", sublabel: "1 finger, 'flag' from wrist" },
+    { label: "2 POINTS", sublabel: "2 fingers, 'flag' from wrist" },
+    { label: "3 POINTS", sublabel: "3 fingers extended, 3 fingers raised" },
+  ];
+
+  const subTimeoutSignals = [
+    { label: "SUBSTITUTION", sublabel: "Cross forearms" },
+    { label: "BECKONING-IN", sublabel: "Open palm, wave towards body" },
+    { label: "CHARGED TIME-OUT", sublabel: "Form T, show index finger" },
+    { label: "MEDIA TIME-OUT", sublabel: "Open arms with clenched fists" },
+  ];
+
+  const informativeSignals = [
+    { label: "CANCEL SCORE / CANCEL PLAY", sublabel: "Scissor-like motion with arms" },
+    { label: "VISIBLE COUNT", sublabel: "Counting while moving the palm" },
+    { label: "COMMUNICATION", sublabel: "Thumbs up" },
+    { label: "SHOT CLOCK RESET", sublabel: "Rotate hand, extend index finger" },
+    { label: "DIRECTION OF PLAY", sublabel: "Point in direction of play" },
+    { label: "HELD BALL / JUMP BALL", sublabel: "Thumbs up, then point direction" },
+    { label: "IRS REVIEW", sublabel: "Rotate hand with horizontal index finger" },
+    { label: "HEAD COACH'S CHALLENGE", sublabel: "Referee confirms challenge" },
+  ];
+
+  const violationSignals = [
+    { label: "TRAVELLING", sublabel: "Rotate fists" },
+    { label: "ILLEGAL DRIBBLE", sublabel: "Patting motion with palm" },
+    { label: "CARRYING THE BALL", sublabel: "Half rotation of palm" },
+    { label: "3 SECONDS", sublabel: "Arm extended, show 3 fingers" },
+    { label: "5 SECONDS", sublabel: "Show 5 fingers" },
+    { label: "8 SECONDS", sublabel: "Show 8 fingers" },
+    { label: "24 SECONDS", sublabel: "Fingers touch shoulder" },
+    { label: "BALL RETURNED TO BACKCOURT", sublabel: "Wave arm in front of body" },
+    { label: "DELIBERATE KICK OR BLOCK", sublabel: "Point to the foot" },
+    { label: "GOALTENDING / INTERFERENCE", sublabel: "Rotate finger over other hand" },
+  ];
+
+  const playerNumberSignals = [
+    { label: "No. 00 & 0", sublabel: "Both hands show number 0" },
+    { label: "No. 1 - 5", sublabel: "Right hand shows number 1 to 5" },
+    { label: "No. 6 - 10", sublabel: "Right hand shows 5, left hand 1-5" },
+    { label: "No. 11 - 15", sublabel: "Right hand clenched fist, left 1-5" },
+    { label: "No. 16", sublabel: "First decade digit 1, second 6" },
+    { label: "No. 24", sublabel: "First decade digit 2, second 4" },
+    { label: "No. 40", sublabel: "First decade digit 4, second 0" },
+    { label: "No. 78", sublabel: "First decade digit 7, second 8" },
+    { label: "No. 99", sublabel: "First decade digit 9, second 9" },
+  ];
+
+  const typesOfFouls = [
+    { label: "ILLEGAL CYLINDER", sublabel: "Move both arms up and down" },
+    { label: "HOLDING", sublabel: "Grasp wrist downward" },
+    { label: "BLOCKING / ILLEGAL SCREEN", sublabel: "Both hands on hips" },
+    { label: "PUSHING / CHARGING", sublabel: "Imitate push" },
+    { label: "HANDCHECKING", sublabel: "Grab palm and forward motion" },
+    { label: "ILLEGAL USE OF HANDS", sublabel: "Strike wrist" },
+    { label: "CHARGING WITH BALL", sublabel: "Clenched fist strike open palm" },
+    { label: "ILLEGAL CONTACT TO HAND", sublabel: "Strike palm towards forearm" },
+    { label: "HOOKING", sublabel: "Move lower arm backwards" },
+    { label: "EXCESSIVE SWINGING ELBOW", sublabel: "Swing elbow backwards" },
+    { label: "HIT TO THE HEAD", sublabel: "Imitate contact to head" },
+    { label: "FOUL BY TEAM IN CONTROL", sublabel: "Point clenched fist to basket" },
+    { label: "FOUL ON ACT OF SHOOTING", sublabel: "One arm raised, indicate free throws" },
+    { label: "FOUL NOT ON ACT OF SHOOTING", sublabel: "One arm raised, point to floor" },
+    { label: "FOUL OFF ACT OF FOUL", sublabel: "Move both arms with open palm" },
+  ];
+
+  const specialFouls = [
+    { label: "DOUBLE FOUL", sublabel: "Wave clenched fists on both hands" },
+    { label: "TECHNICAL FOUL", sublabel: "Form T, showing palms" },
+    { label: "UNSPORTSMANLIKE FOUL", sublabel: "Grasp wrist upward" },
+    { label: "DISQUALIFYING FOUL", sublabel: "Clenched fists on both hands" },
+    { label: "FAKE A FOUL", sublabel: "Raise lower arm twice" },
+    { label: "ILLEGAL BOUNDARY LINE CROSSING", sublabel: "Wave arm parallel to boundary line" },
+  ];
+
+  const reportingToTable = [
+    { label: "AFTER FOUL WITHOUT FREE THROWS", sublabel: "Point in direction of play" },
+    { label: "AFTER FOUL BY TEAM IN CONTROL", sublabel: "Clenched fist in direction of play" },
+    { label: "1 FREE THROW", sublabel: "Hold up 1 finger" },
+    { label: "2 FREE THROWS", sublabel: "Hold up 2 fingers" },
+    { label: "3 FREE THROWS", sublabel: "Hold up 3 fingers" },
+  ];
+
+  const freeThrowsActive = [
+    { label: "1 FREE THROW", sublabel: "1 finger horizontal" },
+    { label: "2 FREE THROWS", sublabel: "2 fingers horizontal" },
+    { label: "3 FREE THROWS", sublabel: "3 fingers horizontal" },
+  ];
+
+  const freeThrowsPassive = [
+    { label: "1 FREE THROW", sublabel: "Index finger" },
+    { label: "2 FREE THROWS", sublabel: "Fingers together on both hands" },
+    { label: "3 FREE THROWS", sublabel: "3 fingers extended on both hands" },
+  ];
+
+  return (
+    <div>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+      <SectionBadge label="SIGNALS" />
+
+      {/* DEMO */}
+      <SignalsSectionBadge label="DEMO" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 24 }}>
+        <div
+          onClick={() => setActiveVideo("https://youtu.be/IA3xtlSfb-g")}
+          style={{
+            width: 120,
+            height: 80,
+            background: T.charcoal,
+            border: `1.5px solid ${T.orange}`,
+            borderRadius: 6,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            padding: 8,
+            boxSizing: "border-box",
+          }}
+        >
+          <span style={{ fontSize: 24 }}>🎬</span>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 11, color: T.white, marginTop: 4, textAlign: "center" }}>
+            FIBA SIGNALS
+          </span>
+        </div>
+        <div
+          onClick={() => setActiveVideo("https://youtu.be/0abCxzDsoxY")}
+          style={{
+            width: 120,
+            height: 80,
+            background: T.charcoal,
+            border: `1.5px solid ${T.orange}`,
+            borderRadius: 6,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            padding: 8,
+            boxSizing: "border-box",
+          }}
+        >
+          <span style={{ fontSize: 24 }}>🎬</span>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 11, color: T.white, marginTop: 4, textAlign: "center" }}>
+            REFEREE HAND SIGNALS
+          </span>
+        </div>
+      </div>
+
+      {/* GAME CLOCK SIGNALS */}
+      <SignalsSectionBadge label="GAME CLOCK SIGNALS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {gameClockSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 1}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 1}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* SCORING */}
+      <SignalsSectionBadge label="SCORING" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {scoringSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 4}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 4}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* SUBSTITUTION AND TIME-OUT */}
+      <SignalsSectionBadge label="SUBSTITUTION AND TIME-OUT" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {subTimeoutSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 7}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 7}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* INFORMATIVE */}
+      <SignalsSectionBadge label="INFORMATIVE" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", maxWidth: 800, margin: "0 auto" }}>
+        {informativeSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 11}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 11}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* VIOLATIONS */}
+      <SignalsSectionBadge label="VIOLATIONS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", maxWidth: 800, margin: "0 auto" }}>
+        {violationSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 19}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 19}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* NUMBER OF PLAYERS */}
+      <SignalsSectionBadge label="NUMBER OF PLAYERS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", maxWidth: 800, margin: "0 auto" }}>
+        {playerNumberSignals.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 29}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 29}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* TYPES OF FOULS */}
+      <SignalsSectionBadge label="TYPES OF FOULS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", maxWidth: 800, margin: "0 auto" }}>
+        {typesOfFouls.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 38}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 38}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* SPECIAL FOULS */}
+      <SignalsSectionBadge label="SPECIAL FOULS" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {specialFouls.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 53}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 53}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* FOUL PENALTY ADMINISTRATION - REPORTING TO TABLE */}
+      <SignalsSectionBadge label="FOUL PENALTY ADMINISTRATION - REPORTING TO TABLE" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {reportingToTable.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 59}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 59}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* ADMINISTERING FREE THROWS - ACTIVE REFEREE (LEAD) */}
+      <SignalsSectionBadge label="ADMINISTERING FREE THROWS - ACTIVE REFEREE (LEAD)" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap" }}>
+        {freeThrowsActive.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 64}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 64}.png`)}
+          />
+        ))}
+      </div>
+
+      {/* ADMINISTERING FREE THROWS - PASSIVE REFEREE (TRAIL IN 2PO & CENTRE IN 3PO) */}
+      <SignalsSectionBadge label="ADMINISTERING FREE THROWS - PASSIVE REFEREE (TRAIL IN 2PO & CENTRE IN 3PO)" />
+      <div style={{ display: "flex", justifyContent: "center", gap: 14, flexWrap: "wrap", paddingBottom: 48 }}>
+        {freeThrowsPassive.map((item, i) => (
+          <SignalsCard
+            key={i}
+            {...item}
+            index={i + 67}
+            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 67}.png`)}
+          />
+        ))}
       </div>
     </div>
   );

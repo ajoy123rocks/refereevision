@@ -1249,34 +1249,171 @@ function TimerContent() {
 }
 
 // ─── SHOT CLOCK OPERATOR Content ──────────────────────────────────────────────
-function ShotClockOperatorContent() {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-      <DocSection
-        title="DUTIES"
-        count={2}
-        images={[
-          { src: "https://www.refereevision.com/sc_duties.jpg", alt: "Shot Clock Operator Duties" },
-          { src: "https://www.refereevision.com/sc_otherduties.jpg", alt: "Shot Clock Operator Other Duties" },
-        ]}
-      />
-      <DocSection
-        title="BEFORE THE GAME"
-        count={1}
-        images={[
-          { src: "https://www.refereevision.com/sc_rule.jpg", alt: "Shot Clock Operator Before The Game" },
-        ]}
-      />
-      <DocSection title="DURING THE GAME" count={2} />
 
-      {/* Shot Clock Reset */}
-      <div>
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}>
-          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", width: "80%", textAlign: "center", boxSizing: "border-box" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "2px", textTransform: "uppercase" }}>SHOT CLOCK RESET</span>
+function ShotClockNumCard({ value }: { value: number }) {
+  const h = useHover();
+  return (
+    <div
+      onMouseEnter={h.onMouseEnter}
+      onMouseLeave={h.onMouseLeave}
+      style={{
+        width: 74,
+        height: 74,
+        background: "#0D0D0D",
+        border: `2px solid ${h.on ? T.orange : "#3A3A3A"}`,
+        borderRadius: 6,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        transition: "border-color 0.2s, transform 0.2s",
+        transform: h.on ? "scale(1.06)" : "scale(1)",
+        flexShrink: 0,
+      }}
+    >
+      <span style={{
+        fontFamily: "'Courier New', monospace",
+        fontSize: 30,
+        fontWeight: 900,
+        color: "#FF3333",
+        textShadow: "0 0 10px rgba(255,51,51,0.5)",
+        lineHeight: 1,
+      }}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function ShotClockSubHeader({ label }: { label: string }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", margin: "12px 0 18px" }}>
+      <div style={{
+        background: "transparent",
+        border: `2px solid ${T.orange}`,
+        borderRadius: 4,
+        padding: "8px 20px",
+        width: "88%",
+        textAlign: "center",
+        boxSizing: "border-box",
+      }}>
+        <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 13, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+          {label}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function ShotClockOperatorContent() {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
+
+      {/* Top row: DUTIES | BEFORE THE GAME | RULE */}
+      <div style={{ display: "flex", gap: 24, justifyContent: "space-around", flexWrap: "wrap", margin: "20px 0" }}>
+        <DocSection
+          title="DUTIES"
+          count={2}
+          images={[
+            { src: "https://www.refereevision.com/sc_duties.jpg", alt: "Shot Clock Operator Duties" },
+            { src: "https://www.refereevision.com/sc_otherduties.jpg", alt: "Shot Clock Operator Other Duties" },
+          ]}
+        />
+        <DocSection
+          title="BEFORE THE GAME"
+          count={1}
+          images={[
+            { src: "https://www.refereevision.com/sc_rule.jpg", alt: "Shot Clock Operator Before The Game" },
+          ]}
+        />
+        <DocSection
+          title="RULE"
+          count={1}
+          images={[
+            { src: "PLACEHOLDER_sc_rule_doc.jpg", alt: "Shot Clock Operator Rule" },
+          ]}
+        />
+      </div>
+
+      {/* SITUATIONS */}
+      <ShotClockSubHeader label="SITUATIONS" />
+
+      {/* Two situation columns */}
+      <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+          <div style={{
+            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 4,
+            padding: "8px 16px", textAlign: "center", maxWidth: 240, boxSizing: "border-box",
+          }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 13, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>
+              SITUATIONS WHEN THE SHOT CLOCK SIGNAL SOUNDS
+            </span>
           </div>
+          <ContentImage src="PLACEHOLDER_sc_signal_sounds.jpg" alt="Situations when shot clock signal sounds" />
         </div>
-        <RuleProcedureSummary videoCount={3} />
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
+          <div style={{
+            background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 4,
+            padding: "8px 16px", textAlign: "center", maxWidth: 240, boxSizing: "border-box",
+          }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 13, color: T.orange, letterSpacing: "1px", textTransform: "uppercase" }}>
+              SITUATIONS WITH SHOT FOR FIELD GOAL
+            </span>
+          </div>
+          <ContentImage src="PLACEHOLDER_sc_fieldgoal.jpg" alt="Situations with shot for field goal" />
+        </div>
+      </div>
+
+      {/* THE SHOT CLOCK SHALL BE STARTED OR RESTARTED WHEN */}
+      <ShotClockSubHeader label="THE SHOT CLOCK SHALL BE STARTED OR RESTARTED WHEN" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <ClockCard
+            key={i}
+            label={`0${i + 1}:00`}
+            onClick={() => setActiveVideo(`PLACEHOLDER_started_restarted_${i + 1}`)}
+          />
+        ))}
+      </div>
+
+      {/* SHALL BE STOPPED AND RESET TO 24 SECONDS WHEN */}
+      <ShotClockSubHeader label="SHALL BE STOPPED AND RESET TO 24 SECONDS WHEN" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+        {Array.from({ length: 5 }).map((_, i) => (
+          <ShotClockNumCard key={i} value={24} />
+        ))}
+      </div>
+
+      {/* SHALL BE STOPPED AND RESET TO 14 SECONDS WHEN */}
+      <ShotClockSubHeader label="SHALL BE STOPPED AND RESET TO 14 SECONDS WHEN" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+        {Array.from({ length: 7 }).map((_, i) => (
+          <ShotClockNumCard key={i} value={14} />
+        ))}
+      </div>
+
+      {/* DURING THE GAME */}
+      <ShotClockSubHeader label="DURING THE GAME" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
+        <ContentImage src="PLACEHOLDER_sc_during.jpg" alt="During the Game" />
+        <ContentImage src="PLACEHOLDER_sc_dur_signal1.png" alt="Shot Clock Signal 1" />
+        <ContentImage src="PLACEHOLDER_sc_dur_signal2.png" alt="Shot Clock Signal 2" />
+      </div>
+
+      {/* MECHANICS SUMMARY */}
+      <ShotClockSubHeader label="MECHANICS SUMMARY" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 16 }}>
+        <ContentImage src="PLACEHOLDER_sc_summary.jpg" alt="Mechanics Summary" />
+      </div>
+
+      {/* SHOT CLOCK MISTAKES */}
+      <ShotClockSubHeader label="SHOT CLOCK MISTAKES" />
+      <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", paddingBottom: 48 }}>
+        <ContentImage src="PLACEHOLDER_sc_mistakes.jpg" alt="Shot Clock Mistakes" />
+        <ContentImage src="PLACEHOLDER_sc_mistakes1.jpg" alt="Shot Clock Mistakes Photo 1" />
+        <ContentImage src="PLACEHOLDER_sc_mistakes2.jpg" alt="Shot Clock Mistakes Photo 2" />
       </div>
     </div>
   );
@@ -1285,27 +1422,153 @@ function ShotClockOperatorContent() {
 // ─── COMMUNICATION PROTOCOLS Content ─────────────────────────────────────────
 function CommunicationProtocolsContent() {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
-      <DocSection title="GENERAL PROTOCOLS" count={2} />
+    <div style={{ display: "flex", flexDirection: "column", gap: 40, alignItems: "center", paddingBottom: 48 }}>
+      {/* Top Banner */}
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ background: T.orange, borderRadius: 0, padding: "10px 40px" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 18, color: T.white, letterSpacing: "2px", textTransform: "uppercase" }}>
+            COMMUNICATION PROTOCOLS
+          </span>
+        </div>
+      </div>
 
-      {["REFEREE ↔ SCORER", "REFEREE ↔ TIMER", "REFEREE ↔ SHOT CLOCK"].map((label) => (
-        <div key={label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-          <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 28px" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>{label}</span>
+      {/* SECTION 1: MEETING WITH THE REFEREES BEFORE THE GAME */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            MEETING WITH THE REFEREES BEFORE THE GAME
+          </span>
+        </div>
+        <ContentImage
+          src="https://www.refereevision.com/tbloffl4.png"
+          openUrl="https://library.fibairef.basketball/doc/aUMwdkFwRFk0WW5DSVVveFdKOGlKZz09?autoplay=1"
+          alt="Meeting with the Referees before the Game"
+        />
+      </div>
+
+      {/* SECTION 2: COMMUNICATION WITH PARTICIPANTS */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            COMMUNICATION WITH PARTICIPANTS
+          </span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: 32, flexWrap: "wrap", width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              BEFORE THE GAME
+            </span>
+            <ContentImage
+              src="https://www.refereevision.com/tbloffl35.png"
+              openUrl="https://library.fibairef.basketball/cdn/TOM600_EN?autoplay=1"
+              alt="Before the Game"
+            />
           </div>
-          <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            {Array.from({ length: 2 }).map((_, i) => <DocCard key={i} />)}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 260, textAlign: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE 3RD AND 4TH QUARTER
+            </span>
+            <ContentImage
+              src="https://www.refereevision.com/tbloffl15.png"
+              openUrl="https://library.fibairef.basketball/cdn/TOM601_EN?autoplay=1"
+              alt="Interval between quarters"
+            />
           </div>
         </div>
-      ))}
-
-      {/* Educational Videos */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 28px" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>EDUCATIONAL VIDEOS</span>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginTop: 12 }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>
+            WHO
+          </span>
+          <ContentImage
+            src="https://www.refereevision.com/tbloffl13.png"
+            openUrl="https://library.fibairef.basketball/cdn/TOM300_EN?autoplay=1"
+            alt="Who"
+          />
         </div>
-        <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-          {Array.from({ length: 4 }).map((_, i) => <VideoCard key={i} index={i} />)}
+      </div>
+
+      {/* SECTION 3: BETWEEN SCORER AND OTHERS */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            BETWEEN SCORER AND OTHERS
+          </span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
+          {[
+            { label: "BEGINNING OF THE GAME", video: "TOM400_EN" },
+            { label: "ALTERNATE POSSESSION SITUATION", video: "TOM401_EN" },
+            { label: "WHEN A FOUL IS CALLED", video: "TOM402_EN" },
+            { label: "WHEN A FOUL DURING A SHOT IS CALLED", video: "TOM403_EN" },
+            { label: "WHEN A BASKET IS SCORED", video: "TOM404_EN" },
+            { label: "WHEN WE ARE ABOUT TO START LAST 2 MIN (L2M)", video: "TOM405_EN" }
+          ].map((item, idx) => (
+            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
+              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {item.label}
+              </span>
+              <ContentImage
+                src="https://www.refereevision.com/tbloffl10.png"
+                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
+                alt={item.label}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 4: BETWEEN SHOT CLOCK OPERATOR AND OTHERS */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            BETWEEN SHOT CLOCK OPERATOR AND OTHERS
+          </span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
+          {[
+            { label: "WHEN THE SHOT CLOCK NEEDS TO BE CHANGED", video: "TOM406_EN" },
+            { label: "WHEN ENTERING THE LAST 24\" OF THE GAME OR END OF THE COUNTDOWN", video: "TOM407_EN" },
+            { label: "WHEN THE SHOT CLOCK IS BELOW 24 SECONDS", video: "TOM408_EN" }
+          ].map((item, idx) => (
+            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
+              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {item.label}
+              </span>
+              <ContentImage
+                src="https://www.refereevision.com/tbloffl10.png"
+                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
+                alt={item.label}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 5: BETWEEN TIMER AND OTHERS */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            BETWEEN TIMER AND OTHERS
+          </span>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", gap: 24, flexWrap: "wrap", width: "100%", maxWidth: 800 }}>
+          {[
+            { label: "WHEN THE GAME BEGINS", video: "TOM500_EN" },
+            { label: "WHEN A TIME-OUT IS TAKEN", video: "TOM501_EN" },
+            { label: "WHEN A SUBSTITUTION IS MADE", video: "TOM502_EN" },
+            { label: "WHEN WE ENTER L2M", video: "TOM503_EN" }
+          ].map((item, idx) => (
+            <div key={idx} style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginBottom: 16 }}>
+              <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                {item.label}
+              </span>
+              <ContentImage
+                src="https://www.refereevision.com/tbloffl10.png"
+                openUrl={`https://library.fibairef.basketball/cdn/${item.video}?autoplay=1`}
+                alt={item.label}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

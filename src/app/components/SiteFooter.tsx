@@ -10,7 +10,7 @@ export default function SiteFooter() {
     { label: 'Videos', to: '/videos' },
     { label: 'Webinars', to: '/webinars' },
     { label: 'Coaches', to: '/coaches' },
-    { label: 'Vault', to: '/#vault' },
+    { label: 'Vault', to: '/vault' },
   ];
 
   return (
