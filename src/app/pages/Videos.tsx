@@ -869,7 +869,25 @@ function ScorerContent() {
 }
 
 // ─── Shared: doc placeholder card ───────────────────────────────────────────
-function DocCard({ label, cols = 1, link, thumbnail }: { label?: string; cols?: number; link?: string; thumbnail?: string }) {
+function DocCard({
+  label,
+  cols = 1,
+  link,
+  thumbnail,
+  width,
+  height,
+  aspectRatio,
+  objectFit,
+}: {
+  label?: string;
+  cols?: number;
+  link?: string;
+  thumbnail?: string;
+  width?: number | string;
+  height?: number | string;
+  aspectRatio?: string;
+  objectFit?: "cover" | "contain" | "fill";
+}) {
   const h = useHover();
   const handleClick = () => {
     if (link) {
@@ -886,8 +904,9 @@ function DocCard({ label, cols = 1, link, thumbnail }: { label?: string; cols?: 
       onMouseLeave={h.onMouseLeave}
       onClick={handleClick}
       style={{
-        width: cols === 1 ? 110 : 80,
-        aspectRatio: "3 / 4",
+        width: width ?? (cols === 1 ? 110 : 80),
+        height: height ?? "auto",
+        aspectRatio: aspectRatio ?? (height ? undefined : "3 / 4"),
         background: h.on ? "#222" : T.charcoal,
         border: `2px solid ${h.on ? T.orange : T.border}`,
         borderRadius: 4,
@@ -913,9 +932,9 @@ function DocCard({ label, cols = 1, link, thumbnail }: { label?: string; cols?: 
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            objectFit: objectFit ?? "cover",
             transition: "opacity 0.2s",
-            opacity: h.on ? 0.9 : 0.7,
+            opacity: h.on ? 0.95 : 0.85,
           }}
         />
       ) : (
@@ -4623,8 +4642,11 @@ function NoChargeSemicircleContent({ isMobile, isTablet }: { isMobile: boolean; 
 // ─── FAKING A FOUL Content ───────────────────────────────────────────────────
 
 function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <SectionBadge label="FAKING A FOUL" />
 
       {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
@@ -4641,7 +4663,18 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/dzhwIc9bhuA"
+              thumbnail="https://img.youtube.com/vi/dzhwIc9bhuA/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/dzhwIc9bhuA")}
+            />
+            <VideoThumb
+              index={1}
+              link="https://youtu.be/B0BNiNZtvCE"
+              thumbnail="https://img.youtube.com/vi/B0BNiNZtvCE/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/B0BNiNZtvCE")}
+            />
           </div>
         </div>
 
@@ -4664,12 +4697,14 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
           margin: "0 auto 32px",
         }}
       >
-        {["ARTICLE", "INTERPRETATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/Fake_art.jpg" />
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/fake_int.jpg" />
+        </div>
       </div>
 
       {/* PROTOCOL */}
@@ -4679,13 +4714,12 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
       <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>DURING GAME</span>
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/fake_during.png" width={isMobile ? 130 : 170} height={isMobile ? 180 : 230} objectFit="cover" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>DURING NEXT GAME STOPPAGE</span>
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard />
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/fake_nextgamestoppage.png" width={isMobile ? 260 : 340} height={isMobile ? 180 : 230} objectFit="cover" />
           </div>
         </div>
       </div>
@@ -4694,24 +4728,80 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 36 }}>
         <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>REPETITIVE OR EXCESSIVE FAKE</span>
         <div style={{ display: "flex", gap: 8 }}>
-          <DocCard />
-          <DocCard />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/fake_excessive.png" width={isMobile ? 390 : 510} height={isMobile ? 180 : 230} objectFit="cover" />
         </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 8 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/5uvgeMD3jII"
+          thumbnail="https://img.youtube.com/vi/5uvgeMD3jII/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/5uvgeMD3jII")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/Ms8bIK2Dywg"
+          thumbnail="https://img.youtube.com/vi/Ms8bIK2Dywg/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Ms8bIK2Dywg")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/4T2AYMOkQxQ"
+          thumbnail="https://img.youtube.com/vi/4T2AYMOkQxQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/4T2AYMOkQxQ")}
+        />
+        <VideoThumb
+          index={3}
+          link="https://youtu.be/k5Yawb8e76A"
+          thumbnail="https://img.youtube.com/vi/k5Yawb8e76A/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/k5Yawb8e76A")}
+        />
+        <VideoThumb
+          index={4}
+          link="https://youtu.be/Bao4oFQbIm4"
+          thumbnail="https://img.youtube.com/vi/Bao4oFQbIm4/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/Bao4oFQbIm4")}
+        />
+        <VideoThumb
+          index={5}
+          link="https://youtu.be/AdKYS8si71c"
+          thumbnail="https://img.youtube.com/vi/AdKYS8si71c/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/AdKYS8si71c")}
+        />
+        <VideoThumb
+          index={6}
+          link="https://youtu.be/AA9VQQM_npM"
+          thumbnail="https://img.youtube.com/vi/AA9VQQM_npM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/AA9VQQM_npM")}
+        />
+        <VideoThumb
+          index={7}
+          link="https://youtu.be/bCBAsM2ShOQ"
+          thumbnail="https://img.youtube.com/vi/bCBAsM2ShOQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/bCBAsM2ShOQ")}
+        />
       </div>
 
       {/* ADDITIONAL VIDEOS */}
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={8 + i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/QBcTsu3ffCE"
+          thumbnail="https://img.youtube.com/vi/QBcTsu3ffCE/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/QBcTsu3ffCE")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/IpTKBxnKccM?si=dyIkMqHe3yV2RJjg"
+          thumbnail="https://img.youtube.com/vi/IpTKBxnKccM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/IpTKBxnKccM?si=dyIkMqHe3yV2RJjg")}
+        />
       </div>
-      <WatchPlaylistButton />
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhoQngu_ylnCUaJ61z7HyzlF")} />
     </div>
   );
 }
@@ -4952,8 +5042,11 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
 // ─── THROW-IN Content ─────────────────────────────────────────────────────────
 
 function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
+      {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
       <SectionBadge label="THROW-IN" />
 
       {/* Top row: RULE EXPLANATION & SIGNAL side-by-side */}
@@ -4970,7 +5063,12 @@ function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            <VideoCard index={0} />
+            <VideoThumb
+              index={0}
+              link="https://youtu.be/dEOKzsFfei8"
+              thumbnail="https://img.youtube.com/vi/dEOKzsFfei8/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/dEOKzsFfei8")}
+            />
           </div>
         </div>
 
@@ -4993,51 +5091,89 @@ function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
           margin: "0 auto 32px",
         }}
       >
-        {["ARTICLE", "INTERPRETATION", "PRESENTATION"].map((lbl) => (
-          <div key={lbl} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MiniBadge label={lbl} />
-            <DocCard />
-          </div>
-        ))}
+        {/* ARTICLE */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="ARTICLE" />
+          <DocCard link="https://www.refereevision.com/Throwin_art_new.jpg" />
+        </div>
+
+        {/* INTERPRETATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="INTERPRETATION" />
+          <DocCard link="https://www.refereevision.com/Throwin_int.jpg" />
+        </div>
+
+        {/* PRESENTATION */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <MiniBadge label="PRESENTATION" />
+          <DocCard link="https://www.refereevision.com/Throwin_ppt.jpg" />
+        </div>
       </div>
 
       {/* PROCEDURE */}
       <CylinderSectionHeader label="PROCEDURE" />
 
       {/* GENERAL / L2M */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: isMobile ? 20 : 48, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL</span>
-          <DocCard />
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL</span>
+          <DocCard link="https://www.refereevision.com/Throw-in_Gen.png" width={isMobile ? 300 : 380} aspectRatio="16 / 9" objectFit="contain" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M</span>
-          <DocCard />
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M</span>
+          <DocCard link="https://www.refereevision.com/Throw-in_Gen_L2M.png" width={isMobile ? 300 : 380} aspectRatio="16 / 9" objectFit="contain" />
         </div>
       </div>
 
       {/* GENERAL - WITH WARNING WHISTLE / L2M - WITH WARNING WHISTLE */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 48, flexWrap: "wrap", marginBottom: 28 }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: isMobile ? 20 : 48, flexWrap: "wrap", marginBottom: 28 }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL - WITH WARNING WHISTLE</span>
-          <DocCard />
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>GENERAL - WITH WARNING WHISTLE</span>
+          <DocCard link="https://www.refereevision.com/Throw-in_Warning.png" width={isMobile ? 300 : 380} aspectRatio="16 / 9" objectFit="contain" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M - WITH WARNING WHISTLE</span>
-          <DocCard />
+          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>L2M - WITH WARNING WHISTLE</span>
+          <DocCard link="https://www.refereevision.com/Throw-in_Warning_L2M.png" width={isMobile ? 300 : 380} aspectRatio="16 / 9" objectFit="contain" />
         </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 2 }).map((_, i) => <VideoCard key={i} index={i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/r7DMSIJco70"
+          thumbnail="https://img.youtube.com/vi/r7DMSIJco70/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/r7DMSIJco70")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/8Ftr_XCWvPw"
+          thumbnail="https://img.youtube.com/vi/8Ftr_XCWvPw/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/8Ftr_XCWvPw")}
+        />
       </div>
-
       {/* ADDITIONAL VIDEOS */}
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-        {Array.from({ length: 3 }).map((_, i) => <VideoCard key={i} index={2 + i} />)}
+        <VideoThumb
+          index={0}
+          link="https://youtu.be/PJneV0Wb6Fc"
+          thumbnail="https://img.youtube.com/vi/PJneV0Wb6Fc/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/PJneV0Wb6Fc")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://youtu.be/eYihhw5KrYQ"
+          thumbnail="https://img.youtube.com/vi/eYihhw5KrYQ/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/eYihhw5KrYQ")}
+        />
+        <VideoThumb
+          index={2}
+          link="https://youtu.be/-7zVb7mGWZM"
+          thumbnail="https://img.youtube.com/vi/-7zVb7mGWZM/0.jpg"
+          onPlay={() => setActiveVideo("https://youtu.be/-7zVb7mGWZM")}
+        />
       </div>
     </div>
   );
