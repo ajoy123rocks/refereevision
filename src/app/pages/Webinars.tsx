@@ -271,7 +271,7 @@ function Sidebar({
       style={{
         width: 240, flexShrink: 0, background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
-        position: "sticky", top: 0, height: "100vh", overflowY: "auto",
+        position: "sticky", top: 152, height: "calc(100vh - 152px)", alignSelf: "flex-start", overflowY: "auto",
         display: "flex", flexDirection: "column",
       }}
     >

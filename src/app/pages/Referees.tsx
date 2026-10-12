@@ -242,8 +242,9 @@ function Sidebar({
         background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
         position: "sticky",
-        top: 0,
-        height: "100vh",
+        top: 152,
+        height: "calc(100vh - 152px)",
+        alignSelf: "flex-start",
         overflowY: "auto",
         display: "flex",
         flexDirection: "column",
@@ -435,11 +436,13 @@ function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boole
 
 // ─── Video modal ─────────────────────────────────────────────────────────────
 function getYouTubeEmbedUrl(url: string): string {
-  // Handles youtu.be/ID and youtube.com/watch?v=ID formats
+  // Handles youtu.be/ID, youtube.com/watch?v=ID, and embed formats
   const shortMatch = url.match(/youtu\.be\/([\w-]+)/);
   if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?autoplay=1`;
   const longMatch = url.match(/[?&]v=([\w-]+)/);
   if (longMatch) return `https://www.youtube.com/embed/${longMatch[1]}?autoplay=1`;
+  const embedMatch = url.match(/embed\/([\w-]+)/);
+  if (embedMatch) return `https://www.youtube.com/embed/${embedMatch[1]}?autoplay=1`;
   return url;
 }
 
@@ -721,6 +724,8 @@ function getYouTubeId(url: string): string | null {
   if (shortMatch) return shortMatch[1];
   const longMatch = url.match(/[?&]v=([\w-]+)/);
   if (longMatch) return longMatch[1];
+  const embedMatch = url.match(/embed\/([\w-]+)/);
+  if (embedMatch) return embedMatch[1];
   return null;
 }
 
@@ -2068,109 +2073,216 @@ function SignalsSectionBadge({ label }: { label: string }) {
   );
 }
 
+function SignalsDemoCard({
+  title,
+  thumbnail,
+  onClick,
+}: {
+  title: string;
+  thumbnail: string;
+  onClick: () => void;
+}) {
+  const h = useHover();
+  return (
+    <div
+      onMouseEnter={h.onMouseEnter}
+      onMouseLeave={h.onMouseLeave}
+      onClick={onClick}
+      style={{
+        width: 140,
+        background: T.charcoal,
+        border: h.on ? `2px solid ${T.orange}` : `1.5px solid ${T.border}`,
+        borderRadius: 6,
+        overflow: "hidden",
+        cursor: "pointer",
+        transition: "border-color 0.15s, transform 0.15s, box-shadow 0.15s",
+        transform: h.on ? "scale(1.04)" : "scale(1)",
+        boxShadow: h.on ? "0 4px 16px rgba(232,101,26,0.25)" : "0 2px 8px rgba(0,0,0,0.2)",
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}
+    >
+      <div
+        style={{
+          width: "100%",
+          aspectRatio: "16 / 9",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "#000",
+        }}
+      >
+        <img
+          src={thumbnail}
+          alt={title}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: 0.85,
+            transition: "transform 0.3s ease, opacity 0.3s ease",
+            transform: h.on ? "scale(1.08)" : "scale(1)",
+          }}
+        />
+        {/* Play button */}
+        <div
+          style={{
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
+            background: h.on ? T.orange : "rgba(232,101,26,0.85)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 2,
+            transition: "background 0.15s, transform 0.15s",
+            transform: h.on ? "scale(1.1)" : "scale(1)",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.5)",
+          }}
+        >
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
+            <polygon points="0,0 10,6 0,12" fill="white" />
+          </svg>
+        </div>
+      </div>
+      <div
+        style={{
+          padding: "8px 6px",
+          textAlign: "center",
+          background: T.charcoal,
+          borderTop: `1px solid ${T.border}`,
+        }}
+      >
+        <span
+          style={{
+            fontFamily: BARLOW,
+            fontWeight: 800,
+            fontSize: 11,
+            color: h.on ? T.orange : T.white,
+            letterSpacing: "1px",
+            textTransform: "uppercase",
+            transition: "color 0.15s",
+            display: "block",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function SignalsContent() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const gameClockSignals = [
-    { label: "STOP THE CLOCK", sublabel: "Open palm" },
-    { label: "STOP THE CLOCK FOR FOUL", sublabel: "One clenched fist" },
-    { label: "START THE CLOCK", sublabel: "Chop with hand" },
+    { label: "STOP THE CLOCK", sublabel: "Open palm", image: "https://www.refereevision.com/Signals/Stop_sig.png" },
+    { label: "STOP THE CLOCK FOR FOUL", sublabel: "One clenched fist", image: "https://www.refereevision.com/Signals/Stopfoul_sig.png" },
+    { label: "START THE CLOCK", sublabel: "Chop with hand", image: "https://www.refereevision.com/Signals/Start_sig.png" },
   ];
 
   const scoringSignals = [
-    { label: "1 POINT", sublabel: "1 finger, 'flag' from wrist" },
-    { label: "2 POINTS", sublabel: "2 fingers, 'flag' from wrist" },
-    { label: "3 POINTS", sublabel: "3 fingers extended, 3 fingers raised" },
+    { label: "1 POINT", sublabel: "1 finger, 'flag' from wrist", image: "https://www.refereevision.com/Signals/1PT.png" },
+    { label: "2 POINTS", sublabel: "2 fingers, 'flag' from wrist", image: "https://www.refereevision.com/Signals/2PT.png" },
+    { label: "3 POINTS", sublabel: "3 fingers extended, 3 fingers raised", image: "https://www.refereevision.com/Signals/3PT.png" },
   ];
 
   const subTimeoutSignals = [
-    { label: "SUBSTITUTION", sublabel: "Cross forearms" },
-    { label: "BECKONING-IN", sublabel: "Open palm, wave towards body" },
-    { label: "CHARGED TIME-OUT", sublabel: "Form T, show index finger" },
-    { label: "MEDIA TIME-OUT", sublabel: "Open arms with clenched fists" },
+    { label: "SUBSTITUTION", sublabel: "Cross forearms", image: "https://www.refereevision.com/Signals/Sub_sig.png" },
+    { label: "BECKONING-IN", sublabel: "Open palm, wave towards body", image: "https://www.refereevision.com/Signals/Beckon_sig.png" },
+    { label: "CHARGED TIME-OUT", sublabel: "Form T, show index finger", image: "https://www.refereevision.com/Signals/Timeout_sig.png" },
+    { label: "MEDIA TIME-OUT", sublabel: "Open arms with clenched fists", image: "https://www.refereevision.com/Signals/Media_sig.png" },
   ];
 
   const informativeSignals = [
-    { label: "CANCEL SCORE / CANCEL PLAY", sublabel: "Scissor-like motion with arms" },
-    { label: "VISIBLE COUNT", sublabel: "Counting while moving the palm" },
-    { label: "COMMUNICATION", sublabel: "Thumbs up" },
-    { label: "SHOT CLOCK RESET", sublabel: "Rotate hand, extend index finger" },
-    { label: "DIRECTION OF PLAY", sublabel: "Point in direction of play" },
-    { label: "HELD BALL / JUMP BALL", sublabel: "Thumbs up, then point direction" },
-    { label: "IRS REVIEW", sublabel: "Rotate hand with horizontal index finger" },
-    { label: "HEAD COACH'S CHALLENGE", sublabel: "Referee confirms challenge" },
+    { label: "CANCEL SCORE / CANCEL PLAY", sublabel: "Scissor-like motion with arms", image: "https://www.refereevision.com/Signals/Cancel_sig.png" },
+    { label: "VISIBLE COUNT", sublabel: "Counting while moving the palm", image: "https://www.refereevision.com/Signals/count_Sig.png" },
+    { label: "COMMUNICATION", sublabel: "Thumbs up", image: "https://www.refereevision.com/Signals/Commn_sig.png" },
+    { label: "SHOT CLOCK RESET", sublabel: "Rotate hand, extend index finger", image: "https://www.refereevision.com/Signals/SC_sig.png" },
+    { label: "DIRECTION OF PLAY", sublabel: "Point in direction of play", image: "https://www.refereevision.com/Signals/Direction_sig.png" },
+    { label: "HELD BALL / JUMP BALL", sublabel: "Thumbs up, then point direction", image: "https://www.refereevision.com/Signals/Held_sig.png" },
+    { label: "IRS REVIEW", sublabel: "Rotate hand with horizontal index finger", image: "https://www.refereevision.com/Signals/irs_Sig.png" },
+    { label: "HEAD COACH'S CHALLENGE", sublabel: "Referee confirms challenge", image: "https://www.refereevision.com/Signals/hcc_sig.jpg" },
   ];
 
   const violationSignals = [
-    { label: "TRAVELLING", sublabel: "Rotate fists" },
-    { label: "ILLEGAL DRIBBLE", sublabel: "Patting motion with palm" },
-    { label: "CARRYING THE BALL", sublabel: "Half rotation of palm" },
-    { label: "3 SECONDS", sublabel: "Arm extended, show 3 fingers" },
-    { label: "5 SECONDS", sublabel: "Show 5 fingers" },
-    { label: "8 SECONDS", sublabel: "Show 8 fingers" },
-    { label: "24 SECONDS", sublabel: "Fingers touch shoulder" },
-    { label: "BALL RETURNED TO BACKCOURT", sublabel: "Wave arm in front of body" },
-    { label: "DELIBERATE KICK OR BLOCK", sublabel: "Point to the foot" },
-    { label: "GOALTENDING / INTERFERENCE", sublabel: "Rotate finger over other hand" },
+    { label: "TRAVELLING", sublabel: "Rotate fists", image: "https://www.refereevision.com/Signals/Travel_Sig.png" },
+    { label: "ILLEGAL DRIBBLE", sublabel: "Patting motion with palm", image: "https://www.refereevision.com/Signals/DoubleDribble_Sig.png" },
+    { label: "CARRYING THE BALL", sublabel: "Half rotation of palm", image: "https://www.refereevision.com/Signals/Carry_Sig.png" },
+    { label: "3 SECONDS", sublabel: "Arm extended, show 3 fingers", image: "https://www.refereevision.com/Signals/3Sec_Sig.png" },
+    { label: "5 SECONDS", sublabel: "Show 5 fingers", image: "https://www.refereevision.com/Signals/5Sec_Sig.png" },
+    { label: "8 SECONDS", sublabel: "Show 8 fingers", image: "https://www.refereevision.com/Signals/8Sec_Sig.png" },
+    { label: "24 SECONDS", sublabel: "Fingers touch shoulder", image: "https://www.refereevision.com/Signals/24sec_Sig.png" },
+    { label: "BALL RETURNED TO BACKCOURT", sublabel: "Wave arm in front of body", image: "https://www.refereevision.com/Signals/brtbc_Sig.png" },
+    { label: "DELIBERATE KICK OR BLOCK", sublabel: "Point to the foot", image: "https://www.refereevision.com/Signals/kick_Sig.png" },
+    { label: "GOALTENDING / INTERFERENCE", sublabel: "Rotate finger over other hand", image: "https://www.refereevision.com/Signals/GI_Sig.png" },
   ];
 
   const playerNumberSignals = [
-    { label: "No. 00 & 0", sublabel: "Both hands show number 0" },
-    { label: "No. 1 - 5", sublabel: "Right hand shows number 1 to 5" },
-    { label: "No. 6 - 10", sublabel: "Right hand shows 5, left hand 1-5" },
-    { label: "No. 11 - 15", sublabel: "Right hand clenched fist, left 1-5" },
-    { label: "No. 16", sublabel: "First decade digit 1, second 6" },
-    { label: "No. 24", sublabel: "First decade digit 2, second 4" },
-    { label: "No. 40", sublabel: "First decade digit 4, second 0" },
-    { label: "No. 78", sublabel: "First decade digit 7, second 8" },
-    { label: "No. 99", sublabel: "First decade digit 9, second 9" },
+    { label: "No. 00 & 0", sublabel: "Both hands show number 0", image: "https://www.refereevision.com/Signals/Num0_sig.png" },
+    { label: "No. 1 - 5", sublabel: "Right hand shows number 1 to 5", image: "https://www.refereevision.com/Signals/Num1_5_sig.png" },
+    { label: "No. 6 - 10", sublabel: "Right hand shows 5, left hand 1-5", image: "https://www.refereevision.com/Signals/Num_6_10_sig.png" },
+    { label: "No. 11 - 15", sublabel: "Right hand clenched fist, left 1-5", image: "https://www.refereevision.com/Signals/Num_11_15_sig.png" },
+    { label: "No. 16", sublabel: "First decade digit 1, second 6", image: "https://www.refereevision.com/Signals/Num16_sig.png" },
+    { label: "No. 24", sublabel: "First decade digit 2, second 4", image: "https://www.refereevision.com/Signals/Num_24_sig.png" },
+    { label: "No. 40", sublabel: "First decade digit 4, second 0", image: "https://www.refereevision.com/Signals/Num40_sig.png" },
+    { label: "No. 78", sublabel: "First decade digit 7, second 8", image: "https://www.refereevision.com/Signals/Num78_sig.png" },
+    { label: "No. 99", sublabel: "First decade digit 9, second 9", image: "https://www.refereevision.com/Signals/Num99_sig.png" },
   ];
 
   const typesOfFouls = [
-    { label: "ILLEGAL CYLINDER", sublabel: "Move both arms up and down" },
-    { label: "HOLDING", sublabel: "Grasp wrist downward" },
-    { label: "BLOCKING / ILLEGAL SCREEN", sublabel: "Both hands on hips" },
-    { label: "PUSHING / CHARGING", sublabel: "Imitate push" },
-    { label: "HANDCHECKING", sublabel: "Grab palm and forward motion" },
-    { label: "ILLEGAL USE OF HANDS", sublabel: "Strike wrist" },
-    { label: "CHARGING WITH BALL", sublabel: "Clenched fist strike open palm" },
-    { label: "ILLEGAL CONTACT TO HAND", sublabel: "Strike palm towards forearm" },
-    { label: "HOOKING", sublabel: "Move lower arm backwards" },
-    { label: "EXCESSIVE SWINGING ELBOW", sublabel: "Swing elbow backwards" },
-    { label: "HIT TO THE HEAD", sublabel: "Imitate contact to head" },
-    { label: "FOUL BY TEAM IN CONTROL", sublabel: "Point clenched fist to basket" },
-    { label: "FOUL ON ACT OF SHOOTING", sublabel: "One arm raised, indicate free throws" },
-    { label: "FOUL NOT ON ACT OF SHOOTING", sublabel: "One arm raised, point to floor" },
-    { label: "FOUL OFF ACT OF FOUL", sublabel: "Move both arms with open palm" },
+    { label: "ILLEGAL CYLINDER", sublabel: "Move both arms up and down", image: "https://www.refereevision.com/Signals/IllegalCylinder_Sig.png" },
+    { label: "HOLDING", sublabel: "Grasp wrist downward", image: "https://www.refereevision.com/Signals/Hold_Sig.png" },
+    { label: "BLOCKING / ILLEGAL SCREEN", sublabel: "Both hands on hips", image: "https://www.refereevision.com/Signals/screen_Sig.png" },
+    { label: "PUSHING / CHARGING", sublabel: "Imitate push", image: "https://www.refereevision.com/Signals/Push_Sig.png" },
+    { label: "HANDCHECKING", sublabel: "Grab palm and forward motion", image: "https://www.refereevision.com/Signals/handcheck_Sig.png" },
+    { label: "ILLEGAL USE OF HANDS", sublabel: "Strike wrist", image: "https://www.refereevision.com/Signals/Illegaluseofhands_Sig.png" },
+    { label: "CHARGING WITH BALL", sublabel: "Clenched fist strike open palm", image: "https://www.refereevision.com/Signals/Charge_Sig.png" },
+    { label: "ILLEGAL CONTACT TO HAND", sublabel: "Strike palm towards forearm", image: "https://www.refereevision.com/Signals/strike_Sig.png" },
+    { label: "HOOKING", sublabel: "Move lower arm backwards", image: "https://www.refereevision.com/Signals/hook_Sig.png" },
+    { label: "EXCESSIVE SWINGING ELBOW", sublabel: "Swing elbow backwards", image: "https://www.refereevision.com/Signals/elbow_Sig.png" },
+    { label: "HIT TO THE HEAD", sublabel: "Imitate contact to head", image: "https://www.refereevision.com/Signals/HittoHead_sig.png" },
+    { label: "FOUL BY TEAM IN CONTROL", sublabel: "Point clenched fist to basket", image: "https://www.refereevision.com/Signals/Offensive_Sig.png" },
+    { label: "FOUL ON ACT OF SHOOTING", sublabel: "One arm raised, indicate free throws", image: "https://www.refereevision.com/Signals/faos_Sig.png" },
+    { label: "FOUL NOT ON ACT OF SHOOTING", sublabel: "One arm raised, point to floor", image: "https://www.refereevision.com/Signals/notfaos_Sig.png" },
+    { label: "FOUL OFF ACT OF FOUL", sublabel: "Move both arms with open palm", image: "https://www.refereevision.com/Signals/passoff_sig.png" },
   ];
 
   const specialFouls = [
-    { label: "DOUBLE FOUL", sublabel: "Wave clenched fists on both hands" },
-    { label: "TECHNICAL FOUL", sublabel: "Form T, showing palms" },
-    { label: "UNSPORTSMANLIKE FOUL", sublabel: "Grasp wrist upward" },
-    { label: "DISQUALIFYING FOUL", sublabel: "Clenched fists on both hands" },
-    { label: "FAKE A FOUL", sublabel: "Raise lower arm twice" },
-    { label: "ILLEGAL BOUNDARY LINE CROSSING", sublabel: "Wave arm parallel to boundary line" },
+    { label: "DOUBLE FOUL", sublabel: "Wave clenched fists on both hands", image: "https://www.refereevision.com/Signals/doublefoul_Sig.png" },
+    { label: "TECHNICAL FOUL", sublabel: "Form T, showing palms", image: "https://www.refereevision.com/Signals/tech_Sig.png" },
+    { label: "UNSPORTSMANLIKE FOUL", sublabel: "Grasp wrist upward", image: "https://www.refereevision.com/Signals/usf_Sig.png" },
+    { label: "DISQUALIFYING FOUL", sublabel: "Clenched fists on both hands", image: "https://www.refereevision.com/Signals/dqf_Sig.png" },
+    { label: "FAKE A FOUL", sublabel: "Raise lower arm twice", image: "https://www.refereevision.com/Signals/fake_Sig.png" },
+    { label: "ILLEGAL BOUNDARY LINE CROSSING", sublabel: "Wave arm parallel to boundary line", image: "https://www.refereevision.com/Signals/boundary_Sig.png" },
   ];
 
   const reportingToTable = [
-    { label: "AFTER FOUL WITHOUT FREE THROWS", sublabel: "Point in direction of play" },
-    { label: "AFTER FOUL BY TEAM IN CONTROL", sublabel: "Clenched fist in direction of play" },
-    { label: "1 FREE THROW", sublabel: "Hold up 1 finger" },
-    { label: "2 FREE THROWS", sublabel: "Hold up 2 fingers" },
-    { label: "3 FREE THROWS", sublabel: "Hold up 3 fingers" },
+    { label: "AFTER FOUL WITHOUT FREE THROWS", sublabel: "Point in direction of play", image: "https://www.refereevision.com/Signals/Foul_wo_FT_sig.png" },
+    { label: "AFTER FOUL BY TEAM IN CONTROL", sublabel: "Clenched fist in direction of play", image: "https://www.refereevision.com/Signals/TCFoul_sig.png" },
+    { label: "1 FREE THROW", sublabel: "Hold up 1 finger", image: "https://www.refereevision.com/Signals/1FT_sig.png" },
+    { label: "2 FREE THROWS", sublabel: "Hold up 2 fingers", image: "https://www.refereevision.com/Signals/2FT_sig.png" },
+    { label: "3 FREE THROWS", sublabel: "Hold up 3 fingers", image: "https://www.refereevision.com/Signals/3FT_sig.png" },
   ];
 
   const freeThrowsActive = [
-    { label: "1 FREE THROW", sublabel: "1 finger horizontal" },
-    { label: "2 FREE THROWS", sublabel: "2 fingers horizontal" },
-    { label: "3 FREE THROWS", sublabel: "3 fingers horizontal" },
+    { label: "1 FREE THROW", sublabel: "1 finger horizontal", image: "https://www.refereevision.com/Signals/1FT_AR_sig.png" },
+    { label: "2 FREE THROWS", sublabel: "2 fingers horizontal", image: "https://www.refereevision.com/Signals/2FT_AR_sig.png" },
+    { label: "3 FREE THROWS", sublabel: "3 fingers horizontal", image: "https://www.refereevision.com/Signals/3FT_AR_sig.png" },
   ];
 
   const freeThrowsPassive = [
-    { label: "1 FREE THROW", sublabel: "Index finger" },
-    { label: "2 FREE THROWS", sublabel: "Fingers together on both hands" },
-    { label: "3 FREE THROWS", sublabel: "3 fingers extended on both hands" },
+    { label: "1 FREE THROW", sublabel: "Index finger", image: "https://www.refereevision.com/Signals/1FT_PR_sig.png" },
+    { label: "2 FREE THROWS", sublabel: "Fingers together on both hands", image: "https://www.refereevision.com/Signals/2FT_PR_sig.png" },
+    { label: "3 FREE THROWS", sublabel: "3 fingers extended on both hands", image: "https://www.refereevision.com/Signals/3FT_PR_sig.png" },
   ];
 
   return (
@@ -2180,51 +2292,17 @@ function SignalsContent() {
 
       {/* DEMO */}
       <SignalsSectionBadge label="DEMO" />
-      <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 24 }}>
-        <div
-          onClick={() => setActiveVideo("https://youtu.be/IA3xtlSfb-g")}
-          style={{
-            width: 120,
-            height: 80,
-            background: T.charcoal,
-            border: `1.5px solid ${T.orange}`,
-            borderRadius: 6,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            padding: 8,
-            boxSizing: "border-box",
-          }}
-        >
-          <span style={{ fontSize: 24 }}>🎬</span>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 11, color: T.white, marginTop: 4, textAlign: "center" }}>
-            FIBA SIGNALS
-          </span>
-        </div>
-        <div
-          onClick={() => setActiveVideo("https://youtu.be/0abCxzDsoxY")}
-          style={{
-            width: 120,
-            height: 80,
-            background: T.charcoal,
-            border: `1.5px solid ${T.orange}`,
-            borderRadius: 6,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            padding: 8,
-            boxSizing: "border-box",
-          }}
-        >
-          <span style={{ fontSize: 24 }}>🎬</span>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 11, color: T.white, marginTop: 4, textAlign: "center" }}>
-            REFEREE HAND SIGNALS
-          </span>
-        </div>
+      <div style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap", marginBottom: 28 }}>
+        <SignalsDemoCard
+          title="FIBA SIGNALS"
+          thumbnail="https://img.youtube.com/vi/k1yNcWsvu84/0.jpg"
+          onClick={() => setActiveVideo("https://www.youtube.com/embed/k1yNcWsvu84?autoplay=1")}
+        />
+        <SignalsDemoCard
+          title="REFEREE HAND SIGNALS"
+          thumbnail="https://img.youtube.com/vi/CcIVSGmO_24/0.jpg"
+          onClick={() => setActiveVideo("https://www.youtube.com/embed/CcIVSGmO_24?autoplay=1")}
+        />
       </div>
 
       {/* GAME CLOCK SIGNALS */}
@@ -2235,7 +2313,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 1}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 1}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 1}.png`)}
           />
         ))}
       </div>
@@ -2248,7 +2326,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 4}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 4}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 4}.png`)}
           />
         ))}
       </div>
@@ -2261,7 +2339,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 7}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 7}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 7}.png`)}
           />
         ))}
       </div>
@@ -2287,7 +2365,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 19}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 19}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 19}.png`)}
           />
         ))}
       </div>
@@ -2300,7 +2378,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 29}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 29}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 29}.png`)}
           />
         ))}
       </div>
@@ -2313,7 +2391,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 38}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 38}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 38}.png`)}
           />
         ))}
       </div>
@@ -2326,7 +2404,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 53}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 53}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 53}.png`)}
           />
         ))}
       </div>
@@ -2339,7 +2417,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 59}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 59}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 59}.png`)}
           />
         ))}
       </div>
@@ -2352,7 +2430,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 64}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 64}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 64}.png`)}
           />
         ))}
       </div>
@@ -2365,7 +2443,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 67}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 67}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 67}.png`)}
           />
         ))}
       </div>

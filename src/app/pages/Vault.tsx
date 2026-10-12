@@ -1495,7 +1495,7 @@ export default function Vault() {
 
   return (
     <div style={{ minHeight: "100vh", display: "flex" }}>
-      <aside style={{ width: 200, background: TV.charcoal, flexShrink: 0, display: "flex", flexDirection: "column", borderRight: `1px solid ${TV.border}`, position: "sticky", top: 0, height: "100vh", overflowY: "auto" }}>
+      <aside style={{ width: 200, background: TV.charcoal, flexShrink: 0, display: "flex", flexDirection: "column", borderRight: `1px solid ${TV.border}`, position: "sticky", top: 152, height: "calc(100vh - 152px)", alignSelf: "flex-start", overflowY: "auto" }}>
         <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${TV.border}` }}>
           <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 28, color: TV.orange, letterSpacing: "3px", textTransform: "uppercase" }}>
             VAULT

@@ -522,8 +522,9 @@ function Sidebar({
         background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
         position: "sticky",
-        top: 0,
-        height: "100vh",
+        top: 152,
+        height: "calc(100vh - 152px)",
+        alignSelf: "flex-start",
         overflowY: "auto",
         display: "flex",
         flexDirection: "column",
@@ -897,6 +898,7 @@ function DocCard({
 
   const isImageUrl = link && (link.endsWith(".jpg") || link.endsWith(".jpeg") || link.endsWith(".png") || link.endsWith(".webp"));
   const displayImage = thumbnail || (isImageUrl ? link : null);
+  const isSignal = Boolean(link && /sig/i.test(link));
 
   return (
     <div
@@ -906,15 +908,15 @@ function DocCard({
       style={{
         width: width ?? (cols === 1 ? 110 : 80),
         height: height ?? "auto",
-        aspectRatio: aspectRatio ?? (height ? undefined : "3 / 4"),
-        background: h.on ? "#222" : T.charcoal,
+        aspectRatio: aspectRatio ?? (isSignal ? undefined : (height ? undefined : "3 / 4")),
+        background: isSignal ? "transparent" : (h.on ? "#222" : T.charcoal),
         border: `2px solid ${h.on ? T.orange : T.border}`,
         borderRadius: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 6,
+        gap: displayImage ? 0 : 6,
         transition: "border-color 0.2s, transform 0.2s",
         transform: h.on ? "scale(1.04)" : "scale(1)",
         cursor: link ? "pointer" : "default",
@@ -930,9 +932,10 @@ function DocCard({
           src={displayImage}
           alt={label || "Doc thumbnail"}
           style={{
+            display: "block",
             width: "100%",
-            height: "100%",
-            objectFit: objectFit ?? "cover",
+            height: isSignal ? "auto" : "100%",
+            objectFit: isSignal ? undefined : (objectFit ?? "cover"),
             transition: "opacity 0.2s",
             opacity: h.on ? 0.95 : 0.85,
           }}
@@ -1778,7 +1781,7 @@ function CylinderPrincipleContent({
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/IllegalCylinder_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
@@ -2263,7 +2266,7 @@ function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/Travel_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
@@ -2565,9 +2568,9 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard cols={2} />
-            <DocCard cols={2} />
-            <DocCard cols={2} />
+            <DocCard cols={2} link="https://www.refereevision.com/faos_Sig.png" />
+            <DocCard cols={2} link="https://www.refereevision.com/notfaos_Sig.png" />
+            <DocCard cols={2} link="https://www.refereevision.com/Signals/passoff_sig.png" />
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -2698,21 +2701,21 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
 // ─── CONTACT Content ─────────────────────────────────────────────────────────
 
 const CONTACT_SIGNALS_ROW1 = [
-  "HOLDING",
-  "BLOCKING / DEFENSE / ILLEGAL SCREEN (OFFENSE)",
-  "PUSHING OR CHARGING WITHOUT THE BALL",
-  "HANDCHECKING",
-  "ILLEGAL USE OF HANDS",
-  "ILLEGAL CYLINDER",
-  "ILLEGAL CONTACT TO THE HAND",
-  "EXCESSIVE SWINGING OF ELBOW",
+  { label: "HOLDING", link: "https://www.refereevision.com/Hold_Sig.png" },
+  { label: "BLOCKING / DEFENSE / ILLEGAL SCREEN (OFFENSE)", link: "https://www.refereevision.com/screen_Sig.png" },
+  { label: "PUSHING OR CHARGING WITHOUT THE BALL", link: "https://www.refereevision.com/Push_Sig.png" },
+  { label: "HANDCHECKING", link: "https://www.refereevision.com/handcheck_Sig.png" },
+  { label: "ILLEGAL USE OF HANDS", link: "https://www.refereevision.com/Illegaluseofhands_Sig.png" },
+  { label: "ILLEGAL CYLINDER", link: "https://www.refereevision.com/IllegalCylinder_Sig.png" },
+  { label: "ILLEGAL CONTACT TO THE HAND", link: "https://www.refereevision.com/strike_Sig.png" },
+  { label: "EXCESSIVE SWINGING OF ELBOW", link: "https://www.refereevision.com/elbow_Sig.png" },
 ];
 
 const CONTACT_SIGNALS_ROW2 = [
-  "FOUL BY TEAM IN CONTROL OF THE BALL",
-  "HIT TO THE HEAD",
-  "HOOKING",
-  "CHARGING WITH THE BALL",
+  { label: "FOUL BY TEAM IN CONTROL OF THE BALL", link: "https://www.refereevision.com/Offensive_Sig.png" },
+  { label: "HIT TO THE HEAD", link: "https://www.refereevision.com/HittoHead_sig.png" },
+  { label: "HOOKING", link: "https://www.refereevision.com/hook_Sig.png" },
+  { label: "CHARGING WITH THE BALL", link: "https://www.refereevision.com/Charge_Sig.png" },
 ];
 
 function ContactContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
@@ -2767,10 +2770,10 @@ function ContactContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
       {/* SIGNALS */}
       <CylinderSectionHeader label="SIGNALS" />
       <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 12 }}>
-        {CONTACT_SIGNALS_ROW1.map((label, i) => <DocCard key={i} label={label} />)}
+        {CONTACT_SIGNALS_ROW1.map((item, i) => <DocCard key={i} label={item.label} link={item.link} />)}
       </div>
       <div style={{ display: "flex", justifyContent: "center", gap: 10, flexWrap: "wrap", marginBottom: 32 }}>
-        {CONTACT_SIGNALS_ROW2.map((label, i) => <DocCard key={i} label={label} />)}
+        {CONTACT_SIGNALS_ROW2.map((item, i) => <DocCard key={i} label={item.label} link={item.link} />)}
       </div>
 
       {/* ARTICLE / INTERPRETATION / PRESENTATION */}
@@ -3239,6 +3242,7 @@ function TimeoutSubSection({
   title,
   procedureCount = 1,
   videoCount,
+  signalLink,
   articleLink,
   interpretationLink,
   ruleLink,
@@ -3250,6 +3254,7 @@ function TimeoutSubSection({
   title: string;
   procedureCount?: number;
   videoCount: number;
+  signalLink?: string;
   articleLink?: string;
   interpretationLink?: string;
   ruleLink?: string;
@@ -3291,7 +3296,7 @@ function TimeoutSubSection({
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard />
+          <DocCard link={signalLink} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
@@ -3364,6 +3369,7 @@ function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean;
           title="TIME-OUT"
           procedureCount={2}
           videoCount={5}
+          signalLink="https://www.refereevision.com/Signals/Timeout_sig.png"
           articleLink="https://www.refereevision.com/timeout_art.png"
           interpretationLink="https://www.refereevision.com/to_int.jpg"
           ruleLink="https://www.refereevision.com/to_rule.jpg"
@@ -3382,6 +3388,7 @@ function TimeoutSubstitutionContent({ isMobile, isTablet }: { isMobile: boolean;
           title="SUBSTITUTION"
           procedureCount={1}
           videoCount={2}
+          signalLink="https://www.refereevision.com/Signals/Sub_sig.png"
           onPlay={setActiveVideo}
           articleLink="https://www.refereevision.com/sub_art.jpg"
           interpretationLink="https://www.refereevision.com/to_int.jpg"
@@ -3593,8 +3600,8 @@ function DribblingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNALS" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard cols={2} />
-            <DocCard cols={2} />
+            <DocCard cols={2} link="https://www.refereevision.com/Carry_Sig.png" />
+            <DocCard cols={2} link="https://www.refereevision.com/DoubleDribble_Sig.png" />
           </div>
         </div>
       </div>
@@ -3760,7 +3767,7 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/usf_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
@@ -4154,7 +4161,7 @@ function ScreeningContent({ isMobile, isTablet }: { isMobile: boolean; isTablet:
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard />
+          <DocCard link="https://www.refereevision.com/screen_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
@@ -4267,7 +4274,8 @@ function ChargeBlockContent({ isMobile, isTablet }: { isMobile: boolean; isTable
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNALS" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            {Array.from({ length: 2 }).map((_, i) => <DocCard key={i} cols={2} />)}
+            <DocCard cols={2} link="https://www.refereevision.com/screen_Sig.png" />
+            <DocCard cols={2} link="https://www.refereevision.com/Charge_Sig.png" />
           </div>
         </div>
       </div>
@@ -4682,7 +4690,7 @@ function FakingFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/fake_Sig.png" />
           </div>
         </div>
       </div>
@@ -4849,7 +4857,7 @@ function BallReturnedToBackcourtContent({ isMobile, isTablet }: { isMobile: bool
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/brtbc_Sig.png" />
           </div>
         </div>
       </div>
@@ -5076,7 +5084,7 @@ function ThrowInContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: b
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
-            <DocCard />
+            <DocCard link="https://www.refereevision.com/boundary_Sig.png" />
           </div>
         </div>
       </div>
