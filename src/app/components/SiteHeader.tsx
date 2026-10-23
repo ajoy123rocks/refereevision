@@ -1,16 +1,32 @@
-import { useState } from 'react';
-import { Youtube, Facebook, Instagram, Twitter, MessageCircle } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Youtube, Facebook, Instagram, Twitter, MessageCircle, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import logoImage from '../../imports/Screenshot_2026-06-03_at_14.17.43.png';
+import SearchModal from './SearchModal';
 
 const NAV_LINKS = ['ABOUT', 'REFEREES', 'BOOKS', 'VIDEOS', 'WEBINARS', 'COACHES', 'VAULT'];
 
 export default function SiteHeader() {
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
+
+  // Global Cmd+K / Ctrl+K listener
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
       <header style={{ backgroundColor: 'var(--black)', zIndex: 9999 }} className="md:sticky md:top-0 md:z-[9999] md:h-[100px] py-4 md:py-0 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
         {/* Logo Block */}
         <Link to="/" className="flex items-center gap-3 md:gap-4">
@@ -27,23 +43,47 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* Social Icons */}
-        <div className="flex items-center gap-4 md:gap-6">
-          <a href="https://www.youtube.com/@refereevision5209" target="_blank" rel="noopener noreferrer">
-            <Youtube className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a>
-          <a href="https://www.facebook.com/people/Referee-Vision/61577189406633/" target="_blank" rel="noopener noreferrer">
-            <Facebook className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a>
-          <a href="https://www.instagram.com/refereevision/" target="_blank" rel="noopener noreferrer">
-            <Instagram className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a>
-          <a href="https://x.com/refereevision/" target="_blank" rel="noopener noreferrer">
-            <Twitter className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a>
-          <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer">
-            <MessageCircle className="w-[20px] h-[20px] md:w-[22px] md:h-[22px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
-          </a>
+        {/* Right Section: SEARCH Button + Social Icons */}
+        <div className="flex items-center gap-3 md:gap-5 flex-wrap justify-center">
+          {/* SEARCH Button */}
+          <button
+            onClick={() => setIsSearchOpen(true)}
+            className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-1.5 rounded-[4px] border border-[var(--orange)] bg-transparent hover:bg-[var(--orange)] text-[var(--orange)] hover:text-white transition-all duration-200 cursor-pointer shadow-sm group"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              fontWeight: 700,
+              letterSpacing: '1.5px',
+              fontSize: '13px',
+              textTransform: 'uppercase',
+            }}
+            title="Search site (Cmd+K)"
+            aria-label="Search site"
+          >
+            <Search className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform group-hover:scale-110" />
+            <span>SEARCH</span>
+            <span className="hidden sm:inline-block text-[10px] ml-0.5 px-1.5 py-0.5 rounded bg-[#222222] text-[#AAAAAA] group-hover:bg-black/30 group-hover:text-white transition-colors font-mono border border-[#333333]">
+              ⌘K
+            </span>
+          </button>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-3.5 md:gap-5 pl-1 md:pl-2 border-l border-[#262626]">
+            <a href="https://www.youtube.com/@refereevision5209" target="_blank" rel="noopener noreferrer" title="YouTube">
+              <Youtube className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            </a>
+            <a href="https://www.facebook.com/people/Referee-Vision/61577189406633/" target="_blank" rel="noopener noreferrer" title="Facebook">
+              <Facebook className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            </a>
+            <a href="https://www.instagram.com/refereevision/" target="_blank" rel="noopener noreferrer" title="Instagram">
+              <Instagram className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            </a>
+            <a href="https://x.com/refereevision/" target="_blank" rel="noopener noreferrer" title="X (Twitter)">
+              <Twitter className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            </a>
+            <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+              <MessageCircle className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+            </a>
+          </div>
         </div>
       </header>
 

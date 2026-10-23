@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSearchParams } from "react-router";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -1852,9 +1853,22 @@ function PlaceholderContent({ tab }: { tab: Tab }) {
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Referees() {
-  const [activeTab, setActiveTab] = useState<Tab>("MECHANICS");
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<Tab>(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      return tabParam as Tab;
+    }
+    return "MECHANICS";
+  });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const width = useWindowWidth();
+
+  useEffect(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      setActiveTab(tabParam as Tab);
+    }
+  }, [tabParam]);
 
   const isMobile = width < 640;
   const isTablet = width < 1024;

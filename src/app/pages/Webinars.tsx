@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSearchParams } from "react-router";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -587,10 +588,23 @@ function WebinarTabContent({ tab, isMobile, onOpenPopup }: { tab: Tab; isMobile:
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Webinars() {
-  const [activeTab, setActiveTab] = useState<Tab>("RULES");
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<Tab>(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      return tabParam as Tab;
+    }
+    return "RULES";
+  });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [videoModal, setVideoModal] = useState<{ url: string; title: string } | null>(null);
   const width = useWindowWidth();
+
+  useEffect(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      setActiveTab(tabParam as Tab);
+    }
+  }, [tabParam]);
 
   const openPopup = (url: string, title: string) => setVideoModal({ url, title });
   const closePopup = () => setVideoModal(null);

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSearchParams } from "react-router";
 
 // ─── Design tokens (matches Videos.tsx T object) ────────────────────────────
 const TV = {
@@ -1491,7 +1492,20 @@ function PlaceholderContent({ tab }: { tab: VaultTab }) {
 
 // ─── Main Vault page ──────────────────────────────────────────────────────────
 export default function Vault() {
-  const [activeTab, setActiveTab] = useState<VaultTab>("ASSIST MAGAZINE");
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<VaultTab>(() => {
+    if (tabParam && VAULT_TABS.includes(tabParam as VaultTab)) {
+      return tabParam as VaultTab;
+    }
+    return "ASSIST MAGAZINE";
+  });
+
+  useEffect(() => {
+    if (tabParam && VAULT_TABS.includes(tabParam as VaultTab)) {
+      setActiveTab(tabParam as VaultTab);
+    }
+  }, [tabParam]);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex" }}>

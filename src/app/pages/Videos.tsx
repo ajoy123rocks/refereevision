@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { useSearchParams } from "react-router";
 const preGameTiming = "https://www.refereevision.com/tbloffl35.png";
 const arrivalDoc = "https://www.refereevision.com/common_arrival.jpg";
 const arrivalPhotoImg = "https://www.refereevision.com/tbloffl1.png";
@@ -155,14 +156,22 @@ function getYouTubeId(url: string): string | null {
   if (shortMatch) return shortMatch[1];
   const longMatch = url.match(/[?&]v=([\w-]+)/);
   if (longMatch) return longMatch[1];
+  const embedMatch = url.match(/embed\/([\w-]+)/);
+  if (embedMatch && embedMatch[1] !== "videoseries") return embedMatch[1];
   return null;
 }
 
 function getYouTubeEmbedUrl(url: string): string {
+  // Handle playlist embed URLs (embed/videoseries?list=...)
+  if (url.includes("embed/videoseries")) {
+    return url.includes("autoplay=1") ? url : url + "&autoplay=1";
+  }
   const shortMatch = url.match(/youtu\.be\/([\w-]+)/);
   if (shortMatch) return `https://www.youtube.com/embed/${shortMatch[1]}?autoplay=1`;
   const longMatch = url.match(/[?&]v=([\w-]+)/);
   if (longMatch) return `https://www.youtube.com/embed/${longMatch[1]}?autoplay=1`;
+  const embedMatch = url.match(/embed\/([\w-]+)/);
+  if (embedMatch) return url.includes("autoplay=1") ? url : `https://www.youtube.com/embed/${embedMatch[1]}?autoplay=1`;
   return url;
 }
 
@@ -4982,25 +4991,25 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   const goaltendingFibaVideos = [
-    "https://youtu.be/SzFDNjpyQts",
-    "https://youtu.be/TqSoLhBkRqg",
-    "https://youtu.be/ZkYh2oaFyBo",
-    "https://youtu.be/mHe0B1-Ywek",
-    "https://youtu.be/XWO3OKdAOCA",
-    "https://youtu.be/VU8kRJ9QXJY",
-    "https://youtu.be/e6hq2Zu0R3s",
-    "https://youtu.be/9kFfHkI9Aqo",
+    "https://youtu.be/ChPAOPwdXSc",
+    "https://youtu.be/VD1V03PCaVY",
+    "https://youtu.be/zjvxfX8fr94",
+    "https://youtu.be/t2dSjlh8guQ",
+    "https://youtu.be/ttGDJEgdjRg",
+    "https://youtu.be/ki9yOzMkwio",
+    "https://youtu.be/LrLFnVDyagU",
+    "https://youtu.be/BXMSTHEw2C8",
   ];
 
   const interferenceFibaVideos = [
-    "https://youtu.be/0EsXMjAtUEY",
-    "https://youtu.be/Cx8sJOkI4LI",
-    "https://youtu.be/nvXlEIFiBYs",
-    "https://youtu.be/fLQoZ7TZPQQ",
-    "https://youtu.be/W8bmpU5YfaI",
-    "https://youtu.be/PIJUaGQTEk0",
-    "https://youtu.be/5V5f0OBzqMQ",
-    "https://youtu.be/h_IpFJOwQ2Q",
+    "https://youtu.be/UNZhKRxBcNI",
+    "https://youtu.be/4YuuBHzfDrI",
+    "https://youtu.be/1QxFRh_z92I",
+    "https://youtu.be/anmCUwWDBMU",
+    "https://youtu.be/oKI9Z2DM4I4",
+    "https://youtu.be/BvVqPSrX5O0",
+    "https://youtu.be/g7EMbq8D8z4",
+    "https://youtu.be/cLjfqSPty0s",
   ];
 
   return (
@@ -5023,21 +5032,21 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center" }}>
             <VideoThumb
               index={0}
-              link="https://youtu.be/fLQoZ7TZPQQ"
-              thumbnail="https://img.youtube.com/vi/fLQoZ7TZPQQ/0.jpg"
-              onPlay={() => setActiveVideo("https://youtu.be/fLQoZ7TZPQQ")}
+              link="https://youtu.be/K-t_8zVt5rA"
+              thumbnail="https://img.youtube.com/vi/K-t_8zVt5rA/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/K-t_8zVt5rA")}
             />
             <VideoThumb
               index={1}
-              link="https://youtu.be/0EsXMjAtUEY"
-              thumbnail="https://img.youtube.com/vi/0EsXMjAtUEY/0.jpg"
-              onPlay={() => setActiveVideo("https://youtu.be/0EsXMjAtUEY")}
+              link="https://youtu.be/MvAL7AWVv_8"
+              thumbnail="https://img.youtube.com/vi/MvAL7AWVv_8/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/MvAL7AWVv_8")}
             />
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
-          <DocCard link="https://www.refereevision.com/Goaltending_Sig.png" />
+          <DocCard link="https://www.refereevision.com/GI_Sig.png" />
         </div>
       </div>
 
@@ -5053,15 +5062,15 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <DocCard link="https://www.refereevision.com/Goaltending_art.jpg" />
+          <DocCard link="https://www.refereevision.com/Gi_art.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <DocCard link="https://www.refereevision.com/Goaltending_int.jpg" />
+          <DocCard link="http://www.refereevision.com/GI_int.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="PRESENTATION" />
-          <DocCard link="https://www.refereevision.com/Goaltending_ppt.jpg" />
+          <DocCard link="https://www.refereevision.com/GI_ppt.jpg" />
         </div>
       </div>
 
@@ -5096,10 +5105,6 @@ function GoaltendingInterferenceContent({ isMobile, isTablet }: { isMobile: bool
           />
         ))}
       </div>
-      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhpxg25IWGTk_AGxK7HkW7Ak")} />
-
-      {/* ADDITIONAL VIDEOS */}
-      <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
       <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhr3JMu78TkxwkG1xciLt1pG")} />
     </div>
   );
@@ -5112,10 +5117,10 @@ const SECONDS_SUBTABS: SecondsSubTab[] = ["3 SECONDS", "5 SECONDS", "8 SECONDS",
 
 // ─── 3 SECONDS ───────────────────────────────────────────────────────────────────────────
 function ThreeSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveVideo: (u: string) => void }) {
-  const ruleVideos = ["https://youtu.be/6EaCtBoTnmY", "https://youtu.be/oVbBl9-sX_A"];
+  const ruleVideos = ["https://youtu.be/5XPPFb-KysM", "https://youtu.be/xMzc1xEAj0Q"];
   const fibaVideos = [
-    "https://youtu.be/DPCM0p3kvBM", "https://youtu.be/7SLYcTsMEy8",
-    "https://youtu.be/YtGefZ_ZA74", "https://youtu.be/Rrfc0a01TZ0",
+    "https://youtu.be/tDuiUD54KN4", "https://youtu.be/gyA8s1W6GYE",
+    "https://youtu.be/dqyez0sGiJ8", "https://youtu.be/iPax7PNbVPI",
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 32 }}>
@@ -5130,7 +5135,7 @@ function ThreeSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; 
       </div>
       <div style={{ display: "flex", gap: isMobile ? 32 : 48, justifyContent: "center", flexWrap: "wrap", maxWidth: 900, margin: "0 auto 36px" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/3sec_sig.png" />
+          <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/3Sec_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/3sec_art.jpg" />
@@ -5148,16 +5153,18 @@ function ThreeSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; 
         ))}
       </div>
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
-      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhpOqXV4bMBb4V7e7gnakbfg")} />
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhp_y7CWsKjrFQW0ylKhNZXl")} />
     </div>
   );
 }
 
 // ─── 5 SECONDS ───────────────────────────────────────────────────────────────────────────
 function FiveSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveVideo: (u: string) => void }) {
-  const ruleVideos = ["https://youtu.be/XuI8hzZPfcc"];
+  const ruleVideos = ["https://youtu.be/lh9vaE0MmCQ"];
   const educationalVideos = [
-    "https://youtu.be/DPCM0p3kvBM", "https://youtu.be/7SLYcTsMEy8", "https://youtu.be/YtGefZ_ZA74",
+    "https://youtu.be/EoTtfZiSNt8",
+    "https://youtu.be/Gaxlz8Ko6j0",
+    "https://youtu.be/M69s1QqjbmY",
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 32 }}>
@@ -5172,13 +5179,13 @@ function FiveSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; s
       </div>
       <div style={{ display: "flex", gap: isMobile ? 32 : 48, justifyContent: "center", flexWrap: "wrap", maxWidth: 900, margin: "0 auto 36px" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/5sec_sig.png" />
+          <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/Signals/5Sec_Sig.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/5sec_art.jpg" />
+          <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/closely_art.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="INTERPRETATION" /><DocCard link="https://www.refereevision.com/5sec_int.jpg" />
+          <MiniBadge label="INTERPRETATION" /><DocCard link="https://www.refereevision.com/closely_int.jpg" />
         </div>
       </div>
       <CylinderSectionHeader label="EDUCATIONAL VIDEOS" />
@@ -5196,10 +5203,13 @@ function FiveSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; s
 // ─── 8 SECONDS ───────────────────────────────────────────────────────────────────────────
 function EightSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveVideo: (u: string) => void }) {
   const educationalVideos = [
-    "https://youtu.be/DPCM0p3kvBM", "https://youtu.be/7SLYcTsMEy8",
-    "https://youtu.be/YtGefZ_ZA74", "https://youtu.be/Rrfc0a01TZ0",
-    "https://youtu.be/XuI8hzZPfcc", "https://youtu.be/6EaCtBoTnmY",
-    "https://youtu.be/oVbBl9-sX_A",
+    "https://youtu.be/5r16sVGPNf4",
+    "https://youtu.be/WEuBqEamV78",
+    "https://youtu.be/0J4pRVdOxCM",
+    "https://youtu.be/75RbQmny92c",
+    "https://youtu.be/s5-wRV2KME8",
+    "https://youtu.be/bc9l9UJFkDA",
+    "https://youtu.be/zM4R8VQajOQ",
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 32 }}>
@@ -5208,7 +5218,7 @@ function EightSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; 
       <div style={{ display: "flex", flexDirection: "column", gap: 28, maxWidth: 680, margin: "36px auto 36px", width: "100%" }}>
         <div style={{ display: "flex", gap: isMobile ? 24 : 48, justifyContent: "center", flexWrap: "wrap" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: "1 1 200px" }}>
-            <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/8sec_sig.png" />
+            <MiniBadge label="SIGNAL" /><DocCard link="https://www.refereevision.com/Signals/8Sec_Sig.png" />
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flex: "1 1 200px" }}>
             <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/8sec_art.jpg" />
@@ -5238,16 +5248,20 @@ function EightSecondsContent({ isMobile, setActiveVideo }: { isMobile: boolean; 
 // ─── SHOT CLOCK ─────────────────────────────────────────────────────────────────────────
 function ShotClockContent({ isMobile, setActiveVideo }: { isMobile: boolean; setActiveVideo: (u: string) => void }) {
   const fibaVideos = [
-    "https://youtu.be/DPCM0p3kvBM", "https://youtu.be/7SLYcTsMEy8",
-    "https://youtu.be/YtGefZ_ZA74", "https://youtu.be/Rrfc0a01TZ0",
-    "https://youtu.be/XuI8hzZPfcc", "https://youtu.be/6EaCtBoTnmY",
-    "https://youtu.be/oVbBl9-sX_A", "https://youtu.be/BbsGjpKz3aI",
+    "https://youtu.be/xlEUVmTiBRo",
+    "https://youtu.be/O9tNEtfK64E",
+    "https://youtu.be/3NYsMG0s9wU",
+    "https://youtu.be/4jJ7h8S_Hi4",
+    "https://youtu.be/TYo3C-a0LiU",
+    "https://youtu.be/oxVV7EaG138",
+    "https://youtu.be/8ixuLvdRYPw",
+    "https://youtu.be/ZvK_CWfEM94",
   ];
   const violationDiagrams = [
-    "https://www.refereevision.com/sc_proc1.jpg",
-    "https://www.refereevision.com/sc_proc2.jpg",
-    "https://www.refereevision.com/sc_proc3.jpg",
-    "https://www.refereevision.com/sc_proc4.jpg",
+    "https://www.refereevision.com/scprocedure1.png",
+    "https://www.refereevision.com/scprocedure2.png",
+    "https://www.refereevision.com/scprocedure3.png",
+    "https://www.refereevision.com/scprocedure4.png",
   ];
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 32 }}>
@@ -5257,29 +5271,29 @@ function ShotClockContent({ isMobile, setActiveVideo }: { isMobile: boolean; set
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="RULE EXPLANATION" />
           <div style={{ display: "flex", gap: 8 }}>
-            <VideoThumb index={0} link="https://youtu.be/Rrfc0a01TZ0"
-              thumbnail="https://img.youtube.com/vi/Rrfc0a01TZ0/0.jpg"
-              onPlay={() => setActiveVideo("https://youtu.be/Rrfc0a01TZ0")} />
+            <VideoThumb index={0} link="https://youtu.be/6yXzFHD1IhU"
+              thumbnail="https://img.youtube.com/vi/6yXzFHD1IhU/0.jpg"
+              onPlay={() => setActiveVideo("https://youtu.be/6yXzFHD1IhU")} />
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNALS" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard link="https://www.refereevision.com/Shotclock_sig.png" />
-            <DocCard link="https://www.refereevision.com/Shotclock_sig2.png" />
+            <DocCard link="https://www.refereevision.com/24sec_Sig.png" />
+            <DocCard link="https://www.refereevision.com/24secreset_Sig.png" />
           </div>
         </div>
       </div>
       {/* Article / Interpretation / Presentation */}
       <div style={{ display: "flex", gap: isMobile ? 28 : 48, justifyContent: "center", flexWrap: "wrap", margin: "0 auto 40px" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/Shotclock_art.jpg" />
+          <MiniBadge label="ARTICLE" /><DocCard link="https://www.refereevision.com/24sec_art.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="INTERPRETATION" /><DocCard link="https://www.refereevision.com/Shotclock_int.jpg" />
+          <MiniBadge label="INTERPRETATION" /><DocCard link="https://www.refereevision.com/24sec_int.jpg" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <MiniBadge label="PRESENTATION" /><DocCard link="https://www.refereevision.com/Shotclock_ppt.jpg" />
+          <MiniBadge label="PRESENTATION" /><DocCard link="https://www.refereevision.com/shotclock_ppt.jpg" />
         </div>
       </div>
       {/* Shot Clock Violation Procedure — 4 landscape diagrams */}
@@ -5298,10 +5312,10 @@ function ShotClockContent({ isMobile, setActiveVideo }: { isMobile: boolean; set
             onPlay={() => setActiveVideo(link)} />
         ))}
       </div>
-      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhpOqXV4bMBb4V7e7gnakbfg")} />
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhq4dibC990uTNDv3FsD3OIq")} />
       {/* Additional Videos */}
       <CylinderSectionHeader label="ADDITIONAL VIDEOS" />
-      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhpOqXV4bMBb4V7e7gnakbfg")} />
+      <WatchPlaylistButton onClick={() => setActiveVideo("https://www.youtube.com/embed/videoseries?list=PLOnrMq_sQkhr_9pX_nMtlropUZ32LWn-f")} />
     </div>
   );
 }
@@ -6648,9 +6662,22 @@ function PlaceholderTabContent({ tab }: { tab: Tab }) {
 
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function Videos() {
-  const [activeTab, setActiveTab] = useState<Tab>("TABLE OFFICIALS");
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<Tab>(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      return tabParam as Tab;
+    }
+    return "TABLE OFFICIALS";
+  });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const width = useWindowWidth();
+
+  useEffect(() => {
+    if (tabParam && TABS.includes(tabParam as Tab)) {
+      setActiveTab(tabParam as Tab);
+    }
+  }, [tabParam]);
 
   const isMobile = width < 640;
   const isTablet = width < 1024;
