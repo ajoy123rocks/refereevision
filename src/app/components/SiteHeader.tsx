@@ -50,13 +50,13 @@ export default function SiteHeader() {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
-      {/* TOP HEADER - Matches Reference Layout Exactly */}
+      {/* TOP HEADER - Centered in Page */}
       <header
         style={{ backgroundColor: 'var(--black)' }}
-        className="w-full px-5 md:px-12 pt-5 md:pt-7 pb-5 md:pb-6 flex flex-col justify-start items-start"
+        className="w-full px-5 md:px-12 pt-5 md:pt-7 pb-5 md:pb-6 flex flex-col justify-center items-center text-center"
       >
         {/* ROW 1: Logo + REFEREE VISION + Cursive Subtitle */}
-        <Link to="/" className="flex items-center gap-3.5 md:gap-5 group">
+        <Link to="/" className="flex items-center justify-center gap-3.5 md:gap-5 group">
           <img
             src={logoImage}
             alt="Referee Vision Logo"
@@ -82,8 +82,8 @@ export default function SiteHeader() {
           </div>
         </Link>
 
-        {/* ROW 2: [ 🔍 SEARCH ] + Divider + Social Icons */}
-        <div className="flex items-center gap-4 md:gap-6 mt-4 md:mt-5">
+        {/* ROW 2: [ 🔍 SEARCH ] + Divider + Social Icons (Centered) */}
+        <div className="flex items-center justify-center gap-4 md:gap-6 mt-4 md:mt-5">
           {/* SEARCH Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
@@ -231,8 +231,8 @@ export default function SiteHeader() {
           </div>
         </div>
 
-        {/* Desktop View: Single horizontal row with gap */}
-        <div className="hidden md:flex items-center h-[52px] px-8 md:px-12 gap-8">
+        {/* Desktop View: Single horizontal row centered */}
+        <div className="hidden md:flex items-center justify-center h-[52px] px-8 md:px-12 gap-8">
           {ALL_NAV_LINKS.map((item) => {
             const active = isLinkActive(item);
             return (
