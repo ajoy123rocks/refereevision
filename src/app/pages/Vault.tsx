@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
 
@@ -27,6 +27,18 @@ type VaultTab =
   | "DOCUMENTARIES"
   | "ARTICLES"
   | "TOOLS";
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1200
+  );
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return width;
+}
 
 const VAULT_TABS: VaultTab[] = [
   "ASSIST MAGAZINE",
@@ -1500,6 +1512,9 @@ export default function Vault() {
     }
     return "ASSIST MAGAZINE";
   });
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const width = useWindowWidth();
+  const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (tabParam && VAULT_TABS.includes(tabParam as VaultTab)) {
@@ -1507,64 +1522,293 @@ export default function Vault() {
     }
   }, [tabParam]);
 
-  // Scroll to top whenever tab changes
+  // Scroll to top whenever tab changes (works on both mobile and desktop)
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    document.documentElement.scrollTop = 0;
+    if (mainRef.current) mainRef.current.scrollTop = 0;
   }, [activeTab]);
 
-  return (
-    <div style={{ minHeight: "100vh", display: "flex" }}>
-      <aside style={{ width: 200, background: TV.charcoal, flexShrink: 0, display: "flex", flexDirection: "column", borderRight: `1px solid ${TV.border}`, position: "sticky", top: 52, height: "calc(100vh - 52px)", alignSelf: "flex-start", overflowY: "auto" }}>
-        <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${TV.border}` }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 28, color: TV.orange, letterSpacing: "3px", textTransform: "uppercase" }}>
+  const isMobile = width < 640;
+  const isTablet = width < 1024;
+
+  useEffect(() => {
+    if (!isMobile && sidebarOpen) setSidebarOpen(false);
+  }, [isMobile, sidebarOpen]);
+
+  const drawerContent = isMobile && (
+    <>
+      {open && sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.65)",
+            zIndex: 99998,
+            backdropFilter: "blur(2px)",
+          }}
+        />
+      )}
+      <aside
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 260,
+          height: "100vh",
+          background: TV.charcoal,
+          borderRight: `1px solid ${TV.border}`,
+          zIndex: 99999,
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
+          transform: sidebarOpen ? "translateX(0)" : "translateX(-100%)",
+          transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
+          boxShadow: sidebarOpen ? "4px 0 24px rgba(0,0,0,0.7)" : "none",
+        }}
+      >
+        <div
+          style={{
+            padding: "28px 20px 16px",
+            borderBottom: `1px solid ${TV.border}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 26,
+              color: TV.orange,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+            }}
+          >
             VAULT
           </span>
+          <button
+            onClick={() => setSidebarOpen(false)}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: TV.inactive,
+              fontSize: 22,
+              cursor: "pointer",
+              lineHeight: 1,
+              padding: 4,
+            }}
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
         </div>
-        {VAULT_TABS.map(tab => {
-          const active = tab === activeTab;
-          let bg = "transparent";
-          let color = TV.inactive;
-          let borderLeft = "4px solid transparent";
-          if (active) { bg = TV.orange; color = TV.white; borderLeft = `4px solid ${TV.white}`; }
-          return (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
+        <div style={{ paddingTop: 0 }}>
+          {VAULT_TABS.map((tab) => {
+            const active = tab === activeTab;
+            return (
+              <button
+                key={tab}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setSidebarOpen(false);
+                }}
+                style={{
+                  display: "block",
+                  width: "100%",
+                  textAlign: "left",
+                  padding: "14px 20px",
+                  background: active ? TV.orange : "transparent",
+                  color: active ? TV.white : TV.inactive,
+                  fontFamily: BARLOW,
+                  fontWeight: 600,
+                  fontSize: 14,
+                  letterSpacing: "1.5px",
+                  textTransform: "uppercase",
+                  border: "none",
+                  borderLeft: active ? `4px solid ${TV.white}` : "4px solid transparent",
+                  cursor: "pointer",
+                  transition: "background 0.12s, color 0.12s",
+                }}
+              >
+                {tab}
+              </button>
+            );
+          })}
+        </div>
+      </aside>
+    </>
+  );
+
+  return (
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Mobile top bar */}
+      {isMobile && (
+        <div
+          style={{
+            background: TV.charcoal,
+            borderBottom: `1px solid ${TV.border}`,
+            borderTop: `3px solid ${TV.orange}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "12px 16px",
+            position: "sticky",
+            top: 68,
+            zIndex: 40,
+          }}
+        >
+          <span
+            style={{
+              fontFamily: BARLOW,
+              fontWeight: 800,
+              fontSize: 22,
+              color: TV.orange,
+              letterSpacing: "3px",
+              textTransform: "uppercase",
+            }}
+          >
+            VAULT
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <span
               style={{
-                display: "block", width: "100%", textAlign: "left",
-                padding: "14px 28px",
-                background: bg,
-                color,
                 fontFamily: BARLOW,
-                fontWeight: 600,
-                fontSize: 15,
-                letterSpacing: "1.5px",
+                fontSize: 13,
+                color: TV.inactive,
+                letterSpacing: "1px",
                 textTransform: "uppercase",
-                border: "none",
-                borderLeft,
-                borderRadius: 0,
-                cursor: "pointer",
-                transition: "background 0.12s, color 0.12s",
+                maxWidth: 160,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
               }}
             >
-              {tab}
+              {activeTab}
+            </span>
+            <button
+              onClick={() => setSidebarOpen(true)}
+              style={{
+                background: "transparent",
+                border: `1px solid ${TV.border}`,
+                color: TV.white,
+                cursor: "pointer",
+                padding: "6px 10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 4,
+                borderRadius: 2,
+              }}
+              aria-label="Open menu"
+            >
+              <span style={{ display: "block", width: 18, height: 2, background: TV.orange }} />
+              <span style={{ display: "block", width: 18, height: 2, background: TV.orange }} />
+              <span style={{ display: "block", width: 18, height: 2, background: TV.orange }} />
             </button>
-          );
-        })}
-      </aside>
+          </div>
+        </div>
+      )}
 
-      {/* Content */}
-      <main style={{ flex: 1, padding: "36px 44px", overflowY: "auto", background: "var(--off-white)", minHeight: "100vh" }}>
-        {activeTab === "ASSIST MAGAZINE" && <AssistMagazineContent />}
-        {activeTab === "MIC'D UP" && <MicDUpContent />}
-        {activeTab === "TOUGH CALLS" && <ToughCallsContent />}
-        {activeTab === "QUIZ" && <QuizContent />}
-        {activeTab === "RULEBOOKS" && <RulebooksContent />}
-        {activeTab === "BOOKS" && <BooksContent />}
-        {activeTab === "DOCUMENTARIES" && <DocumentariesContent />}
-        {activeTab === "ARTICLES" && <ArticlesContent />}
-        {activeTab === "TOOLS" && <ToolsContent />}
-      </main>
+      {/* Render mobile drawer via portal */}
+      {isMobile && typeof document !== "undefined" && createPortal(drawerContent, document.body)}
+
+      {/* Body with Desktop Sidebar + Main Content */}
+      <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
+        {!isMobile && (
+          <aside
+            style={{
+              width: 200,
+              background: TV.charcoal,
+              flexShrink: 0,
+              display: "flex",
+              flexDirection: "column",
+              borderRight: `1px solid ${TV.border}`,
+              position: "sticky",
+              top: 52,
+              height: "calc(100vh - 52px)",
+              alignSelf: "flex-start",
+              overflowY: "auto",
+            }}
+          >
+            <div style={{ padding: "40px 28px 16px", borderBottom: `1px solid ${TV.border}` }}>
+              <span
+                style={{
+                  fontFamily: BARLOW,
+                  fontWeight: 800,
+                  fontSize: 28,
+                  color: TV.orange,
+                  letterSpacing: "3px",
+                  textTransform: "uppercase",
+                }}
+              >
+                VAULT
+              </span>
+            </div>
+            {VAULT_TABS.map((tab) => {
+              const active = tab === activeTab;
+              let bg = "transparent";
+              let color = TV.inactive;
+              let borderLeft = "4px solid transparent";
+              if (active) {
+                bg = TV.orange;
+                color = TV.white;
+                borderLeft = `4px solid ${TV.white}`;
+              }
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    padding: "14px 28px",
+                    background: bg,
+                    color,
+                    fontFamily: BARLOW,
+                    fontWeight: 600,
+                    fontSize: 15,
+                    letterSpacing: "1.5px",
+                    textTransform: "uppercase",
+                    border: "none",
+                    borderLeft,
+                    borderRadius: 0,
+                    cursor: "pointer",
+                    transition: "background 0.12s, color 0.12s",
+                  }}
+                >
+                  {tab}
+                </button>
+              );
+            })}
+          </aside>
+        )}
+
+        {/* Content */}
+        <main
+          ref={mainRef}
+          style={{
+            flex: 1,
+            padding: isMobile ? "24px 16px" : isTablet ? "28px 32px" : "36px 44px",
+            overflowY: "auto",
+            background: "var(--off-white)",
+            minHeight: "100vh",
+            boxSizing: "border-box",
+          }}
+        >
+          {activeTab === "ASSIST MAGAZINE" && <AssistMagazineContent />}
+          {activeTab === "MIC'D UP" && <MicDUpContent />}
+          {activeTab === "TOUGH CALLS" && <ToughCallsContent />}
+          {activeTab === "QUIZ" && <QuizContent />}
+          {activeTab === "RULEBOOKS" && <RulebooksContent />}
+          {activeTab === "BOOKS" && <BooksContent />}
+          {activeTab === "DOCUMENTARIES" && <DocumentariesContent />}
+          {activeTab === "ARTICLES" && <ArticlesContent />}
+          {activeTab === "TOOLS" && <ToolsContent />}
+        </main>
+      </div>
     </div>
   );
 }

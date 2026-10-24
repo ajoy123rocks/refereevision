@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
 
@@ -2207,6 +2207,8 @@ export default function Coaches() {
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const width = useWindowWidth();
+  const mainRef = useRef<HTMLElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (tabParam && TABS.includes(tabParam as Tab)) {
@@ -2214,9 +2216,13 @@ export default function Coaches() {
     }
   }, [tabParam]);
 
-  // Scroll to top whenever tab changes
+  // Scroll to top whenever tab changes (works on both mobile and desktop)
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if (mainRef.current) mainRef.current.scrollTop = 0;
+    if (topRef.current) topRef.current.scrollIntoView({ block: "start" });
   }, [activeTab]);
 
   const isMobile = width < 640;
@@ -2337,6 +2343,8 @@ export default function Coaches() {
 
         {/* Main content */}
         <main
+          ref={mainRef}
+          key={activeTab}
           style={{
             flex: 1,
             background: "var(--off-white)",
@@ -2353,6 +2361,7 @@ export default function Coaches() {
             overflowX: "hidden",
           }}
         >
+          <div ref={topRef} style={{ height: 0, overflow: "hidden" }} />
           {/* Main page content area */}
           <div style={{ flex: 1 }}>
             {activeTab === "CURRICULUM" ? (

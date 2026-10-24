@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import SiteHeader from "./app/components/SiteHeader.tsx";
 import SiteFooter from "./app/components/SiteFooter.tsx";
+import ScrollToTopButton from "./app/components/ScrollToTopButton.tsx";
 import Home from "./app/pages/Home.tsx";
 import Referees from "./app/pages/Referees.tsx";
 import Books from "./app/pages/Books.tsx";
@@ -17,7 +18,9 @@ function ScrollToTop() {
   const { pathname, search } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [pathname, search]);
 
   return null;
@@ -41,5 +44,6 @@ createRoot(document.getElementById("root")!).render(
       </main>
       <SiteFooter />
     </div>
+    <ScrollToTopButton />
   </BrowserRouter>
 );
