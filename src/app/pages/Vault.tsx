@@ -848,7 +848,7 @@ const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> 
   ],
 };
 
-function RulebooksContent() {
+function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
   const [subTab, setSubTab] = useState<RulebookSubTab>("RULES");
   const items = RULEBOOKS_DATA[subTab] ?? [];
 
@@ -856,8 +856,17 @@ function RulebooksContent() {
     <div>
       <VaultBadge label="RULEBOOKS" />
 
-      {/* Subtabs horizontal bar */}
-      <div style={{ display: "flex", borderBottom: `2px solid ${TV.orange}`, marginBottom: 28, background: TV.charcoal }}>
+      {/* Subtabs horizontal bar - flex-wrap and responsive minWidth */}
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          borderBottom: `2px solid ${TV.orange}`,
+          marginBottom: 32,
+          background: TV.charcoal,
+          border: `1px solid ${TV.border}`,
+        }}
+      >
         {RULEBOOK_SUBTABS.map(tab => {
           const active = tab === subTab;
           return (
@@ -865,19 +874,21 @@ function RulebooksContent() {
               key={tab}
               onClick={() => setSubTab(tab)}
               style={{
-                flex: 1,
-                padding: "12px 6px",
+                flex: "1 1 auto",
+                minWidth: isMobile ? 80 : 120,
+                padding: isMobile ? "10px 8px" : "12px 14px",
                 background: active ? TV.orange : "transparent",
                 color: active ? TV.white : TV.inactive,
                 fontFamily: BARLOW,
                 fontWeight: 700,
-                fontSize: 13,
-                letterSpacing: "1px",
+                fontSize: isMobile ? 12 : 14,
+                letterSpacing: "1.2px",
                 textTransform: "uppercase",
                 border: "none",
                 cursor: "pointer",
                 transition: "background 0.15s, color 0.15s",
                 textAlign: "center",
+                whiteSpace: "nowrap",
               }}
             >
               {tab}
@@ -885,8 +896,6 @@ function RulebooksContent() {
           );
         })}
       </div>
-
-      <VaultBadge label={subTab} />
 
       {/* Item list */}
       <div style={{ display: "flex", flexDirection: "column" }}>
@@ -1793,7 +1802,7 @@ export default function Vault() {
           {activeTab === "MIC'D UP" && <MicDUpContent />}
           {activeTab === "TOUGH CALLS" && <ToughCallsContent />}
           {activeTab === "QUIZ" && <QuizContent />}
-          {activeTab === "RULEBOOKS" && <RulebooksContent />}
+          {activeTab === "RULEBOOKS" && <RulebooksContent isMobile={isMobile} />}
           {activeTab === "BOOKS" && <BooksContent />}
           {activeTab === "DOCUMENTARIES" && <DocumentariesContent />}
           {activeTab === "ARTICLES" && <ArticlesContent />}
