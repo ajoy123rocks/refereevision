@@ -50,17 +50,17 @@ export default function SiteHeader() {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
-      {/* TOP HEADER */}
+      {/* TOP HEADER - Matches Reference Layout Exactly */}
       <header
-        style={{ backgroundColor: 'var(--black)', zIndex: 9999 }}
-        className="md:sticky md:top-0 md:z-[9999] md:h-[100px] px-4 md:px-8 py-3.5 md:py-0 flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0"
+        style={{ backgroundColor: 'var(--black)' }}
+        className="w-full px-5 md:px-12 pt-5 md:pt-7 pb-5 md:pb-6 flex flex-col justify-start items-start"
       >
-        {/* Row 1 on mobile: Logo + Title + Subtitle */}
-        <Link to="/" className="flex items-center gap-3 md:gap-4 shrink-0">
+        {/* ROW 1: Logo + REFEREE VISION + Cursive Subtitle */}
+        <Link to="/" className="flex items-center gap-3.5 md:gap-5 group">
           <img
             src={logoImage}
             alt="Referee Vision Logo"
-            className="h-[46px] md:h-[65px] w-auto shrink-0"
+            className="h-[52px] md:h-[78px] w-auto shrink-0 shadow-sm"
           />
           <div className="flex flex-col text-left">
             <h1
@@ -69,88 +69,93 @@ export default function SiteHeader() {
                 fontWeight: 800,
                 letterSpacing: '-0.5px',
               }}
-              className="text-[26px] md:text-[36px] text-white uppercase leading-none"
+              className="text-[28px] md:text-[46px] text-white uppercase leading-none font-black"
             >
               REFEREE VISION
             </h1>
             <p
-              style={{ fontFamily: "'North Wave', sans-serif" }}
-              className="text-[13px] md:text-[15px] text-[#AAAAAA] mt-0.5 md:mt-0"
+              style={{ fontFamily: "'North Wave', cursive, sans-serif" }}
+              className="text-[13px] md:text-[18px] text-[#888888] md:text-[#999999] tracking-wide mt-1 leading-none"
             >
               One  Stop  To  "Rule"  Them  All
             </p>
           </div>
         </Link>
 
-        {/* Row 2 on mobile / Right section on desktop: SEARCH Button + Divider + Social Icons */}
-        <div className="flex items-center gap-3 md:gap-5 shrink-0 w-full md:w-auto justify-start md:justify-end">
+        {/* ROW 2: [ 🔍 SEARCH ] + Divider + Social Icons */}
+        <div className="flex items-center gap-4 md:gap-6 mt-4 md:mt-5">
           {/* SEARCH Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-1.5 rounded-[4px] border border-[var(--orange)] bg-transparent hover:bg-[var(--orange)] text-[var(--orange)] hover:text-white transition-all duration-200 cursor-pointer shadow-sm group shrink-0"
-            style={{
-              fontFamily: "'Barlow Condensed', sans-serif",
-              fontWeight: 700,
-              letterSpacing: '1.5px',
-              fontSize: '13px',
-              textTransform: 'uppercase',
-            }}
+            className="flex items-center gap-2 md:gap-2.5 px-4 md:px-6 py-1.5 md:py-2 rounded-[8px] md:rounded-[10px] border-2 border-[var(--orange)] bg-transparent hover:bg-[var(--orange)] text-[var(--orange)] hover:text-white transition-all duration-200 cursor-pointer shadow-sm group"
             title="Search site (Cmd+K)"
             aria-label="Search site"
           >
-            <Search className="w-3.5 h-3.5 md:w-4 md:h-4 transition-transform group-hover:scale-110 shrink-0" />
-            <span>SEARCH</span>
-            <span className="hidden sm:inline-block text-[10px] ml-0.5 px-1.5 py-0.5 rounded bg-[#222222] text-[#AAAAAA] group-hover:bg-black/30 group-hover:text-white transition-colors font-mono border border-[#333333]">
-              ⌘K
+            <Search
+              className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110 shrink-0 text-[var(--orange)] group-hover:text-white"
+              strokeWidth={2.5}
+            />
+            <span
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                letterSpacing: '1px',
+              }}
+              className="text-[13px] md:text-[16px] uppercase leading-none text-[var(--orange)] group-hover:text-white"
+            >
+              SEARCH
             </span>
           </button>
 
-          {/* Social Icons with vertical divider */}
-          <div className="flex items-center gap-3.5 md:gap-5 pl-3 md:pl-4 border-l border-[#262626] shrink-0">
+          {/* Vertical Divider */}
+          <div className="h-6 md:h-7 w-[1px] bg-[#333333] shrink-0" />
+
+          {/* Social Media Icons */}
+          <div className="flex items-center gap-3.5 md:gap-6 shrink-0">
             <a
               href="https://www.youtube.com/@refereevision5209"
               target="_blank"
               rel="noopener noreferrer"
               title="YouTube"
-              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center"
+              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Youtube className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+              <Youtube className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
             </a>
             <a
               href="https://www.facebook.com/people/Referee-Vision/61577189406633/"
               target="_blank"
               rel="noopener noreferrer"
               title="Facebook"
-              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center"
+              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Facebook className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+              <Facebook className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
             </a>
             <a
               href="https://www.instagram.com/refereevision/"
               target="_blank"
               rel="noopener noreferrer"
               title="Instagram"
-              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center"
+              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Instagram className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+              <Instagram className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
             </a>
             <a
               href="https://x.com/refereevision/"
               target="_blank"
               rel="noopener noreferrer"
               title="X (Twitter)"
-              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center"
+              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Twitter className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+              <Twitter className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
             </a>
             <a
               href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05"
               target="_blank"
               rel="noopener noreferrer"
               title="WhatsApp"
-              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center"
+              className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <MessageCircle className="w-[18px] h-[18px] md:w-[20px] md:h-[20px]" />
+              <MessageCircle className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
             </a>
           </div>
         </div>
@@ -159,9 +164,9 @@ export default function SiteHeader() {
       {/* NAVIGATION BAR */}
       <nav
         style={{ backgroundColor: 'var(--charcoal)', zIndex: 9998 }}
-        className="sticky top-0 md:top-[100px] z-[9998] w-full border-t border-b border-[#2A2A2A] shadow-md"
+        className="sticky top-0 z-[9998] w-full border-t border-b border-[#2A2A2A] shadow-md"
       >
-        {/* Mobile View: 2 equal rows that fit 100% of mobile screen width without overflow */}
+        {/* Mobile View: 2 equal rows fitting 100% mobile screen width */}
         <div className="md:hidden w-full flex flex-col">
           {/* Row 1: ABOUT, REFEREES, BOOKS, VIDEOS */}
           <div className="grid grid-cols-4 w-full border-b border-[#2A2A2A]">
@@ -227,7 +232,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Desktop View: Single horizontal row with gap */}
-        <div className="hidden md:flex items-center h-[52px] px-8 gap-8">
+        <div className="hidden md:flex items-center h-[52px] px-8 md:px-12 gap-8">
           {ALL_NAV_LINKS.map((item) => {
             const active = isLinkActive(item);
             return (
