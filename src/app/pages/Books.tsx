@@ -75,19 +75,19 @@ const CURRICULUM_DOCS = [
 
 const FIVE_ON_FIVE_DOCS = [
   {
-    label: "OFFICIAL BASKETBALL RULES",
-    version: "Version 1.0 - Valid as of 15 October 2024",
-    link: "https://library.fibairef.basketball/images/documents/f667de451e91e3b83f2ab049a34d957b/FIBAOfficialBasketballRules2024_v1_0a.pdf",
+    label: "OFFICIAL BASKETBALL RULES 2026",
+    version: "Version 1.1 - Valid as of 1st October 2026",
+    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-v1-1.pdf",
   },
   {
     label: "OFFICIAL INTERPRETATIONS",
-    version: "Version 1.0 - Valid as of 1 October 2024",
-    link: "https://library.fibairef.basketball/images/documents/e2ca4b954785b6723533f88ad6f32bd4/FIBAOfficialInterpretations2024_v1_0a_yellow_.pdf",
+    version: "Version 1.0 - Valid as of 1st October 2026",
+    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-interpretations-v1-0.pdf",
   },
   {
-    label: "OFFICIAL BASKETBALL RULE CHANGES 2024",
-    version: "Version 2.0 - Valid as of 15 October 2024",
-    link: "https://library.fibairef.basketball/cdn/OBR_Changes2024",
+    label: "OFFICIAL BASKETBALL RULE CHANGES 2026",
+    version: "Version 1.1 - Valid as of 1st July 2026",
+    link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-official-rules-2026-rule-changes-v1-1-en.pdf",
   },
   {
     label: "FIBA MANUAL FOR TABLE OFFICIALS",
