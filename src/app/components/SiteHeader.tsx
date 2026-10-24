@@ -163,8 +163,8 @@ export default function SiteHeader() {
 
       {/* NAVIGATION BAR */}
       <nav
-        style={{ backgroundColor: 'var(--charcoal)', zIndex: 9998 }}
-        className="sticky top-0 z-[9998] w-full border-t border-b border-[#2A2A2A] shadow-md"
+        style={{ backgroundColor: 'var(--charcoal)', zIndex: 40 }}
+        className="sticky top-0 z-40 w-full border-t border-b border-[#2A2A2A] shadow-md"
       >
         {/* Mobile View: 2 equal rows fitting 100% mobile screen width */}
         <div className="md:hidden w-full flex flex-col">

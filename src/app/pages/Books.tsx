@@ -359,7 +359,7 @@ function Sidebar({
   isMobile: boolean;
 }) {
   if (isMobile) {
-    return (
+    const drawerContent = (
       <>
         {/* Backdrop */}
         {open && (
@@ -368,8 +368,8 @@ function Sidebar({
             style={{
               position: "fixed",
               inset: 0,
-              background: "rgba(0,0,0,0.6)",
-              zIndex: 200,
+              background: "rgba(0,0,0,0.65)",
+              zIndex: 99998,
               backdropFilter: "blur(2px)",
             }}
           />
@@ -384,13 +384,13 @@ function Sidebar({
             height: "100vh",
             background: T.charcoal,
             borderRight: `1px solid ${T.border}`,
-            zIndex: 300,
+            zIndex: 99999,
             display: "flex",
             flexDirection: "column",
             overflowY: "auto",
             transform: open ? "translateX(0)" : "translateX(-100%)",
             transition: "transform 0.28s cubic-bezier(0.4,0,0.2,1)",
-            boxShadow: open ? "4px 0 24px rgba(0,0,0,0.5)" : "none",
+            boxShadow: open ? "4px 0 24px rgba(0,0,0,0.7)" : "none",
           }}
         >
           {/* Header with close */}
@@ -446,6 +446,8 @@ function Sidebar({
         </aside>
       </>
     );
+
+    return typeof document !== "undefined" ? createPortal(drawerContent, document.body) : drawerContent;
   }
 
   // Desktop sidebar
