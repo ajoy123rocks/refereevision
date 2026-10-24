@@ -1514,20 +1514,12 @@ export default function Vault() {
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const width = useWindowWidth();
-  const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (tabParam && VAULT_TABS.includes(tabParam as VaultTab)) {
       setActiveTab(tabParam as VaultTab);
     }
   }, [tabParam]);
-
-  // Scroll to top whenever tab changes (works on both mobile and desktop)
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
-    document.documentElement.scrollTop = 0;
-    if (mainRef.current) mainRef.current.scrollTop = 0;
-  }, [activeTab]);
 
   const isMobile = width < 640;
   const isTablet = width < 1024;
@@ -1538,7 +1530,7 @@ export default function Vault() {
 
   const drawerContent = isMobile && (
     <>
-      {open && sidebarOpen && (
+      {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
           style={{
@@ -1788,7 +1780,6 @@ export default function Vault() {
 
         {/* Content */}
         <main
-          ref={mainRef}
           style={{
             flex: 1,
             padding: isMobile ? "24px 16px" : isTablet ? "28px 32px" : "36px 44px",

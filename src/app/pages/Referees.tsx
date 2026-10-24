@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
 
@@ -1872,19 +1872,6 @@ export default function Referees() {
     }
   }, [tabParam]);
 
-  const mainRef = useRef<HTMLElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
-
-  // Scroll to top whenever tab changes (works on both mobile and desktop)
-  useEffect(() => {
-    // Scroll all possible containers
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    if (mainRef.current) mainRef.current.scrollTop = 0;
-    if (topRef.current) topRef.current.scrollIntoView({ block: "start" });
-  }, [activeTab]);
-
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
@@ -1982,8 +1969,6 @@ export default function Referees() {
 
         {/* Main content */}
         <main
-          ref={mainRef}
-          key={activeTab}
           style={{
             flex: 1,
             background: "var(--off-white)",
@@ -1993,7 +1978,6 @@ export default function Referees() {
             overflowX: "hidden",
           }}
         >
-          <div ref={topRef} style={{ height: 0, overflow: "hidden" }} />
           {activeTab === "MECHANICS" ? (
             <MechanicsContent isMobile={isMobile} />
           ) : activeTab === "DUTIES" ? (

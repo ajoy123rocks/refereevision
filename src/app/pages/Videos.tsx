@@ -6674,23 +6674,12 @@ export default function Videos() {
   });
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const width = useWindowWidth();
-  const mainRef = useRef<HTMLElement>(null);
-  const topRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (tabParam && TABS.includes(tabParam as Tab)) {
       setActiveTab(tabParam as Tab);
     }
   }, [tabParam]);
-
-  // Scroll to top whenever tab changes (works on both mobile and desktop)
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-    if (mainRef.current) mainRef.current.scrollTop = 0;
-    if (topRef.current) topRef.current.scrollIntoView({ block: "start" });
-  }, [activeTab]);
 
   const isMobile = width < 640;
   const isTablet = width < 1024;
@@ -6743,8 +6732,6 @@ export default function Videos() {
 
         {/* Main content */}
         <main
-          ref={mainRef}
-          key={activeTab}
           style={{
             flex: 1,
             background: "var(--off-white)",
@@ -6757,7 +6744,6 @@ export default function Videos() {
             overflowX: "hidden",
           }}
         >
-          <div ref={topRef} style={{ height: 0, overflow: "hidden" }} />
           <div style={{ flex: 1 }}>
             {activeTab === "TABLE OFFICIALS" ? (
               <TableOfficialsContent isMobile={isMobile} />
