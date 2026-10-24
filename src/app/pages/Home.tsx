@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* HERO */}
-      <section style={{ backgroundColor: 'var(--black)' }} className="relative min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section style={{ backgroundColor: 'var(--black)' }} className="relative min-h-[480px] md:min-h-[600px] py-10 md:py-0 flex items-center justify-center overflow-hidden">
         {/* Basketball Court SVG Background */}
         <svg
           className="absolute inset-0 w-full h-full"
@@ -254,22 +254,20 @@ export default function Home() {
         </svg>
         {/* Hero Content */}
         <div className="relative z-10 text-center px-4">
-
-
-          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, letterSpacing: '-1px' }}
-            className="text-[52px] md:text-[96px] text-white uppercase leading-[1.0] mb-5">
+          <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800, letterSpacing: '-0.5px' }}
+            className="text-[40px] sm:text-[56px] md:text-[96px] text-white uppercase leading-[0.98] mb-3 md:mb-5">
             EVERY WHISTLE STARTS HERE
           </h2>
 
           <p style={{ fontFamily: "'DM Sans', sans-serif" }}
-            className="text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto mb-8">
+            className="text-[14px] sm:text-[16px] md:text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto mb-6 md:mb-8 px-2">
             The definitive platform for basketball referees to sharpen their officiating edge
           </p>
 
           <button
             onClick={scrollToResources}
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '3px', backgroundColor: 'var(--orange)' }}
-            className="px-10 py-4 text-white uppercase text-[14px] hover:opacity-90 transition-opacity">
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2.5px', backgroundColor: 'var(--orange)' }}
+            className="px-7 py-3 md:px-10 md:py-4 text-white uppercase text-[13px] md:text-[14px] hover:opacity-90 transition-opacity cursor-pointer shadow-md">
             EXPLORE RESOURCES
           </button>
         </div>
