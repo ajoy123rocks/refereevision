@@ -163,13 +163,13 @@ export default function SiteHeader() {
 
       {/* NAVIGATION BAR */}
       <nav
-        style={{ backgroundColor: 'var(--charcoal)', zIndex: 40 }}
-        className="sticky top-0 z-40 w-full border-t border-b border-[#2A2A2A] shadow-md"
+        style={{ backgroundColor: 'var(--charcoal)', zIndex: 50 }}
+        className="sticky top-0 z-50 w-full border-t border-b border-[#2A2A2A] shadow-md"
       >
-        {/* Mobile View: 2 equal rows fitting 100% mobile screen width */}
-        <div className="md:hidden w-full flex flex-col">
+        {/* Mobile View: 2 equal rows fitting 100% mobile screen width (total 68px height) */}
+        <div className="md:hidden w-full flex flex-col h-[68px]">
           {/* Row 1: ABOUT, REFEREES, BOOKS, VIDEOS */}
-          <div className="grid grid-cols-4 w-full border-b border-[#2A2A2A]">
+          <div className="grid grid-cols-4 w-full border-b border-[#2A2A2A] h-[34px]">
             {NAV_ROW_1.map((item) => {
               const active = isLinkActive(item);
               return (
@@ -181,7 +181,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`py-2 px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
+                  className={`h-full px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
                     active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'
@@ -200,7 +200,7 @@ export default function SiteHeader() {
           </div>
 
           {/* Row 2: WEBINARS, COACHES, VAULT */}
-          <div className="grid grid-cols-3 w-full">
+          <div className="grid grid-cols-3 w-full h-[34px]">
             {NAV_ROW_2.map((item) => {
               const active = isLinkActive(item);
               return (
@@ -212,7 +212,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`py-2 px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
+                  className={`h-full px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
                     active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'

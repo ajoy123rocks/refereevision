@@ -1,6 +1,7 @@
 
 import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import SiteHeader from "./app/components/SiteHeader.tsx";
 import SiteFooter from "./app/components/SiteFooter.tsx";
 import Home from "./app/pages/Home.tsx";
@@ -12,8 +13,19 @@ import Coaches from "./app/pages/Coaches.tsx";
 import Vault from "./app/pages/Vault.tsx";
 import "./styles/index.css";
 
+function ScrollToTop() {
+  const { pathname, search } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [pathname, search]);
+
+  return null;
+}
+
 createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
+    <ScrollToTop />
     <div className="flex flex-col min-h-screen">
       <SiteHeader />
       <main className="flex-grow">

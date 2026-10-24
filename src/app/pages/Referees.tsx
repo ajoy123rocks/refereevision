@@ -245,8 +245,8 @@ function Sidebar({
         background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
         position: "sticky",
-        top: 152,
-        height: "calc(100vh - 152px)",
+        top: 52,
+        height: "calc(100vh - 52px)",
         alignSelf: "flex-start",
         overflowY: "auto",
         display: "flex",
@@ -1872,6 +1872,11 @@ export default function Referees() {
     }
   }, [tabParam]);
 
+  // Scroll to top whenever tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab]);
+
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
@@ -1902,8 +1907,8 @@ export default function Referees() {
             justifyContent: "space-between",
             padding: "12px 16px",
             position: "sticky",
-            top: 0,
-            zIndex: 100,
+            top: 68,
+            zIndex: 40,
           }}
         >
           <span

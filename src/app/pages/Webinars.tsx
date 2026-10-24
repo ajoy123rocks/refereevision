@@ -276,7 +276,7 @@ function Sidebar({
       style={{
         width: 240, flexShrink: 0, background: T.charcoal,
         borderRight: `1px solid ${T.border}`,
-        position: "sticky", top: 152, height: "calc(100vh - 152px)", alignSelf: "flex-start", overflowY: "auto",
+        position: "sticky", top: 52, height: "calc(100vh - 52px)", alignSelf: "flex-start", overflowY: "auto",
         display: "flex", flexDirection: "column",
       }}
     >
@@ -610,6 +610,11 @@ export default function Webinars() {
     }
   }, [tabParam]);
 
+  // Scroll to top whenever tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [activeTab]);
+
   const openPopup = (url: string, title: string) => setVideoModal({ url, title });
   const closePopup = () => setVideoModal(null);
 
@@ -628,7 +633,7 @@ export default function Webinars() {
           style={{
             background: T.charcoal, borderBottom: `1px solid ${T.border}`, borderTop: `3px solid ${T.orange}`,
             display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: "12px 16px", position: "sticky", top: 52, zIndex: 100,
+            padding: "12px 16px", position: "sticky", top: 68, zIndex: 40,
           }}
         >
           <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 22, color: T.orange, letterSpacing: "3px", textTransform: "uppercase" }}>WEBINARS</span>
