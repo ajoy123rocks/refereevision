@@ -17,3 +17,20 @@
     margin: 18px 0 14px !important;
   }
 }
+
+/* Video thumbnail & play icon size on Desktop */
+@media (min-width: 768px) {
+  .video-thumb-card {
+    width: 110px !important;
+  }
+
+  .video-thumb-play-btn {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .video-thumb-play-btn svg {
+    width: 10px !important;
+    height: 12px !important;
+  }
+}

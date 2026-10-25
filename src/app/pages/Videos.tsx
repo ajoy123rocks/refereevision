@@ -369,6 +369,7 @@ function VideoThumb({ index, link, onPlay, thumbnail: customThumbnail }: { index
 
   return (
     <div
+      className="video-thumb-card"
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
       onClick={onPlay}
@@ -405,6 +406,7 @@ function VideoThumb({ index, link, onPlay, thumbnail: customThumbnail }: { index
         />
       )}
       <div
+        className="video-thumb-play-btn"
         style={{
           width: 24,
           height: 24,
@@ -982,6 +984,7 @@ function VideoCard({ index, activeColor = T.orange }: { index: number; activeCol
   const shades = ["#1A2416", "#16201A", "#1E1A16", "#161E20", "#1A161E", "#1E1E16"];
   return (
     <div
+      className="video-thumb-card"
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
       style={{
@@ -1000,6 +1003,7 @@ function VideoCard({ index, activeColor = T.orange }: { index: number; activeCol
       }}
     >
       <div
+        className="video-thumb-play-btn"
         style={{
           width: 24,
           height: 24,

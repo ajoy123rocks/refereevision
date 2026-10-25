@@ -801,6 +801,7 @@ function VideoThumb({
 
       {/* Play button */}
       <div
+        className="video-thumb-play-btn"
         style={{
           width: 32,
           height: 32,
@@ -1482,6 +1483,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
           NBA REFEREE FITNESS
         </div>
         <div
+          className="video-thumb-card"
           onMouseEnter={hNba.onMouseEnter}
           onMouseLeave={hNba.onMouseLeave}
           onClick={() => setActiveVideo("https://youtu.be/ZN4LpKA_ym4")}
@@ -1524,6 +1526,7 @@ function WarmUpExercisesContent({ isMobile, isTablet }: { isMobile: boolean; isT
             <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
           </svg>
           <div
+            className="video-thumb-play-btn"
             style={{
               width: 24,
               height: 24,
