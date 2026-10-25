@@ -488,22 +488,24 @@ function WebinarRow({
         {item.title}
       </div>
 
-      {/* Column 2: Presenter */}
-      <div
-        style={{
-          padding: isMobile ? "12px 16px" : "16px 20px",
-          fontFamily: DM,
-          fontSize: 13,
-          color: T.orange,
-          borderRight: isMobile ? "none" : `1px solid ${T.orange}`,
-          borderBottom: isMobile ? `1px solid ${T.orange}` : "none",
-          display: "flex",
-          alignItems: "center",
-          whiteSpace: "pre-line",
-        }}
-      >
-        {item.presenter || ""}
-      </div>
+      {/* Column 2: Presenter (only render if presenter exists, or render empty cell on desktop) */}
+      {(!isMobile || Boolean(item.presenter)) && (
+        <div
+          style={{
+            padding: isMobile ? "12px 16px" : "16px 20px",
+            fontFamily: DM,
+            fontSize: 13,
+            color: T.orange,
+            borderRight: isMobile ? "none" : `1px solid ${T.orange}`,
+            borderBottom: isMobile ? `1px solid ${T.orange}` : "none",
+            display: "flex",
+            alignItems: "center",
+            whiteSpace: "pre-line",
+          }}
+        >
+          {item.presenter || ""}
+        </div>
+      )}
 
       {/* Column 3: Action */}
       <div
