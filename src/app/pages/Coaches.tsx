@@ -301,6 +301,7 @@ function SectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
+        className="section-badge-pill"
         style={{
           background: T.orange,
           color: "var(--off-white)",
@@ -527,6 +528,7 @@ function DrillSectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
       <div
+        className="sub-section-badge-pill"
         style={{
           border: `2px solid ${T.orange}`,
           background: "transparent",

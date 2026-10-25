@@ -324,7 +324,7 @@ function VaultModal({ url, onClose }: { url: string; onClose: () => void }) {
 function VaultBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center", marginBottom: 32 }}>
-      <div style={{ background: TV.orange, color: TV.offWhite, fontFamily: BARLOW, fontWeight: 800, fontSize: 22, letterSpacing: "3px", textTransform: "uppercase", padding: "10px 40px", borderRadius: 0 }}>
+      <div className="section-badge-pill" style={{ background: TV.orange, color: TV.offWhite, fontFamily: BARLOW, fontWeight: 800, fontSize: 22, letterSpacing: "3px", textTransform: "uppercase", padding: "10px 40px", borderRadius: 0 }}>
         {label}
       </div>
     </div>

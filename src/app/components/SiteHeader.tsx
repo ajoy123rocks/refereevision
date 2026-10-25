@@ -50,17 +50,17 @@ export default function SiteHeader() {
     <>
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
 
-      {/* TOP HEADER - Centered in Page */}
+      {/* TOP HEADER - Desktop: Left logo, Right socials/search (matches reference image). Mobile: Centered column */}
       <header
         style={{ backgroundColor: 'var(--black)' }}
-        className="w-full px-5 md:px-12 pt-5 md:pt-7 pb-5 md:pb-6 flex flex-col justify-center items-center text-center"
+        className="w-full px-5 md:px-12 py-4 md:py-0 md:h-[90px] flex flex-col md:flex-row justify-center md:justify-between items-center"
       >
-        {/* ROW 1: Logo + REFEREE VISION + Cursive Subtitle */}
-        <Link to="/" className="flex items-center justify-center gap-3.5 md:gap-5 group">
+        {/* LEFT ZONE: Logo + REFEREE VISION + Cursive Subtitle */}
+        <Link to="/" className="flex items-center justify-center md:justify-start gap-3.5 md:gap-4 group shrink-0">
           <img
             src={logoImage}
             alt="Referee Vision Logo"
-            className="h-[52px] md:h-[78px] w-auto shrink-0 shadow-sm"
+            className="h-[52px] md:h-[68px] w-auto shrink-0 shadow-sm"
           />
           <div className="flex flex-col text-left">
             <h1
@@ -69,30 +69,30 @@ export default function SiteHeader() {
                 fontWeight: 800,
                 letterSpacing: '-0.5px',
               }}
-              className="text-[28px] md:text-[46px] text-white uppercase leading-none font-black"
+              className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black"
             >
               REFEREE VISION
             </h1>
             <p
               style={{ fontFamily: "'North Wave', cursive, sans-serif" }}
-              className="text-[13px] md:text-[18px] text-[#888888] md:text-[#999999] tracking-wide mt-1 leading-none"
+              className="text-[13px] md:text-[15px] text-[#888888] md:text-[#999999] tracking-wide mt-1 leading-none"
             >
               One  Stop  To  "Rule"  Them  All
             </p>
           </div>
         </Link>
 
-        {/* ROW 2: [ 🔍 SEARCH ] + Divider + Social Icons (Centered) */}
-        <div className="flex items-center justify-center gap-4 md:gap-6 mt-4 md:mt-5">
+        {/* RIGHT ZONE: [ 🔍 SEARCH ] + Divider + Social Icons */}
+        <div className="flex items-center justify-center md:justify-end gap-4 md:gap-5 mt-4 md:mt-0 shrink-0">
           {/* SEARCH Button */}
           <button
             onClick={() => setIsSearchOpen(true)}
-            className="flex items-center gap-2 md:gap-2.5 px-4 md:px-6 py-1.5 md:py-2 rounded-[8px] md:rounded-[10px] border-2 border-[var(--orange)] bg-transparent hover:bg-[var(--orange)] text-[var(--orange)] hover:text-white transition-all duration-200 cursor-pointer shadow-sm group"
+            className="flex items-center gap-2 px-3.5 md:px-4 py-1.5 md:py-2 rounded-[8px] border-2 border-[var(--orange)] bg-transparent hover:bg-[var(--orange)] text-[var(--orange)] hover:text-white transition-all duration-200 cursor-pointer shadow-sm group"
             title="Search site (Cmd+K)"
             aria-label="Search site"
           >
             <Search
-              className="w-4 h-4 md:w-5 md:h-5 transition-transform group-hover:scale-110 shrink-0 text-[var(--orange)] group-hover:text-white"
+              className="w-4 h-4 transition-transform group-hover:scale-110 shrink-0 text-[var(--orange)] group-hover:text-white"
               strokeWidth={2.5}
             />
             <span
@@ -101,17 +101,17 @@ export default function SiteHeader() {
                 fontWeight: 800,
                 letterSpacing: '1px',
               }}
-              className="text-[13px] md:text-[16px] uppercase leading-none text-[var(--orange)] group-hover:text-white"
+              className="text-[13px] md:text-[14px] uppercase leading-none text-[var(--orange)] group-hover:text-white"
             >
               SEARCH
             </span>
           </button>
 
           {/* Vertical Divider */}
-          <div className="h-6 md:h-7 w-[1px] bg-[#333333] shrink-0" />
+          <div className="h-6 w-[1px] bg-[#333333] shrink-0" />
 
           {/* Social Media Icons */}
-          <div className="flex items-center gap-3.5 md:gap-6 shrink-0">
+          <div className="flex items-center gap-3.5 md:gap-5 shrink-0">
             <a
               href="https://www.youtube.com/@refereevision5209"
               target="_blank"
@@ -119,7 +119,7 @@ export default function SiteHeader() {
               title="YouTube"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Youtube className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
+              <Youtube className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
             </a>
             <a
               href="https://www.facebook.com/people/Referee-Vision/61577189406633/"
@@ -128,7 +128,7 @@ export default function SiteHeader() {
               title="Facebook"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Facebook className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
+              <Facebook className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
             </a>
             <a
               href="https://www.instagram.com/refereevision/"
@@ -137,7 +137,7 @@ export default function SiteHeader() {
               title="Instagram"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Instagram className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
+              <Instagram className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
             </a>
             <a
               href="https://x.com/refereevision/"
@@ -146,7 +146,7 @@ export default function SiteHeader() {
               title="X (Twitter)"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Twitter className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
+              <Twitter className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
             </a>
             <a
               href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05"
@@ -155,7 +155,7 @@ export default function SiteHeader() {
               title="WhatsApp"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <MessageCircle className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]" />
+              <MessageCircle className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
             </a>
           </div>
         </div>

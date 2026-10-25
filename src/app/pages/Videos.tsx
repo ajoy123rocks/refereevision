@@ -595,6 +595,7 @@ function SectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
+        className="section-badge-pill"
         style={{
           background: T.orange, color: "var(--off-white)", fontFamily: BARLOW,
           fontWeight: 800, fontSize: 22, letterSpacing: "3px",
@@ -612,6 +613,7 @@ function SubSectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
+        className="sub-section-badge-pill"
         style={{
           background: "transparent",
           border: `2px solid ${T.orange}`,

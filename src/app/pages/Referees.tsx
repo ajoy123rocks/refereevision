@@ -344,6 +344,7 @@ function SectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <div
+        className="section-badge-pill"
         style={{
           background: T.orange,
           color: "var(--off-white)",
@@ -2080,7 +2081,7 @@ function SignalsCard({
 function SignalsSectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center", margin: "24px 0 16px" }}>
-      <div style={{ border: `2px solid ${T.orange}`, borderRadius: 20, padding: "6px 28px", background: "transparent" }}>
+      <div className="sub-section-badge-pill" style={{ border: `2px solid ${T.orange}`, borderRadius: 20, padding: "6px 28px", background: "transparent" }}>
         <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 14, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
           {label}
         </span>

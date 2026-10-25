@@ -1,3 +1,19 @@
 @import './fonts.css';
 @import './tailwind.css';
 @import './theme.css';
+
+/* Responsive adjustments for Section Badges / Headings on Mobile */
+@media (max-width: 767px) {
+  .section-badge-pill {
+    font-size: 16px !important;
+    padding: 6px 20px !important;
+    letter-spacing: 2px !important;
+  }
+
+  .sub-section-badge-pill {
+    font-size: 13px !important;
+    padding: 5px 16px !important;
+    letter-spacing: 1px !important;
+    margin: 18px 0 14px !important;
+  }
+}

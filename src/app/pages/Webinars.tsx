@@ -320,7 +320,7 @@ function SidebarItem({ tab, active, onSelect }: { tab: Tab; active: boolean; onS
 function SectionBadge({ label }: { label: string }) {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{ background: T.orange, color: "#FFFFFF", fontFamily: BARLOW, fontWeight: 800, fontSize: 22, letterSpacing: "3px", textTransform: "uppercase", padding: "10px 40px" }}>
+      <div className="section-badge-pill" style={{ background: T.orange, color: "#FFFFFF", fontFamily: BARLOW, fontWeight: 800, fontSize: 22, letterSpacing: "3px", textTransform: "uppercase", padding: "10px 40px" }}>
         {label}
       </div>
     </div>
