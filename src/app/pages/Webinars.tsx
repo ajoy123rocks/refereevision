@@ -473,14 +473,14 @@ function WebinarRow({
       {/* Column 1: Title */}
       <div
         style={{
-          padding: "16px 20px",
+          padding: isMobile ? "14px 16px" : "16px 20px",
           fontFamily: DM,
           fontWeight: 500,
           fontSize: 15,
           color: T.orange,
           textTransform: "uppercase",
           borderRight: isMobile ? "none" : `1px solid ${T.orange}`,
-          borderBottom: isMobile && !isLast ? `1px solid ${T.orange}` : "none",
+          borderBottom: isMobile ? `1px solid ${T.orange}` : "none",
           display: "flex",
           alignItems: "center",
         }}
@@ -491,12 +491,12 @@ function WebinarRow({
       {/* Column 2: Presenter */}
       <div
         style={{
-          padding: "16px 20px",
+          padding: isMobile ? "12px 16px" : "16px 20px",
           fontFamily: DM,
           fontSize: 13,
           color: T.orange,
           borderRight: isMobile ? "none" : `1px solid ${T.orange}`,
-          borderBottom: isMobile && !isLast ? `1px solid ${T.orange}` : "none",
+          borderBottom: isMobile ? `1px solid ${T.orange}` : "none",
           display: "flex",
           alignItems: "center",
           whiteSpace: "pre-line",
@@ -508,7 +508,7 @@ function WebinarRow({
       {/* Column 3: Action */}
       <div
         style={{
-          padding: "16px 20px",
+          padding: isMobile ? "14px 16px" : "16px 20px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
