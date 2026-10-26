@@ -190,7 +190,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
+                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${
                     active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'
@@ -221,7 +221,7 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[12px] uppercase relative transition-colors ${
+                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${
                     active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'
@@ -241,7 +241,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Desktop View: Single horizontal row centered */}
-        <div className="hidden md:flex items-center justify-center h-[52px] px-8 md:px-12 gap-8">
+        <div className="hidden md:flex items-center justify-center h-[56px] px-8 md:px-12 gap-9 lg:gap-11">
           {ALL_NAV_LINKS.map((item) => {
             const active = isLinkActive(item);
             return (
@@ -252,7 +252,7 @@ export default function SiteHeader() {
                 onMouseLeave={() => setHoveredNav(null)}
                 style={{
                   fontFamily: "'Barlow Condensed', sans-serif",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   letterSpacing: '2px',
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -261,7 +261,7 @@ export default function SiteHeader() {
                   color: active || hoveredNav === item ? 'var(--orange)' : '#FFFFFF',
                   transition: 'color 0.15s',
                 }}
-                className="text-[14px] uppercase relative pb-1 transition-colors whitespace-nowrap"
+                className="text-[17px] uppercase relative pb-1 transition-colors whitespace-nowrap"
               >
                 {item}
                 {(active || hoveredNav === item) && (
