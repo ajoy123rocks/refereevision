@@ -82,6 +82,7 @@ const MIC_D_UP_ITEMS = [
 const TOUGH_CALLS_SEASONS = [
   "2016-17", "2017-18", "2018-19", "2019-20", "2020-21",
   "2021-22", "2022-23", "2023-24", "2024-25", "2025-26",
+  "2026-27"
 ];
 
 type MatchdayEntry = { label: string; link: string };
@@ -274,6 +275,13 @@ const TOUGH_CALLS_DATA: Record<string, MatchdayEntry[]> = {
     { label: "ROUND OF 16 WEEK 5", link: "https://www.fiba.basketball/en/news/tough-calls-round-of-16-week-5-march-15" },
     { label: "ROUND OF 16 WEEK 6", link: "https://www.fiba.basketball/en/news/tough-calls-round-of-16-week-6-march-22" },
   ],
+  "2026-27": [
+    { label: "GAMEDAY 1", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-1" },
+    { label: "GAMEDAY 2", link: "https://www.fiba.basketball/en/events/euroleague-women-26-27/news/euroleague-women-tough-calls-gameday-2" },
+    { label: "WEEK 1", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-1" },
+    { label: "WEEK 2", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-2" },
+    { label: "WEEK 3", link: "https://www.championsleague.basketball/en/news/tough-calls-season-11-week-3" }
+  ]
 };
 
 // ─── Stripe colours cycling per issue ─────────────────────────────────────────
