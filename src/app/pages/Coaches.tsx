@@ -2219,6 +2219,15 @@ export default function Coaches() {
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
+  const handleTabSelect = (tab: Tab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [activeTab]);
+
   // Close sidebar when resizing to desktop
   useEffect(() => {
     if (!isMobile && sidebarOpen) setSidebarOpen(false);
@@ -2326,7 +2335,7 @@ export default function Coaches() {
       <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
         <Sidebar
           active={activeTab}
-          onSelect={setActiveTab}
+          onSelect={handleTabSelect}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
           isMobile={isMobile}

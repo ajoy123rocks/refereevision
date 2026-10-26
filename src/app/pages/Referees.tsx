@@ -60,23 +60,23 @@ const DOCS = [
   },
   {
     label: "3PO BASIC",
-    version: "Version 2.5 – Valid as of December 2024",
-    link: "https://library.fibairef.basketball/images/documents/cbde37864ccb7e20599fe7a6b63df25f/FIBA_Referee_Manual_Basic_3PO_v2_5_Dec2024_en.pdf",
+    version: "Version 3.0a - Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/4d74a028de82e7ae5cbb849f6cbd6186/FIBA_Referee_Manual_Basic_3PO_v3_0a_Oct2026_en.pdf"
   },
   {
     label: "3PO ADVANCED",
-    version: "Version 2.0 – Valid as of March 2023",
-    link: "https://library.fibairef.basketball/images/documents/f3a38bbb2971eeee81d535bce21bec94/FIBA_Ref_Manual_Advanced_3PO_v2_0_Mar2023_en.pdf",
+    version: "Version 3.0a - Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/e0072fec69d381d1f2272eb35cc5e4c4/FIBA_Referee_Manual_Advanced_3PO_v3_0a_.pdf",
   },
   {
     label: "INDIVIDUAL OFFICIATING TECHNIQUES (IOT)",
-    version: "Version 2.5 – Valid as of December 2024",
-    link: "https://library.fibairef.basketball/images/documents/94e19c5823bd011e94ddf74fff3b9ccf/FIBA_Referee_Manual_IOT_v2_5_Dec2024_en.pdf",
+    version: "Version 3.0a - Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/224fd66bc61af7fa35c70a06a6c2940f/FIBA_Referee_Manual_IOT_v3_0a_Oct2026_en.pdf",
   },
   {
     label: "BASIC OFFICIATING TERMINOLOGY",
-    version: "Version 2.1 – Valid as of May 2023",
-    link: "https://library.fibairef.basketball/images/documents/9b7fddf61a2dd90f7fca2f1f93fc2456/FIBA_Glossary_v2_1_May2023_en.pdf",
+    version: "Version 3.0 - Valid as of October 2026",
+    link: "https://library.fibairef.basketball/images/documents/e775a9cfc5a2a0179cd23a75f3471017/FIBA_Glossary_v3_0_Oct2026_en_.pdf",
   },
   {
     label: "4TH_REFEREE",
@@ -1879,6 +1879,15 @@ export default function Referees() {
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
+  const handleTabSelect = (tab: Tab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [activeTab]);
+
   // Close sidebar when resizing to desktop
   useEffect(() => {
     if (!isMobile && sidebarOpen) setSidebarOpen(false);
@@ -1965,7 +1974,7 @@ export default function Referees() {
       <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
         <Sidebar
           active={activeTab}
-          onSelect={setActiveTab}
+          onSelect={handleTabSelect}
           open={sidebarOpen}
           onClose={() => setSidebarOpen(false)}
           isMobile={isMobile}

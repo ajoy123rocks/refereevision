@@ -816,6 +816,10 @@ const RULEBOOKS_DATA: Record<RulebookSubTab, { title: string; link: string }[]> 
     { title: "2016 - SCORESHEET", link: "https://drive.google.com/file/d/1IBvbxZ6urzVxVq7Mci0Dh4K9EnSS8M-_/view?usp=sharing" },
   ],
   "MECHANICS": [
+    { title: "2024 - 3PO BASIC Version 2.5", link: "https://library.fibairef.basketball/images/documents/cbde37864ccb7e20599fe7a6b63df25f/FIBA_Referee_Manual_Basic_3PO_v2_5_Dec2024_en.pdf" },
+    { title: "2024 - INDIVIDUAL OFFICIATING TECHNIQUES Version 2.5", link: "https://library.fibairef.basketball/images/documents/94e19c5823bd011e94ddf74fff3b9ccf/FIBA_Referee_Manual_IOT_v2_5_Dec2024_en.pdf" },
+    { title: "2023 - 3PO ADVANCED Version 2.0", link: "https://library.fibairef.basketball/images/documents/f3a38bbb2971eeee81d535bce21bec94/FIBA_Ref_Manual_Advanced_3PO_v2_0_Mar2023_en.pdf" },
+    { title: "2023 - BASIC OFFICIATING TERMINOLOGY Version 2.1", link: "https://library.fibairef.basketball/images/documents/9b7fddf61a2dd90f7fca2f1f93fc2456/FIBA_Glossary_v2_1_May2023_en.pdf" },
     { title: "2022 - 3PO BASIC Version 2.0", link: "https://library.fibairef.basketball/images/documents/49c51ffe47ab95788e0bdfcdd1b87863/FIBA_Referee_Manual_Basic3PO_v2_0_Dec2022_en__.pdf" },
     { title: "2022 - INDIVIDUAL OFFICIATING TECHNIQUES Version 2.0", link: "https://drive.google.com/file/d/14NxrCq3mUEpR92_yx7eXuRqFkbtJugx_/view" },
     { title: "2022 - 3PO ADVANCED Version 1.2", link: "https://drive.google.com/file/d/10zLdm8P1R3Pph69SyCpPeALgY2WFo4zX/view?usp=sharing" },
@@ -1533,6 +1537,15 @@ export default function Vault() {
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
+  const handleTabSelect = (tab: VaultTab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [activeTab]);
+
   useEffect(() => {
     if (!isMobile && sidebarOpen) setSidebarOpen(false);
   }, [isMobile, sidebarOpen]);
@@ -1613,7 +1626,7 @@ export default function Vault() {
               <button
                 key={tab}
                 onClick={() => {
-                  setActiveTab(tab);
+                  handleTabSelect(tab);
                   setSidebarOpen(false);
                 }}
                 style={{
@@ -1760,7 +1773,7 @@ export default function Vault() {
               return (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(tab)}
+                  onClick={() => handleTabSelect(tab)}
                   style={{
                     display: "block",
                     width: "100%",

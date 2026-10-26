@@ -6691,6 +6691,15 @@ export default function Videos() {
   const isMobile = width < 640;
   const isTablet = width < 1024;
 
+  const handleTabSelect = (tab: Tab) => {
+    setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+  }, [activeTab]);
+
   useEffect(() => {
     if (!isMobile && sidebarOpen) setSidebarOpen(false);
   }, [isMobile, sidebarOpen]);
@@ -6735,7 +6744,7 @@ export default function Videos() {
 
       {/* Two-column body */}
       <div style={{ display: "flex", flex: 1, alignItems: "stretch" }}>
-        <Sidebar active={activeTab} onSelect={setActiveTab} open={sidebarOpen} onClose={() => setSidebarOpen(false)} isMobile={isMobile} />
+        <Sidebar active={activeTab} onSelect={handleTabSelect} open={sidebarOpen} onClose={() => setSidebarOpen(false)} isMobile={isMobile} />
 
         {/* Main content */}
         <main
