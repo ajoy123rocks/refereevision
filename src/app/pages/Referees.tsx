@@ -2110,9 +2110,10 @@ function SignalsDemoCard({
       onClick={onClick}
       style={{
         width: 140,
+        height: 112,
         background: T.charcoal,
         border: h.on ? `2px solid ${T.orange}` : `1.5px solid ${T.border}`,
-        borderRadius: 6,
+        borderRadius: 10,
         overflow: "hidden",
         cursor: "pointer",
         transition: "border-color 0.15s, transform 0.15s, box-shadow 0.15s",
@@ -2121,18 +2122,20 @@ function SignalsDemoCard({
         display: "flex",
         flexDirection: "column",
         boxSizing: "border-box",
+        flexShrink: 0,
       }}
     >
       <div
         style={{
           width: "100%",
-          aspectRatio: "16 / 9",
+          height: 79,
           position: "relative",
           overflow: "hidden",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           background: "#000",
+          flexShrink: 0,
         }}
       >
         <img
@@ -2151,6 +2154,7 @@ function SignalsDemoCard({
         />
         {/* Play button */}
         <div
+          className="video-thumb-play-btn"
           style={{
             width: 28,
             height: 28,
@@ -2172,10 +2176,15 @@ function SignalsDemoCard({
       </div>
       <div
         style={{
-          padding: "8px 6px",
+          height: 33,
+          padding: "0 6px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           textAlign: "center",
           background: T.charcoal,
           borderTop: `1px solid ${T.border}`,
+          boxSizing: "border-box",
         }}
       >
         <span
@@ -2191,6 +2200,7 @@ function SignalsDemoCard({
             whiteSpace: "nowrap",
             overflow: "hidden",
             textOverflow: "ellipsis",
+            width: "100%",
           }}
         >
           {title}

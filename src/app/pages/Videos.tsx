@@ -378,6 +378,7 @@ function VideoThumb({ index, link, onPlay, thumbnail: customThumbnail }: { index
         aspectRatio: "16 / 9",
         background: THUMB_SHADES[index % THUMB_SHADES.length],
         border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+        borderRadius: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -927,7 +928,7 @@ function DocCard({
       style={{
         width: width ?? (cols === 1 ? 110 : 80),
         height: height ?? "auto",
-        aspectRatio: aspectRatio ?? (isSignal ? undefined : (height ? undefined : "3 / 4")),
+        aspectRatio: aspectRatio ?? (isSignal ? "218 / 330" : (height ? undefined : "218 / 330")),
         background: isSignal ? "transparent" : (h.on ? "#222" : T.charcoal),
         border: `2px solid ${h.on ? T.orange : T.border}`,
         borderRadius: 4,
@@ -953,8 +954,8 @@ function DocCard({
           style={{
             display: "block",
             width: "100%",
-            height: isSignal ? "auto" : "100%",
-            objectFit: isSignal ? undefined : (objectFit ?? "cover"),
+            height: "100%",
+            objectFit: objectFit ?? "fill",
             transition: "opacity 0.2s",
             opacity: h.on ? 0.95 : 0.85,
           }}
@@ -2291,11 +2292,11 @@ function TravellingContent({ isMobile, isTablet }: { isMobile: boolean; isTablet
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="ARTICLE" />
-          <ContentImage src="https://www.refereevision.com/Travel.png" alt="Travelling Article" />
+          <DocCard link="https://www.refereevision.com/Travel.png" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="INTERPRETATION" />
-          <ContentImage src="https://www.refereevision.com/Travel_int.png" alt="Travelling Interpretation" />
+          <DocCard link="https://www.refereevision.com/Travel_int.png" />
         </div>
       </div>
 

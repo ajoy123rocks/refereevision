@@ -1,13 +1,6 @@
-import { useRef } from 'react';
-import { Book, FileText, Video, Monitor, Clipboard, Archive, Youtube, Facebook, Instagram, Twitter, MessageCircle } from 'lucide-react';
-import logoImage from '../../imports/Screenshot_2026-06-03_at_14.17.43.png';
+import { Book, FileText, Video, Monitor, Clipboard, Archive } from 'lucide-react';
 
 export default function Home() {
-  const resourcesRef = useRef<HTMLDivElement>(null);
-
-  const scrollToResources = () => {
-    resourcesRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -260,16 +253,9 @@ export default function Home() {
           </h2>
 
           <p style={{ fontFamily: "'DM Sans', sans-serif" }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto mb-6 md:mb-8 px-2">
+            className="text-[14px] sm:text-[16px] md:text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto px-2">
             The definitive platform for basketball referees to sharpen their officiating edge
           </p>
-
-          <button
-            onClick={scrollToResources}
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 600, letterSpacing: '2.5px', backgroundColor: 'var(--orange)' }}
-            className="px-7 py-3 md:px-10 md:py-4 text-white uppercase text-[13px] md:text-[14px] hover:opacity-90 transition-opacity cursor-pointer shadow-md">
-            EXPLORE RESOURCES
-          </button>
         </div>
 
         {/* Bottom Orange Border */}
@@ -394,7 +380,7 @@ export default function Home() {
       </section>
 
       {/* PROGRAMS & RESOURCES */}
-      <section ref={resourcesRef} style={{ backgroundColor: 'var(--pure-white)' }} className="relative">
+      <section style={{ backgroundColor: 'var(--pure-white)' }} className="relative">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full"></div>
         <div style={{ backgroundColor: '#E8E8E8' }} className="h-[1px] w-full"></div>
 
@@ -421,7 +407,7 @@ export default function Home() {
             ].map((card, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-[#E2E2E2] p-9 group hover:border-[var(--orange)] transition-all duration-200"
+                className="bg-white border border-[var(--orange)] p-9 group hover:shadow-lg transition-all duration-200"
               >
                 <div className="w-[52px] h-[52px] rounded-full bg-[#F5F2EE] flex items-center justify-center mb-4 text-[#888888] group-hover:text-[var(--orange)] transition-colors">
                   {card.icon}

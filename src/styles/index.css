@@ -18,19 +18,28 @@
   }
 }
 
-/* Video thumbnail & play icon size on Desktop */
+/* Video thumbnail card styling */
+.video-thumb-card {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+/* Video thumbnail play icon size and shape */
+.video-thumb-play-btn {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.video-thumb-play-btn svg {
+  width: 10px !important;
+  height: 12px !important;
+  margin-left: 2px !important;
+}
+
 @media (min-width: 768px) {
   .video-thumb-card {
     width: 110px !important;
-  }
-
-  .video-thumb-play-btn {
-    width: 30px !important;
-    height: 30px !important;
-  }
-
-  .video-thumb-play-btn svg {
-    width: 10px !important;
-    height: 12px !important;
   }
 }

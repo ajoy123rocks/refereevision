@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Youtube, Facebook, Instagram, Twitter, MessageCircle, Search } from 'lucide-react';
+import { Youtube, Facebook, Instagram, MessageCircle, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
-import logoImage from '../../imports/Screenshot_2026-06-03_at_14.17.43.png';
+import logoImage from '../../imports/referee_vision_circle_logo.png';
 import SearchModal from './SearchModal';
 
 const NAV_ROW_1 = ['ABOUT', 'REFEREES', 'BOOKS', 'VIDEOS'];
@@ -60,7 +60,7 @@ export default function SiteHeader() {
           <img
             src={logoImage}
             alt="Referee Vision Logo"
-            className="h-[52px] md:h-[68px] w-auto shrink-0 shadow-sm"
+            className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] shrink-0 drop-shadow-sm"
           />
           <div className="flex flex-col text-left">
             <h1
@@ -74,8 +74,11 @@ export default function SiteHeader() {
               REFEREE VISION
             </h1>
             <p
-              style={{ fontFamily: "'North Wave', cursive, sans-serif" }}
-              className="text-[13px] md:text-[15px] text-[#888888] md:text-[#999999] tracking-wide mt-1 leading-none"
+              style={{
+                fontFamily: "'North Wave', cursive, sans-serif",
+                color: 'var(--orange)',
+              }}
+              className="text-[13px] md:text-[15px] tracking-wide mt-1 leading-none"
             >
               One  Stop  To  "Rule"  Them  All
             </p>
@@ -143,10 +146,16 @@ export default function SiteHeader() {
               href="https://x.com/refereevision/"
               target="_blank"
               rel="noopener noreferrer"
-              title="X (Twitter)"
+              title="X"
               className="text-white hover:text-[var(--orange)] transition-colors flex items-center justify-center p-0.5"
             >
-              <Twitter className="w-[20px] h-[20px] md:w-[22px] md:h-[22px]" />
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] fill-current"
+              >
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
             </a>
             <a
               href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05"

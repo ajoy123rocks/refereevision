@@ -1,6 +1,6 @@
-import { Youtube, Facebook, Instagram, Twitter, MessageCircle } from 'lucide-react';
+import { Youtube, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router';
-import logoImage from '../../imports/Screenshot_2026-06-03_at_14.17.43.png';
+import logoImage from '../../imports/referee_vision_circle_logo.png';
 
 export default function SiteFooter() {
   const links = [
@@ -22,26 +22,36 @@ export default function SiteFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <img src={logoImage} alt="Basketball Logo" className="h-[50px] w-auto" />
+              <img
+                src={logoImage}
+                alt="Basketball Logo"
+                className="h-[52px] w-[52px] shrink-0"
+              />
               <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
                 className="text-white text-[22px] uppercase">
                 REFEREE VISION
               </h3>
             </div>
             <div className="flex items-center gap-4">
-              <a href="https://www.youtube.com/@refereevision5209" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.youtube.com/@refereevision5209" target="_blank" rel="noopener noreferrer" title="YouTube">
                 <Youtube className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
               </a>
-              <a href="https://www.facebook.com/people/Referee-Vision/61577189406633/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.facebook.com/people/Referee-Vision/61577189406633/" target="_blank" rel="noopener noreferrer" title="Facebook">
                 <Facebook className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
               </a>
-              <a href="https://www.instagram.com/refereevision/" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.instagram.com/refereevision/" target="_blank" rel="noopener noreferrer" title="Instagram">
                 <Instagram className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
               </a>
-              <a href="https://x.com/refereevision/" target="_blank" rel="noopener noreferrer">
-                <Twitter className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
+              <a href="https://x.com/refereevision/" target="_blank" rel="noopener noreferrer" title="X">
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className="w-[18px] h-[18px] fill-current text-white cursor-pointer hover:text-[var(--orange)] transition-colors"
+                >
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
               </a>
-              <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer">
+              <a href="https://whatsapp.com/channel/0029VbAWPOIKWEKtKbY7LR05" target="_blank" rel="noopener noreferrer" title="WhatsApp">
                 <MessageCircle className="w-5 h-5 text-white cursor-pointer hover:text-[var(--orange)] transition-colors" />
               </a>
             </div>
