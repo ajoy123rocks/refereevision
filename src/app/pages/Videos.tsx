@@ -2590,9 +2590,9 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="SIGNAL" />
           <div style={{ display: "flex", gap: 8 }}>
-            <DocCard cols={2} link="https://www.refereevision.com/faos_Sig.png" />
-            <DocCard cols={2} link="https://www.refereevision.com/notfaos_Sig.png" />
-            <DocCard cols={2} link="https://www.refereevision.com/Signals/passoff_sig.png" />
+            <DocCard link="https://www.refereevision.com/faos_Sig.png" />
+            <DocCard link="https://www.refereevision.com/notfaos_Sig.png" />
+            <DocCard link="https://www.refereevision.com/Signals/passoff_sig.png" />
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -3347,7 +3347,7 @@ function TimeoutSubSection({
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <MiniBadge label="PROCEDURE" />
           <div style={{ display: "flex", gap: 8 }}>
-            {Array.from({ length: procedureCount }).map((_, i) => <DocCard key={i} cols={2} link={procedureLinks?.[i]} />)}
+            {Array.from({ length: procedureCount }).map((_, i) => <DocCard key={i} link={procedureLinks?.[i]} />)}
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
@@ -5587,7 +5587,7 @@ function TechnicalFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTab
             flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? 28 : 48,
             justifyContent: "space-around",
-            alignItems: "center",
+            alignItems: isMobile ? "center" : "flex-start",
           }}
         >
           {/* Rule Explanation */}
@@ -5626,7 +5626,7 @@ function TechnicalFoulContent({ isMobile, isTablet }: { isMobile: boolean; isTab
             flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? 28 : 48,
             justifyContent: "space-around",
-            alignItems: "center",
+            alignItems: isMobile ? "center" : "flex-start",
           }}
         >
           {/* Article */}
@@ -5709,7 +5709,7 @@ function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; i
   return (
     <div style={{ display: "flex", flexDirection: "column", paddingBottom: 48 }}>
       {activeVideo && <VideoModal url={activeVideo} onClose={() => setActiveVideo(null)} />}
-      <SectionBadge label="DISQUALIFICATION FOUL & FIGHTING" />
+      <SectionBadge label="DISQUALIFYING FOUL & FIGHTING" />
 
       {/* 2-column top grid */}
       <div
@@ -5729,7 +5729,7 @@ function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; i
             flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? 28 : 48,
             justifyContent: "space-around",
-            alignItems: "center",
+            alignItems: isMobile ? "center" : "flex-start",
           }}
         >
           {/* Rule Explanation */}
@@ -5762,7 +5762,7 @@ function DisqualifyingFoulContent({ isMobile, isTablet }: { isMobile: boolean; i
             flexDirection: isMobile ? "column" : "row",
             gap: isMobile ? 28 : 48,
             justifyContent: "space-around",
-            alignItems: "center",
+            alignItems: isMobile ? "center" : "flex-start",
           }}
         >
           {/* Article */}

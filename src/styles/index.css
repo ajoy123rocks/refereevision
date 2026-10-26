@@ -41,5 +41,7 @@
 @media (min-width: 768px) {
   .video-thumb-card {
     width: 130px !important;
+    height: 95.1px !important;
+    aspect-ratio: auto !important;
   }
 }

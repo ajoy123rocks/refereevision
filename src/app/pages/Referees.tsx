@@ -755,10 +755,12 @@ function VideoThumb({
       onMouseLeave={h.onMouseLeave}
       onClick={link ? onPlay : undefined}
       style={{
-        flex: 1,
-        aspectRatio: "16 / 9",
+        width: 130,
+        height: 95.1,
+        maxWidth: "100%",
         background: THUMB_SHADES[index % THUMB_SHADES.length],
         border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+        borderRadius: 10,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -767,6 +769,7 @@ function VideoThumb({
         filter: h.on && link ? "brightness(1.15)" : "brightness(1)",
         position: "relative",
         overflow: "hidden",
+        flexShrink: 0,
       }}
     >
       {resolvedThumbnail && (
@@ -880,7 +883,7 @@ function VideoColumn({
       </div>
 
       {/* Thumbnails */}
-      <div style={{ display: "flex", gap: 6 }}>
+      <div style={{ display: "flex", gap: 6, height: isMobile ? undefined : 95.1, justifyContent: "center" }}>
         {videos.map((vid, i) => (
           <VideoThumb
             key={i}
@@ -1348,12 +1351,13 @@ function ExerciseCard({
         onMouseLeave={h.onMouseLeave}
         onClick={item.link ? onPlay : undefined}
         style={{
-          aspectRatio: "9 / 16",
-          maxWidth: 100,
+          width: 130,
+          height: 95.1,
+          maxWidth: "100%",
           margin: "0 auto",
-          width: "100%",
           background: THUMB_SHADES[index % THUMB_SHADES.length],
           border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
+          borderRadius: 10,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -1385,9 +1389,11 @@ function ExerciseCard({
           <circle cx="50%" cy="50%" r="18%" stroke={T.orange} strokeWidth="1" fill="none" />
         </svg>
         <div
+          className="video-thumb-play-btn"
           style={{
-            width: 24,
-            height: 24,
+            width: 28,
+            height: 28,
+            borderRadius: "50%",
             background: item.link
               ? h.on ? T.orange : "rgba(232,101,26,0.7)"
               : "rgba(100,100,100,0.4)",
@@ -1396,9 +1402,10 @@ function ExerciseCard({
             justifyContent: "center",
             zIndex: 2,
             transition: "background 0.15s",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.5)",
           }}
         >
-          <svg width="8" height="10" viewBox="0 0 10 12" fill="none">
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
             <polygon points="0,0 10,6 0,12" fill="white" />
           </svg>
         </div>
@@ -2391,7 +2398,7 @@ function SignalsContent() {
             key={i}
             {...item}
             index={i + 11}
-            onClick={() => setActiveVideo(`PLACEHOLDER_signal_${i + 11}.png`)}
+            onClick={() => setActiveVideo(item.image || `PLACEHOLDER_signal_${i + 11}.png`)}
           />
         ))}
       </div>
