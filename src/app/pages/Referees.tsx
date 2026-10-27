@@ -1402,7 +1402,7 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
             </div>
 
             {/* Content */}
-            <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ display: "flex", gap: 6, justifyContent: "center" }}>
               {col.type === "video" ? (
                 <VideoThumb
                   index={i}
@@ -1958,57 +1958,293 @@ function FibaLicensingContent({ isMobile }: { isMobile: boolean }) {
 }
 
 // ─── Assist Articles content ──────────────────────────────────────────────────
-const ASSIST_ARTICLES_DATA = [
-  { id: 1 },
-  { id: 2 },
-  { id: 3 },
-  { id: 4 },
-  { id: 5 },
-  { id: 6 },
-  { id: 7 },
-  { id: 8 },
-  { id: 9 },
-  { id: 10 },
-  { id: 11 },
-  { id: 12 },
-  { id: 13 },
-  { id: 14 },
-  { id: 15 },
-  { id: 16 },
-  { id: 17 },
-  { id: 18 },
-  { id: 19 },
-  { id: 20 },
-  { id: 21 },
-  { id: 22 },
-  { id: 23 },
-  { id: 24 },
-  { id: 25 },
-  { id: 26 },
-  { id: 27 },
-  { id: 28 },
-  { id: 29 },
-  { id: 30 },
-  { id: 31 },
-  { id: 32 },
-  { id: 34 },
-  { id: 35 },
-  { id: 36 },
-  { id: 37 },
-  { id: 38 },
-  { id: 39 },
-  { id: 40 },
-  { id: 41 },
-  { id: 42 },
-  { id: 43 },
-  { id: 44 },
+interface AssistArticleItem {
+  id: number;
+  tooltip?: string;
+}
+
+const ASSIST_ARTICLES_DATA: AssistArticleItem[] = [
+  {
+    id: 1,
+    tooltip: `Issue: Mar/Apr 2003
+Little known world of FIBA referees - Lubomir Kotleba
+Solving Conflicts - Carl Jungebrand
+Work of the table officials:Time-outs and Substitutions - Valentin Lazarov`,
+  },
+  {
+    id: 2,
+    tooltip: `Issue: May/June 2003
+How to become a better official - Fred Horgan
+Recruiting of new young referees - Edvard de Jager
+Right or Wrong  
+Commissioner's Checklist`,
+  },
+  {
+    id: 3,
+    tooltip: `Issue: Jul/Aug 2003
+The role of the FIBA National Referee Instructor - Alberto Garcia
+Communication - Paul Loube
+Right or Wrong
+The Officials Conference`,
+  },
+  {
+    id: 4,
+    tooltip: `Issue: Sep/Oct 2003
+Mental Preparation: A key to success in officiating - Paul Deschales
+Right or Wrong
+The role, duties and responsibilities of the public announcer - Tomas Grossman`,
+  },
+  {
+    id: 5,
+    tooltip: `Issue:Nov/Dec 2003
+Australian Referee Education System - Bill Mildenhall
+Right or Wrong`,
+  },
+  {
+    id: 6,
+    tooltip: `Issue: Jan/Feb 2004
+Officiating NCAA Women's Basketball - Marcy Weston & Sally Bell
+Officiating of Wheel Chair Basketball - Don Steponchev`,
+  },
+  {
+    id: 7,
+    tooltip: `Issue: Mar/Apr 2004
+      Training Courses for officials - Alison Muir
+      Factor affecting information processing in Officiating - Stavros Douvis & Antonis Travlos
+      Right or Wrong`,
+  },
+  {
+    id: 8,
+    tooltip: `Issue: May/Jun 2004
+      Tracking two and three officials with a computer - Mateja Loncar, Brane Dezman & Simon Licen
+      Right or Wrong`,
+  },
+  {
+    id: 9,
+    tooltip: `ssue: Jul/Aug 2004
+Tower Philosohy: Advantages and Disadvantages - Paul Loube
+Right or Wrong`,
+  },
+  {
+    id: 10,
+    tooltip: `Issue: Sep/Oct 2004
+Refereeing the Defense - Fred Horgan
+Do you have the right level of tension? - Bill Mildenhall
+Right or Wrong`,
+  },
+  {
+    id: 11,
+    tooltip: `Issue: Nov/Dec 2004
+Evaluating and improving an official's performance - Paul Brazeau
+Contact: The princple of Offensive threat - Fred Horgan
+Right or Wrong`,
+  },
+  {
+    id: 12,
+    tooltip: `Issue: Jan/Feb 2005
+Three person officiating - Pat Rosenow
+Improving officiating skills through mentoring - Bill Mildenhall
+Right or Wrong`,
+  },
+  {
+    id: 13,
+    tooltip: `Issue: Mar/Apr 2005
+Philosophy and education of referees - Costas Rigas
+Right or Wrong`,
+  },
+  {
+    id: 14,
+    tooltip: `Issue: May/Jun 2005
+FIBA vs North American rules comparison - Anthony Reimer
+Right or Wrong`,
+  },
+  {
+    id: 15,
+    tooltip: `Issue: Jul/Aug 2005
+Basketball Statistics Manual
+Right or Wrong`,
+  },
+  {
+    id: 16,
+    tooltip: `Issue: Sep/Oct 2005
+Argentinian Basketball Referees Association - Jorgo Jose Gonzalez
+Do you speak English? - Alexel Davydov
+Right or Wrong`,
+  },
+  {
+    id: 17,
+    tooltip: `Issue: Nov/Dec 2005
+Evaluating and improving an official's performance - Paul Brazeau
+Contact: The princple of Offensive threat - Fred Horgan
+Right or Wrong`,
+  },
+  {
+    id: 18,
+    tooltip: `Issue: Jan/Feb 2006
+The search for eternal truth on the court - Lazlo Nemeth
+Mental skills for referees, mentors and instructors - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 19,
+    tooltip: `Issue: Mar/Apr 2006
+Pschyology of Officiating - Valentin Lazarov
+Right or Wrong`,
+  },
+  {
+    id: 20,
+    tooltip: `Issue: May/Jun 2006
+The importance of mentorship - Nancy Ethier
+A woman on the refereeing world - Chantal Julien
+Right or Wrong`,
+  },
+  {
+    id: 21,
+    tooltip: `Issue: Jul/Aug 2006
+The silent supporting cast`,
+  },
+  {
+    id: 22,
+    tooltip: `Issue: Sep/Oct 2006
+The importance of psychological strength in officiating - Carl Jungebrand
+Right or Wrong`,
+  },
+  {
+    id: 23,
+    tooltip: `Issue: Nov/Dec 2006
+Concepts of modern officiating (Part I) - Valentin Lazarov
+Right or Wrong`,
+  },
+  {
+    id: 24,
+    tooltip: `Issue: Jan/Feb 2007 
+Concepts of modern officiating (Part II) - Valentin Lazarov
+Right or Wrong`,
+  },
+  {
+    id: 25,
+    tooltip: `Issue: Mar/Apr 2007
+The third team on the court - Pat Rosenow
+Right or Wrong`,
+  },
+  {
+    id: 26,
+    tooltip: `Issue: May/Jun 2007
+Let the rules be the guide - Peter Webb & Ray McClure
+Right or Wrong`,
+  },
+  {
+    id: 27,
+    tooltip: `Issue: Jul/Aug 2007
+Play situations: Interpretating Contact - Alan Richardson & Clifford Luyk
+Right or Wrong`,
+  },
+  {
+    id: 28,
+    tooltip: `Issue: Sep/Oct 2007
+The difficult job of a referee's observer - Jaime Andreu
+Right or Wrong`,
+  },
+  {
+    id: 29,
+    tooltip: `Issue: Nov/Dec 2007
+Issues related to the officiating relationships - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 30,
+    tooltip: `Issue: Jan/Feb 2008
+Refereeing post play situation - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 31,
+    tooltip: `Issue: Mar/Apr 2008
+What did you say? - Tom Lopes
+Right or Wrong`,
+  },
+  {
+    id: 32,
+    tooltip: `Issue: May/Jun 2008
+FIBA 3on3 Basketball game
+FIBA historic rule changes
+Right or Wrong`,
+  },
+  {
+    id: 34,
+    tooltip: `Issue: Sep/Oct 2008
+1986:A key year for modern officiating - Jaime Andreu
+Right or Wrong`,
+  },
+  {
+    id: 35,
+    tooltip: `Issue: Nov/Dec 2008
+Building Concentration - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 36,
+    tooltip: `Issue: Jan/Feb 2009
+Developing training techniques for concentration - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 37,
+    tooltip: `Issue: Mar/Apr 2009
+The importance of physical preparation for referees - Alexey Chudin
+Right or Wrong`,
+  },
+  {
+    id: 38,
+    tooltip: `Issue: May/Jun 2009
+Visualisation, Imagery - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 39,
+    tooltip: `Issue: Jul/Aug 2009
+Mental toughness - Alan Richardson
+Right or Wrong`,
+  },
+  {
+    id: 40,
+    tooltip: `Issue: Sep/Oct 2009
+Eight qualities of a great referee - Richard Stokes
+Right or Wrong`,
+  },
+  {
+    id: 41,
+    tooltip: `Issue: Nov/Dec 2009
+Article 31: Goaltending and Interference - Fred Horgan
+Right or Wrong`,
+  },
+  {
+    id: 42,
+    tooltip: `Issue: Jan/Feb 2010
+Digital Scoresheet (DSS) - Richard Stokes & Miguel Betancor
+Right or Wrong`,
+  },
+  {
+    id: 43,
+    tooltip: `Issue: Mar/Apr 2010
+Consistency and Credibility - Fred Horgan
+Right or Wrong`,
+  },
+  {
+    id: 44,
+    tooltip: `Issue: May/Jun 2010
+Referees development program in Japan - Nobuo Hashimoto
+Right or Wrong`,
+  },
 ];
 
 function AssistCard({
   issueNumber,
+  tooltip,
   onOpen,
 }: {
   issueNumber: number;
+  tooltip?: string;
   onOpen: (pdfUrl: string, title: string) => void;
 }) {
   const h = useHover();
@@ -2025,6 +2261,7 @@ function AssistCard({
       onClick={() => onOpen(pdfLink, title)}
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
+      title={tooltip}
       style={{
         aspectRatio: "3 / 4",
         background: T.charcoal,
@@ -2146,6 +2383,7 @@ function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTa
           <AssistCard
             key={issue.id}
             issueNumber={issue.id}
+            tooltip={issue.tooltip}
             onOpen={(url, title) => setActiveDoc({ url, title })}
           />
         ))}
