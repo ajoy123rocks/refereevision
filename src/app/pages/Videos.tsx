@@ -1573,20 +1573,23 @@ function ShotClockOperatorContent() {
           title="BEFORE THE GAME"
           count={1}
           images={[
-            { src: "https://www.refereevision.com/sc_rule.jpg", alt: "Shot Clock Operator Before The Game" },
+            { src: "https://www.refereevision.com/sc_before.jpg", alt: "Shot Clock Operator Before The Game" },
           ]}
         />
         <DocSection
           title="RULE"
           count={1}
           images={[
-            { src: "PLACEHOLDER_sc_rule_doc.jpg", alt: "Shot Clock Operator Rule" },
+            { src: "https://www.refereevision.com/sc_rule.jpg", alt: "Shot Clock Operator Rule" },
           ]}
         />
       </div>
 
       {/* SITUATIONS */}
       <ShotClockSubHeader label="SITUATIONS" />
+      <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+        <ContentImage src="https://www.refereevision.com/sc_situations.jpg" alt="Shot Clock Situations" />
+      </div>
 
       {/* Two situation columns */}
       <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
@@ -1599,7 +1602,7 @@ function ShotClockOperatorContent() {
               SITUATIONS WHEN THE SHOT CLOCK SIGNAL SOUNDS
             </span>
           </div>
-          <ContentImage src="PLACEHOLDER_sc_signal_sounds.jpg" alt="Situations when shot clock signal sounds" />
+          <ContentImage src="https://www.refereevision.com/sc_sit_shotclocksignal.jpg" alt="Situations when shot clock signal sounds" />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
           <div style={{
@@ -1610,18 +1613,26 @@ function ShotClockOperatorContent() {
               SITUATIONS WITH SHOT FOR FIELD GOAL
             </span>
           </div>
-          <ContentImage src="PLACEHOLDER_sc_fieldgoal.jpg" alt="Situations with shot for field goal" />
+          <ContentImage src="https://www.refereevision.com/sc_sit_shotforfieldgoal.jpg" alt="Situations with shot for field goal" />
         </div>
       </div>
 
       {/* THE SHOT CLOCK SHALL BE STARTED OR RESTARTED WHEN */}
       <ShotClockSubHeader label="THE SHOT CLOCK SHALL BE STARTED OR RESTARTED WHEN" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <ClockCard
+        {[
+          "https://library.fibairef.basketball/cdn/TOM700_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM701_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM710_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM901_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM702_EN?autoplay=1",
+        ].map((link, i) => (
+          <VideoThumb
             key={i}
-            label={`0${i + 1}:00`}
-            onClick={() => setActiveVideo(`PLACEHOLDER_started_restarted_${i + 1}`)}
+            index={i}
+            link={link}
+            thumbnail="https://www.refereevision.com/tbloffl16.png"
+            onPlay={() => setActiveVideo(link)}
           />
         ))}
       </div>
@@ -1629,39 +1640,85 @@ function ShotClockOperatorContent() {
       {/* SHALL BE STOPPED AND RESET TO 24 SECONDS WHEN */}
       <ShotClockSubHeader label="SHALL BE STOPPED AND RESET TO 24 SECONDS WHEN" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-        {Array.from({ length: 5 }).map((_, i) => (
-          <ShotClockNumCard key={i} value={24} />
+        {[
+          "https://library.fibairef.basketball/cdn/TOM703_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM707_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM709_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM802_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM805_EN?autoplay=1",
+        ].map((link, i) => (
+          <VideoThumb
+            key={i}
+            index={i}
+            link={link}
+            thumbnail="https://www.refereevision.com/tbloffl17.png"
+            onPlay={() => setActiveVideo(link)}
+          />
         ))}
       </div>
 
       {/* SHALL BE STOPPED AND RESET TO 14 SECONDS WHEN */}
       <ShotClockSubHeader label="SHALL BE STOPPED AND RESET TO 14 SECONDS WHEN" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-        {Array.from({ length: 7 }).map((_, i) => (
-          <ShotClockNumCard key={i} value={14} />
+        {[
+          "https://library.fibairef.basketball/cdn/TOM704_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM705_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM706_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM803_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM708_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM711_EN?autoplay=1",
+          "https://library.fibairef.basketball/cdn/TOM902_EN?autoplay=1",
+        ].map((link, i) => (
+          <VideoThumb
+            key={i}
+            index={i}
+            link={link}
+            thumbnail="https://www.refereevision.com/tbloffl18.png"
+            onPlay={() => setActiveVideo(link)}
+          />
         ))}
       </div>
 
       {/* DURING THE GAME */}
       <ShotClockSubHeader label="DURING THE GAME" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-        <ContentImage src="PLACEHOLDER_sc_during.jpg" alt="During the Game" />
-        <ContentImage src="PLACEHOLDER_sc_dur_signal1.png" alt="Shot Clock Signal 1" />
-        <ContentImage src="PLACEHOLDER_sc_dur_signal2.png" alt="Shot Clock Signal 2" />
+        <ContentImage src="https://www.refereevision.com/sc_during.jpg" alt="During the Game" />
+        <VideoThumb
+          index={0}
+          link="https://library.fibairef.basketball/cdn/TOM801_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl19.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM801_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://library.fibairef.basketball/cdn/TOM804_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl19.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM804_EN?autoplay=1")}
+        />
       </div>
 
       {/* MECHANICS SUMMARY */}
       <ShotClockSubHeader label="MECHANICS SUMMARY" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 16 }}>
-        <ContentImage src="PLACEHOLDER_sc_summary.jpg" alt="Mechanics Summary" />
+        <ContentImage src="https://www.refereevision.com/sc_mechanics.png" alt="Mechanics Summary" />
       </div>
 
       {/* SHOT CLOCK MISTAKES */}
       <ShotClockSubHeader label="SHOT CLOCK MISTAKES" />
       <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap", paddingBottom: 48 }}>
-        <ContentImage src="PLACEHOLDER_sc_mistakes.jpg" alt="Shot Clock Mistakes" />
-        <ContentImage src="PLACEHOLDER_sc_mistakes1.jpg" alt="Shot Clock Mistakes Photo 1" />
-        <ContentImage src="PLACEHOLDER_sc_mistakes2.jpg" alt="Shot Clock Mistakes Photo 2" />
+        <ContentImage src="https://www.refereevision.com/sc_mistakes.jpg" alt="Shot Clock Mistakes" />
+        <VideoThumb
+          index={0}
+          link="https://library.fibairef.basketball/cdn/TOM900_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl20.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM900_EN?autoplay=1")}
+        />
+        <VideoThumb
+          index={1}
+          link="https://library.fibairef.basketball/cdn/TOM807_EN?autoplay=1"
+          thumbnail="https://www.refereevision.com/tbloffl20.png"
+          onPlay={() => setActiveVideo("https://library.fibairef.basketball/cdn/TOM807_EN?autoplay=1")}
+        />
       </div>
     </div>
   );
