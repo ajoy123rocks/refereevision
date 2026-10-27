@@ -88,7 +88,7 @@ export default function SiteHeader() {
                     One stop to "rule" them all
                   </span>
                 </span>
-                <IndiaFlagBadge className="ml-2.5 md:ml-3 shrink-0 relative translate-y-[4px] md:translate-y-[6px]" width={24} height={16} />
+                <IndiaFlagBadge className="ml-2 md:ml-2.5 shrink-0 relative translate-y-[2px] md:translate-y-[5px]" />
               </h1>
               {/* Spacer matching subtitle height to maintain header layout */}
               <div className="h-[18px] md:h-[22px] pointer-events-none" aria-hidden="true" />

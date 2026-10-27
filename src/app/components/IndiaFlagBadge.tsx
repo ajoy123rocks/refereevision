@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function IndiaFlagBadge({
   className = '',
-  width = 24,
-  height = 16,
+  width,
+  height,
 }: {
   className?: string;
   width?: number;
@@ -16,7 +16,7 @@ export default function IndiaFlagBadge({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2.5px',
+        padding: '2px',
         backgroundColor: '#FFCC00', // Solid vibrant gold frame matching the screenshot
         borderRadius: '2px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.4)',
@@ -28,6 +28,7 @@ export default function IndiaFlagBadge({
         width={width}
         height={height}
         viewBox="0 0 900 600"
+        className={!width ? "w-[18px] h-[12px] md:w-[24px] md:h-[16px]" : undefined}
         style={{
           display: 'block',
         }}
