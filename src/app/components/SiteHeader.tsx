@@ -64,29 +64,35 @@ export default function SiteHeader() {
             alt="Referee Vision Logo"
             className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] shrink-0 drop-shadow-sm"
           />
-          <div className="flex flex-col text-left">
-            <h1
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 800,
-                letterSpacing: '-0.5px',
-              }}
-              className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black flex items-center"
-            >
-              <span>REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N</span>
-              <IndiaFlagBadge className="ml-2.5 md:ml-3 shrink-0 relative translate-y-[4px] md:translate-y-[6px]" width={24} height={16} />
-            </h1>
-            <p
-              style={{
-                fontFamily: "'North Wave', cursive, sans-serif",
-                color: 'var(--orange)',
-                width: 'fit-content',
-                maxWidth: 'calc(100% - 36px)',
-              }}
-              className="text-[17px] md:text-[21px] tracking-wider mt-1 leading-none text-right self-start"
-            >
-              One stop to "rule" them all
-            </p>
+          <div className="flex items-center">
+            <div className="flex flex-col text-left">
+              <h1
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 800,
+                  letterSpacing: '-0.5px',
+                }}
+                className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black flex items-center"
+              >
+                <span className="relative inline-block">
+                  REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N
+                  <span
+                    style={{
+                      fontFamily: "'North Wave', cursive, sans-serif",
+                      color: 'var(--orange)',
+                      paddingRight: '6px',
+                      marginRight: '-4px',
+                    }}
+                    className="absolute right-0 top-full mt-1 text-[15px] md:text-[18px] tracking-wide whitespace-nowrap leading-none block normal-case"
+                  >
+                    One stop to "rule" them all
+                  </span>
+                </span>
+                <IndiaFlagBadge className="ml-2.5 md:ml-3 shrink-0 relative translate-y-[4px] md:translate-y-[6px]" width={24} height={16} />
+              </h1>
+              {/* Spacer matching subtitle height to maintain header layout */}
+              <div className="h-[18px] md:h-[22px] pointer-events-none" aria-hidden="true" />
+            </div>
           </div>
         </Link>
 
