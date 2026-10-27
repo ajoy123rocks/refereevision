@@ -64,29 +64,29 @@ export default function SiteHeader() {
             alt="Referee Vision Logo"
             className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] shrink-0 drop-shadow-sm"
           />
-          <div className="flex items-center gap-3 md:gap-4">
-            <div className="flex flex-col">
-              <h1
-                style={{
-                  fontFamily: "'Barlow Condensed', sans-serif",
-                  fontWeight: 800,
-                  letterSpacing: '-0.5px',
-                }}
-                className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black"
-              >
-                REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N
-              </h1>
-              <p
-                style={{
-                  fontFamily: "'North Wave', cursive, sans-serif",
-                  color: 'var(--orange)',
-                }}
-                className="text-[17px] md:text-[21px] tracking-wider mt-1 leading-none text-right"
-              >
-                One stop to "rule" them all
-              </p>
-            </div>
-            <IndiaFlagBadge width={24} height={16} />
+          <div className="flex flex-col text-left">
+            <h1
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                fontWeight: 800,
+                letterSpacing: '-0.5px',
+              }}
+              className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black flex items-center"
+            >
+              <span>REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N</span>
+              <IndiaFlagBadge className="ml-2.5 md:ml-3 shrink-0 relative translate-y-[4px] md:translate-y-[6px]" width={24} height={16} />
+            </h1>
+            <p
+              style={{
+                fontFamily: "'North Wave', cursive, sans-serif",
+                color: 'var(--orange)',
+                width: 'fit-content',
+                maxWidth: 'calc(100% - 36px)',
+              }}
+              className="text-[17px] md:text-[21px] tracking-wider mt-1 leading-none text-right self-start"
+            >
+              One stop to "rule" them all
+            </p>
           </div>
         </Link>
 

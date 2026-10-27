@@ -16,11 +16,10 @@ export default function IndiaFlagBadge({
         display: 'inline-flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2px',
-        backgroundColor: '#FFD700', // Gold border frame matching the user screenshot
-        borderRadius: '3px',
-        boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-        verticalAlign: 'middle',
+        padding: '2.5px',
+        backgroundColor: '#FFCC00', // Solid vibrant gold frame matching the screenshot
+        borderRadius: '2px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.4)',
         lineHeight: 0,
       }}
       title="India"
@@ -30,7 +29,6 @@ export default function IndiaFlagBadge({
         height={height}
         viewBox="0 0 900 600"
         style={{
-          borderRadius: '1px',
           display: 'block',
         }}
       >
