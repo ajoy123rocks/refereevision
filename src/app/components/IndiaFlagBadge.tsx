@@ -21,7 +21,6 @@ export default function IndiaFlagBadge({
         borderRadius: '3px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
         verticalAlign: 'middle',
-        marginLeft: '6px',
         lineHeight: 0,
       }}
       title="India"

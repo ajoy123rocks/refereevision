@@ -64,7 +64,7 @@ export default function SiteHeader() {
             alt="Referee Vision Logo"
             className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] shrink-0 drop-shadow-sm"
           />
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-3 md:gap-4">
             <div className="flex flex-col">
               <h1
                 style={{
@@ -81,12 +81,12 @@ export default function SiteHeader() {
                   fontFamily: "'North Wave', cursive, sans-serif",
                   color: 'var(--orange)',
                 }}
-                className="text-[13px] md:text-[15px] tracking-wide mt-1 leading-none text-right"
+                className="text-[17px] md:text-[21px] tracking-wider mt-1 leading-none text-right"
               >
-                One  stop  to  "rule"  them  all
+                One stop to "rule" them all
               </p>
             </div>
-            <IndiaFlagBadge width={22} height={15} />
+            <IndiaFlagBadge width={24} height={16} />
           </div>
         </Link>
 
@@ -196,8 +196,8 @@ export default function SiteHeader() {
                     letterSpacing: '1px',
                   }}
                   className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
-                      ? 'text-[var(--orange)] bg-[#252525]'
-                      : 'text-white/85 hover:text-white hover:bg-[#222222]'
+                    ? 'text-[var(--orange)] bg-[#252525]'
+                    : 'text-white/85 hover:text-white hover:bg-[#222222]'
                     }`}
                 >
                   <span className="truncate">{item}</span>
@@ -226,8 +226,8 @@ export default function SiteHeader() {
                     letterSpacing: '1px',
                   }}
                   className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
-                      ? 'text-[var(--orange)] bg-[#252525]'
-                      : 'text-white/85 hover:text-white hover:bg-[#222222]'
+                    ? 'text-[var(--orange)] bg-[#252525]'
+                    : 'text-white/85 hover:text-white hover:bg-[#222222]'
                     }`}
                 >
                   <span className="truncate">{item}</span>

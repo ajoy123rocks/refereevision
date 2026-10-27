@@ -263,8 +263,9 @@ export default function Home() {
             style={{
               fontFamily: "'Barlow Condensed', sans-serif",
               letterSpacing: "2px",
+              borderRadius: "6px",
             }}
-            className="inline-block bg-[var(--orange)] hover:bg-[#d05513] text-white font-extrabold text-[15px] sm:text-[17px] uppercase px-8 py-3.5 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 no-underline"
+            className="inline-block bg-[var(--orange)] hover:bg-[#d05513] text-white font-extrabold text-[15px] sm:text-[17px] uppercase px-8 py-3.5 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 no-underline rounded-[6px]"
           >
             EXPLORE RESOURCES
           </a>
