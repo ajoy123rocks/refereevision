@@ -1174,13 +1174,23 @@ function VideoColumn({
       </div>
 
       {/* Thumbnails */}
-      <div style={{ display: "flex", gap: 6, height: isMobile ? undefined : 95.1, justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: isMobile ? 8 : 6,
+          height: isMobile ? undefined : 95.1,
+          justifyContent: "center",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
         {videos.map((vid, i) => (
           <VideoThumb
             key={i}
             index={i}
             link={vid.link}
             thumbnail={vid.thumbnail}
+            isMobile={isMobile}
             onPlay={vid.link ? () => onPlay(vid.link!) : undefined}
           />
         ))}
