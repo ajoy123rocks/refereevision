@@ -1883,7 +1883,7 @@ function MentalPreparationContent({ isMobile }: { isMobile: boolean }) {
 
 // ─── Improve Yourself content ──────────────────────────────────────────────────
 const IMPROVE_YOURSELF_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
-  { label: "ROTATIONS (Version 1.0) 💥", action: "download", link: "https://library.fibairef.basketball/doc/dlg0aFFPZUhrUzFxWnI2Wm12b3pGZz09" },
+  { label: "ROTATIONS (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/doc/dlg0aFFPZUhrUzFxWnI2Wm12b3pGZz09" },
   { label: "HEAD COACH'S CHALLENGE (Version 2.1)", action: "download", link: "https://library.fibairef.basketball/doc/bHYzalg3N04xUmRzZmdhL1QyQzd5Zz09" },
   { label: "REFEREEING THE HELP DEFENDER (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/63388408072964d0b3407fdad25c011a/FIBA_IY_HelpDefender_v1_0_Feb2026.pdf" },
   { label: "TIMING OF THE WHISTLE (Version 1.0)", action: "download", link: "https://library.fibairef.basketball/images/documents/414590e206f47a135687c2fcc2f30e95/FIBA_IY_WhistleTiming_v1_0_July2025.pdf" },
