@@ -563,48 +563,57 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
         <div
           onClick={(e) => e.stopPropagation()}
           style={{
-            width: "min(860px, 92vw)",
+            maxWidth: "92vw",
             maxHeight: "88vh",
             background: "#ffffff",
             boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
             position: "relative",
-            display: "flex",
+            display: "inline-flex",
             flexDirection: "column",
-            overflowY: "auto",
-            overflowX: "hidden",
-            borderRadius: 2,
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            borderRadius: 4,
           }}
         >
           {/* Close button inside white modal */}
           <button
             onClick={onClose}
             style={{
-              position: "sticky",
-              top: 0,
-              alignSelf: "flex-end",
+              position: "absolute",
+              top: 8,
+              right: 8,
               zIndex: 10,
               background: T.orange,
               border: "none",
               color: "#fff",
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: 700,
-              width: 40,
-              height: 40,
+              width: 34,
+              height: 34,
               cursor: "pointer",
               lineHeight: 1,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              marginBottom: -40,
+              borderRadius: "50%",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
             }}
           >
             ✕
           </button>
           <img
             src={url}
-            alt={title || "Article"}
-            style={{ width: "100%", display: "block" }}
+            alt={title || "Signal / Article"}
+            style={{
+              maxWidth: "min(860px, 92vw)",
+              maxHeight: "88vh",
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+              display: "block",
+            }}
           />
         </div>
       ) : (

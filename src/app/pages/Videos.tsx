@@ -210,39 +210,41 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
         <div
           onClick={(e) => e.stopPropagation()}
           style={{
-            width: "min(860px, 92vw)",
+            maxWidth: "92vw",
             maxHeight: "88vh",
             background: "#ffffff",
             boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
             position: "relative",
-            display: "flex",
+            display: "inline-flex",
             flexDirection: "column",
-            overflowY: "auto",
-            overflowX: "hidden",
-            borderRadius: 2,
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            borderRadius: 4,
           }}
         >
           <button
             onClick={onClose}
             style={{
-              position: "sticky",
-              top: 0,
-              alignSelf: "flex-end",
+              position: "absolute",
+              top: 8,
+              right: 8,
               zIndex: 10,
               background: T.orange,
               border: "none",
               color: "#fff",
-              fontSize: 22,
+              fontSize: 20,
               fontWeight: 700,
-              width: 40,
-              height: 40,
+              width: 34,
+              height: 34,
               cursor: "pointer",
               lineHeight: 1,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              marginBottom: -40,
+              borderRadius: "50%",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
             }}
           >
             ✕
@@ -250,7 +252,14 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
           <img
             src={url}
             alt={title || "Document"}
-            style={{ width: "100%", display: "block" }}
+            style={{
+              maxWidth: "min(860px, 92vw)",
+              maxHeight: "88vh",
+              width: "auto",
+              height: "auto",
+              objectFit: "contain",
+              display: "block",
+            }}
           />
         </div>
       ) : (
@@ -885,7 +894,6 @@ function ScorerContent() {
   );
 }
 
-// ─── Shared: doc placeholder card ───────────────────────────────────────────
 function DocCard({
   label,
   cols = 1,
@@ -908,74 +916,85 @@ function DocCard({
   onClick?: () => void;
 }) {
   const h = useHover();
-  const handleClick = () => {
-    if (onClick) {
-      onClick();
-    } else if (link) {
-      window.open(link, "_blank");
-    }
-  };
+  const [modalOpen, setModalOpen] = useState(false);
 
   const isImageUrl = link && (link.endsWith(".jpg") || link.endsWith(".jpeg") || link.endsWith(".png") || link.endsWith(".webp"));
   const displayImage = thumbnail || (isImageUrl ? link : null);
   const isSignal = Boolean(link && /sig/i.test(link));
 
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else if (displayImage || link) {
+      setModalOpen(true);
+    }
+  };
+
   return (
-    <div
-      onMouseEnter={h.onMouseEnter}
-      onMouseLeave={h.onMouseLeave}
-      onClick={handleClick}
-      style={{
-        width: width ?? (cols === 1 ? 110 : 80),
-        height: height ?? "auto",
-        aspectRatio: aspectRatio ?? (isSignal ? "218 / 330" : (height ? undefined : "218 / 330")),
-        background: isSignal ? "transparent" : (h.on ? "#222" : T.charcoal),
-        border: `2px solid ${h.on ? T.orange : T.border}`,
-        borderRadius: 4,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: displayImage ? 0 : 6,
-        transition: "border-color 0.2s, transform 0.2s",
-        transform: h.on ? "scale(1.04)" : "scale(1)",
-        cursor: (link || onClick) ? "pointer" : "default",
-        flexShrink: 0,
-        padding: displayImage ? 0 : "8px 4px",
-        boxSizing: "border-box",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {displayImage ? (
-        <img
-          src={displayImage}
-          alt={label || "Doc thumbnail"}
-          style={{
-            display: "block",
-            width: "100%",
-            height: "100%",
-            objectFit: objectFit ?? "fill",
-            transition: "opacity 0.2s",
-            opacity: h.on ? 0.95 : 0.85,
-          }}
+    <>
+      <div
+        onMouseEnter={h.onMouseEnter}
+        onMouseLeave={h.onMouseLeave}
+        onClick={handleClick}
+        style={{
+          width: width ?? (cols === 1 ? 110 : 80),
+          height: height ?? "auto",
+          aspectRatio: aspectRatio ?? (isSignal ? "218 / 330" : (height ? undefined : "218 / 330")),
+          background: isSignal ? "transparent" : (h.on ? "#222" : T.charcoal),
+          border: `2px solid ${h.on ? T.orange : T.border}`,
+          borderRadius: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: displayImage ? 0 : 6,
+          transition: "border-color 0.2s, transform 0.2s",
+          transform: h.on ? "scale(1.04)" : "scale(1)",
+          cursor: (link || onClick) ? "pointer" : "default",
+          flexShrink: 0,
+          padding: displayImage ? 0 : "8px 4px",
+          boxSizing: "border-box",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {displayImage ? (
+          <img
+            src={displayImage}
+            alt={label || "Doc thumbnail"}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+              objectFit: objectFit ?? "fill",
+              transition: "opacity 0.2s",
+              opacity: h.on ? 0.95 : 0.85,
+            }}
+          />
+        ) : (
+          <>
+            {/* Doc lines */}
+            <div style={{ width: "60%", display: "flex", flexDirection: "column", gap: 4 }}>
+              {[1, 0.7, 0.85, 0.6, 0.75, 0.5].map((w, i) => (
+                <div key={i} style={{ height: 2, width: `${w * 100}%`, background: h.on ? T.orange : "#3A3A3A", borderRadius: 1, transition: "background 0.2s" }} />
+              ))}
+            </div>
+            {label && (
+              <span style={{ fontFamily: BARLOW, fontSize: 8, color: T.grey, letterSpacing: "0.5px", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2, marginTop: 4 }}>
+                {label}
+              </span>
+            )}
+          </>
+        )}
+      </div>
+      {modalOpen && (displayImage || link) && (
+        <VideoModal
+          url={displayImage || link!}
+          title={label || "Document"}
+          onClose={() => setModalOpen(false)}
         />
-      ) : (
-        <>
-          {/* Doc lines */}
-          <div style={{ width: "60%", display: "flex", flexDirection: "column", gap: 4 }}>
-            {[1, 0.7, 0.85, 0.6, 0.75, 0.5].map((w, i) => (
-              <div key={i} style={{ height: 2, width: `${w * 100}%`, background: h.on ? T.orange : "#3A3A3A", borderRadius: 1, transition: "background 0.2s" }} />
-            ))}
-          </div>
-          {label && (
-            <span style={{ fontFamily: BARLOW, fontSize: 8, color: T.grey, letterSpacing: "0.5px", textTransform: "uppercase", textAlign: "center", lineHeight: 1.2, marginTop: 4 }}>
-              {label}
-            </span>
-          )}
-        </>
       )}
-    </div>
+    </>
   );
 }
 
@@ -2615,10 +2634,8 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
       {/* COVERING A SHOT */}
       <SubSectionBadge label="COVERING A SHOT (1 - 2 - 3 TECHNIQUE)" />
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
-        <a
-          href="https://www.refereevision.com/coveringashot.png"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          onClick={() => setActiveVideo("https://www.refereevision.com/coveringashot.png")}
           style={{
             width: isMobile ? 180 : 220,
             aspectRatio: "4 / 3",
@@ -2629,7 +2646,6 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
             justifyContent: "center",
             borderRadius: 4,
             overflow: "hidden",
-            textDecoration: "none",
             cursor: "pointer",
           }}
         >
@@ -2638,7 +2654,7 @@ function ActOfShootingContent({ isMobile, isTablet }: { isMobile: boolean; isTab
             alt="Covering a shot technique diagram"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-        </a>
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 28 }}>
         <span style={{ fontFamily: DM, fontSize: 14, color: T.orange, fontStyle: "italic", letterSpacing: "0.5px" }}>
@@ -3809,10 +3825,8 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
         </span>
       </div>
       <div style={{ display: "flex", justifyContent: "center", marginBottom: 36 }}>
-        <a
-          href="https://www.refereevision.com/ufoul_protocol.png"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div
+          onClick={() => setActiveVideo("https://www.refereevision.com/ufoul_protocol.png")}
           style={{
             width: isMobile ? 180 : 240,
             aspectRatio: "16 / 9",
@@ -3823,7 +3837,6 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
             justifyContent: "center",
             borderRadius: 4,
             overflow: "hidden",
-            textDecoration: "none",
             cursor: "pointer",
           }}
         >
@@ -3832,7 +3845,7 @@ function UnsportsmanlikeFoulContent({ isMobile, isTablet }: { isMobile: boolean;
             alt="0 - 1 - 2 Technique Diagram"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-        </a>
+        </div>
       </div>
 
       {/* FIBA EDUCATIONAL VIDEOS */}

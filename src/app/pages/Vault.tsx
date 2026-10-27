@@ -433,12 +433,21 @@ function WorldCongressCard() {
 }
 
 // ─── ASSIST MAGAZINE ──────────────────────────────────────────────────────────
-function AssistMagazineContent() {
+function AssistMagazineContent({ isMobile, isTablet }: { isMobile?: boolean; isTablet?: boolean }) {
   const issues = [...Array.from({ length: 32 }, (_, i) => i + 1), 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44];
+  const cols = isMobile ? 2 : isTablet ? 3 : 5;
   return (
     <div>
       <VaultBadge label="ASSIST MAGAZINE" />
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(90px, 1fr))", gap: 14, padding: "0 8px 48px" }}>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${cols}, 1fr)`,
+          gap: isMobile ? 10 : 16,
+          padding: "0 8px 48px",
+          marginTop: 28,
+        }}
+      >
         {issues.map(n => <AssistCard key={n} issueNumber={n} />)}
       </div>
     </div>
@@ -1820,7 +1829,7 @@ export default function Vault() {
             boxSizing: "border-box",
           }}
         >
-          {activeTab === "ASSIST MAGAZINE" && <AssistMagazineContent />}
+          {activeTab === "ASSIST MAGAZINE" && <AssistMagazineContent isMobile={isMobile} isTablet={isTablet} />}
           {activeTab === "MIC'D UP" && <MicDUpContent />}
           {activeTab === "TOUGH CALLS" && <ToughCallsContent />}
           {activeTab === "QUIZ" && <QuizContent />}
