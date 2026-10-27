@@ -294,13 +294,15 @@ function useHover() {
   return { on, onMouseEnter: () => set(true), onMouseLeave: () => set(false) };
 }
 
-// ─── Video modal ──────────────────────────────────────────────────────────────
-function VaultModal({ url, onClose }: { url: string; onClose: () => void }) {
+// ─── Video & Document modal ───────────────────────────────────────────────────
+function VaultModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
   useEffect(() => {
     const h = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", h);
     return () => window.removeEventListener("keydown", h);
   }, [onClose]);
+
+  const isPdf = /\.pdf(\?.*)?$/i.test(url);
 
   const toEmbed = (u: string) => {
     const m1 = u.match(/youtu\.be\/([\w-]+)/);
@@ -315,15 +317,115 @@ function VaultModal({ url, onClose }: { url: string; onClose: () => void }) {
       onClick={onClose}
       style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.92)", zIndex: 10000, display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <div onClick={e => e.stopPropagation()} style={{ width: "min(860px,90vw)", background: "#000", borderRadius: 4, overflow: "hidden" }}>
-        <iframe
-          src={toEmbed(url)}
-          width="100%"
-          style={{ aspectRatio: "16/9", display: "block", border: "none" }}
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-        />
-      </div>
+      {isPdf ? (
+        <div
+          onClick={e => e.stopPropagation()}
+          style={{
+            width: "min(1080px, 94vw)",
+            height: "90vh",
+            background: "#1E1E1E",
+            boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            borderRadius: 4,
+            overflow: "hidden",
+            border: `1px solid ${TV.border}`,
+          }}
+        >
+          {/* Top toolbar */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "10px 16px",
+              background: "#1A1A1A",
+              borderBottom: `2px solid ${TV.orange}`,
+              zIndex: 20,
+              flexShrink: 0,
+            }}
+          >
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 800,
+                fontSize: 15,
+                color: TV.white,
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+              }}
+            >
+              {title || "Assist Magazine"}
+            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: TV.orange,
+                  fontFamily: BARLOW,
+                  fontWeight: 700,
+                  fontSize: 12,
+                  letterSpacing: "1px",
+                  textDecoration: "none",
+                  border: `1px solid ${TV.orange}`,
+                  padding: "4px 10px",
+                  borderRadius: 3,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                OPEN NEW TAB ↗
+              </a>
+              <button
+                onClick={onClose}
+                title="Close"
+                style={{
+                  background: TV.orange,
+                  border: "none",
+                  color: "#fff",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  width: 32,
+                  height: 32,
+                  borderRadius: 4,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+          {/* PDF Frame */}
+          <iframe
+            src={url}
+            title={title || "PDF Document"}
+            style={{
+              flex: 1,
+              width: "100%",
+              height: "100%",
+              border: "none",
+              background: "#fff",
+            }}
+          />
+        </div>
+      ) : (
+        <div onClick={e => e.stopPropagation()} style={{ width: "min(860px,90vw)", background: "#000", borderRadius: 4, overflow: "hidden" }}>
+          <iframe
+            src={toEmbed(url)}
+            width="100%"
+            style={{ aspectRatio: "16/9", display: "block", border: "none" }}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+          />
+        </div>
+      )}
     </div>,
     document.body
   );
@@ -341,18 +443,23 @@ function VaultBadge({ label }: { label: string }) {
 }
 
 // ─── Assist card ──────────────────────────────────────────────────────────────
-function AssistCard({ issueNumber }: { issueNumber: number }) {
+function AssistCard({
+  issueNumber,
+  onOpen,
+}: {
+  issueNumber: number;
+  onOpen: (pdfUrl: string, title: string) => void;
+}) {
   const h = useHover();
   const fmt = String(issueNumber).padStart(2, "0");
   const thumb = `https://www.refereevision.com/Referees/${fmt}.jpg`;
   const pdf = `https://www.refereevision.com/Referees/${fmt}_${issueNumber === 1 ? "Ref" : "ref"}.pdf`;
   const stripe = STRIPE_COLORS[(issueNumber - 1) % STRIPE_COLORS.length];
+  const title = `ASSIST MAGAZINE #${fmt}`;
 
   return (
-    <a
-      href={pdf}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
+      onClick={() => onOpen(pdf, title)}
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
       style={{
@@ -383,7 +490,7 @@ function AssistCard({ issueNumber }: { issueNumber: number }) {
           onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
         />
       </div>
-    </a>
+    </div>
   );
 }
 
@@ -434,10 +541,18 @@ function WorldCongressCard() {
 
 // ─── ASSIST MAGAZINE ──────────────────────────────────────────────────────────
 function AssistMagazineContent({ isMobile, isTablet }: { isMobile?: boolean; isTablet?: boolean }) {
+  const [activeDoc, setActiveDoc] = useState<{ url: string; title: string } | null>(null);
   const issues = [...Array.from({ length: 32 }, (_, i) => i + 1), 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44];
   const cols = isMobile ? 2 : isTablet ? 3 : 5;
   return (
     <div>
+      {activeDoc && (
+        <VaultModal
+          url={activeDoc.url}
+          title={activeDoc.title}
+          onClose={() => setActiveDoc(null)}
+        />
+      )}
       <VaultBadge label="ASSIST MAGAZINE" />
       <div
         style={{
@@ -448,7 +563,13 @@ function AssistMagazineContent({ isMobile, isTablet }: { isMobile?: boolean; isT
           marginTop: 28,
         }}
       >
-        {issues.map(n => <AssistCard key={n} issueNumber={n} />)}
+        {issues.map(n => (
+          <AssistCard
+            key={n}
+            issueNumber={n}
+            onOpen={(url, title) => setActiveDoc({ url, title })}
+          />
+        ))}
       </div>
     </div>
   );

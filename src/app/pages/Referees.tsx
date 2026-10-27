@@ -451,8 +451,10 @@ function getYouTubeEmbedUrl(url: string): string {
 }
 
 function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
+  const [zoom, setZoom] = useState(1);
   const isMp3 = url.endsWith(".mp3") || url.includes(".mp3?");
   const isMp4 = url.endsWith(".mp4") || url.includes(".mp4?");
+  const isPdf = /\.pdf(\?.*)?$/i.test(url);
   const isImage = /\.(jpg|jpeg|png|gif|webp)(\?.*)?$/i.test(url);
   const youtubeId = getYouTubeId(url);
   const embedSrc = youtubeId
@@ -562,57 +564,336 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
       ) : isImage ? (
         <div
           onClick={(e) => e.stopPropagation()}
+          style={
+            /sig/i.test(url)
+              ? {
+                maxWidth: "92vw",
+                maxHeight: "88vh",
+                background: "#ffffff",
+                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                position: "relative",
+                display: "inline-flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                borderRadius: 4,
+              }
+              : {
+                width: "min(960px, 94vw)",
+                height: "90vh",
+                background: "#ffffff",
+                boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: 4,
+                overflow: "hidden",
+              }
+          }
+        >
+          {/* Header toolbar for non-signal documents (Article, Interpretation, Presentation) */}
+          {!/sig/i.test(url) && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "8px 16px",
+                background: "#1E1E1E",
+                borderBottom: `2px solid ${T.orange}`,
+                zIndex: 20,
+                flexShrink: 0,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                {title && (
+                  <span
+                    style={{
+                      fontFamily: BARLOW,
+                      fontWeight: 800,
+                      fontSize: 14,
+                      color: T.white,
+                      letterSpacing: "1px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {title}
+                  </span>
+                )}
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {/* Zoom out */}
+                <button
+                  onClick={() => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2)))}
+                  title="Zoom Out"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: "#fff",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.15s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = T.orange)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2A2A2A")}
+                >
+                  −
+                </button>
+                {/* Zoom percentage */}
+                <button
+                  onClick={() => setZoom(1)}
+                  title="Reset Zoom"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: T.orange,
+                    fontFamily: BARLOW,
+                    fontWeight: 800,
+                    fontSize: 12,
+                    letterSpacing: "0.5px",
+                    padding: "0 10px",
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {Math.round(zoom * 100)}%
+                </button>
+                {/* Zoom in */}
+                <button
+                  onClick={() => setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))}
+                  title="Zoom In"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: "#fff",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.15s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = T.orange)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2A2A2A")}
+                >
+                  +
+                </button>
+                {/* Close button */}
+                <button
+                  onClick={onClose}
+                  title="Close"
+                  style={{
+                    background: T.orange,
+                    border: "none",
+                    color: "#fff",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: 6,
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Close button inside modal for signals */}
+          {/sig/i.test(url) && (
+            <button
+              onClick={onClose}
+              style={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                zIndex: 10,
+                background: T.orange,
+                border: "none",
+                color: "#fff",
+                fontSize: 20,
+                fontWeight: 700,
+                width: 34,
+                height: 34,
+                cursor: "pointer",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                borderRadius: "50%",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
+              }}
+            >
+              ✕
+            </button>
+          )}
+
+          {/sig/i.test(url) ? (
+            <img
+              src={url}
+              alt={title || "Signal"}
+              style={{
+                maxWidth: "min(860px, 92vw)",
+                maxHeight: "88vh",
+                width: "auto",
+                height: "auto",
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                flex: 1,
+                overflow: "auto",
+                background: "#333",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                padding: "16px",
+              }}
+            >
+              <div
+                style={{
+                  transform: `scale(${zoom})`,
+                  transformOrigin: "top center",
+                  transition: "transform 0.15s ease",
+                  display: "inline-block",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+                  background: "#fff",
+                }}
+              >
+                <img
+                  src={url}
+                  alt={title || "Article"}
+                  style={{
+                    width: "100%",
+                    maxWidth: 900,
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      ) : isPdf ? (
+        <div
+          onClick={(e) => e.stopPropagation()}
           style={{
-            maxWidth: "92vw",
-            maxHeight: "88vh",
-            background: "#ffffff",
+            width: "min(1080px, 94vw)",
+            height: "90vh",
+            background: "#1E1E1E",
             boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
             position: "relative",
-            display: "inline-flex",
+            display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
             borderRadius: 4,
+            overflow: "hidden",
+            border: `1px solid ${T.border}`,
           }}
         >
-          {/* Close button inside white modal */}
-          <button
-            onClick={onClose}
+          {/* Top toolbar */}
+          <div
             style={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              zIndex: 10,
-              background: T.orange,
-              border: "none",
-              color: "#fff",
-              fontSize: 20,
-              fontWeight: 700,
-              width: 34,
-              height: 34,
-              cursor: "pointer",
-              lineHeight: 1,
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
+              justifyContent: "space-between",
+              padding: "10px 16px",
+              background: "#1A1A1A",
+              borderBottom: `2px solid ${T.orange}`,
+              zIndex: 20,
               flexShrink: 0,
-              borderRadius: "50%",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
             }}
           >
-            ✕
-          </button>
-          <img
+            <span
+              style={{
+                fontFamily: BARLOW,
+                fontWeight: 800,
+                fontSize: 15,
+                color: T.white,
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+              }}
+            >
+              {title || "Assist Article"}
+            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  color: T.orange,
+                  fontFamily: BARLOW,
+                  fontWeight: 700,
+                  fontSize: 12,
+                  letterSpacing: "1px",
+                  textDecoration: "none",
+                  border: `1px solid ${T.orange}`,
+                  padding: "4px 10px",
+                  borderRadius: 3,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                }}
+              >
+                OPEN NEW TAB ↗
+              </a>
+              <button
+                onClick={onClose}
+                title="Close"
+                style={{
+                  background: T.orange,
+                  border: "none",
+                  color: "#fff",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  width: 32,
+                  height: 32,
+                  borderRadius: 4,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+          {/* PDF Frame */}
+          <iframe
             src={url}
-            alt={title || "Signal / Article"}
+            title={title || "PDF Document"}
             style={{
-              maxWidth: "min(860px, 92vw)",
-              maxHeight: "88vh",
-              width: "auto",
-              height: "auto",
-              objectFit: "contain",
-              display: "block",
+              flex: 1,
+              width: "100%",
+              height: "100%",
+              border: "none",
+              background: "#fff",
             }}
           />
         </div>
@@ -1145,6 +1426,11 @@ const FITNESS_ITEMS: { label: string; action: "play" | "download" | "watch"; lin
     link: "https://library.fibairef.basketball/images/documents/35bd8c8b5c831b242ae0b77b61088378/GOL2021_23__FIBA_Referees_Basic_Fitness_Test.mp3",
   },
   {
+    label: "FIBA BASIC FITNESS TEST (Video)",
+    action: "watch",
+    link: "https://assets.fiba.basketball/video/upload/documents-referees-game-officials-gol-2027-29-basic-fitness-test-basic-fitness-test-video.mp4"
+  },
+  {
     label: "FIBA YO YO ELITE FITNESS TEST (Audio)",
     action: "play",
     link: "https://library.fibairef.basketball/images/documents/568b699453a1a2c1d415a6187e9a685f/FIBA_Yo_Yo_Elite_Test_May_2019.mp3",
@@ -1625,16 +1911,16 @@ function ImproveYourselfContent({ isMobile }: { isMobile: boolean }) {
 
 // ─── FIBA Licensing content ──────────────────────────────────────────────────
 const FIBA_LICENSING_ITEMS: { label: string; action: "play" | "download" | "watch"; link?: string }[] = [
-  { label: "GUIDELINES TO NATIONAL FEDERATIONS (Version 1.0 October 2022)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/nf-guidelines.pdf" },
-  { label: "LICENSING 2023-25 INTRODUCTION", action: "watch", link: "https://youtu.be/hcfdn3tQoyM" },
-  { label: "FIBA GOL 2023-25 Referees’ Physical Training Plan", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/referees-physical-training-plan.pdf" },
-  { label: "FIBA GOL 2023-25 Entry Form", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/entry-form.pdf" },
-  { label: "FIBA GOL 2023-25 Fitness Test Result", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/fitness-test-results.pdf" },
-  { label: "FIBA GOL 2023-25 Fitness Test Consent Form", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/fitness-test-consent-form.pdf" },
-  { label: "FIBA GOL 2023-25 Medical Certificate", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/medical-certificate.pdf" },
-  { label: "FIBA GOL 2023-25 MAP (FIBA Management & Administration Platform) User Guidelines", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/map-guidelines.pdf" },
-  { label: "LIST OF NATIONAL FEDERATIONS (27ᵗʰ January 2017)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/nf-list.pdf" },
-  { label: "COMBINED WORLD RANKING (4ᵗʰ October 2022)", action: "download", link: "https://www.fiba.basketball/documents/en/gol2023-25/world-ranking.pdf" }
+  { label: "GUIDELINES FOR NATIONAL MEMBER FEDERATIONS (Version 1.0 October 2026)", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-gol-guidelines-en.pdf" },
+  { label: "MAP USER GUIDELINES", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-map-user-guidelines-en.pdf" },
+  { label: "FIBA GOL 2027-29 Referees' Physical Training Plan", action: "download", link: "https://assets.fiba.basketball/image/upload/v1792052119/documents-referees-game-officials-gol-2027-29-basic-fitness-test-training-plan.pdf" },
+  { label: "FIBA GOL 2027-29 Entry Form", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-required-forms-entry-form.pdf" },
+  { label: "FIBA GOL 2027-29 Fitness Test Result", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-required-forms-fitness-test-results-form.pdf" },
+  { label: "FIBA GOL 2027-29 Fitness Test Consent Form", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-required-forms-fitness-test-consent-form.pdf" },
+  { label: "FIBA GOL 2027-29 Medical Certificate", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-required-forms-medical-certificate.pdf" },
+  { label: "FIBA GOL 2027-29 MAP (FIBA Management & Administration Platform) User Guidelines", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-required-forms-map-user-registration-form-for-nfs.pdf" },
+  { label: "LIST OF NATIONAL FEDERATIONS (2nd September 2024)", action: "download", link: "https://assets.fiba.basketball/image/upload/v1728662673/documents-corporate-others-gol-2025-27-fiba-ranking.pdf" },
+  { label: "COMBINED WORLD RANKING (2nd September 2024)", action: "download", link: "https://assets.fiba.basketball/image/upload/documents-referees-game-officials-gol-2027-29-fiba-combined-world-ranking-september-2026.pdf" }
 ];
 
 function FibaLicensingContent({ isMobile }: { isMobile: boolean }) {
@@ -1717,20 +2003,25 @@ const ASSIST_ARTICLES_DATA = [
   { id: 44 },
 ];
 
-function AssistCard({ issueNumber }: { issueNumber: number }) {
+function AssistCard({
+  issueNumber,
+  onOpen,
+}: {
+  issueNumber: number;
+  onOpen: (pdfUrl: string, title: string) => void;
+}) {
   const h = useHover();
   const formattedNum = String(issueNumber).padStart(2, "0");
   const thumbnail = `https://www.refereevision.com/Referees/${formattedNum}.jpg`;
   const pdfLink = `https://www.refereevision.com/Referees/${formattedNum}_${issueNumber === 1 ? "Ref" : "ref"}.pdf`;
+  const title = `ASSIST ARTICLE #${formattedNum}`;
 
   const stripeColors = ["#0056B3", "#FFC107", "#DC3545", "#28A745", "#6C757D", "#E8651A"];
   const stripeColor = stripeColors[(issueNumber - 1) % stripeColors.length];
 
   return (
-    <a
-      href={pdfLink}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
+      onClick={() => onOpen(pdfLink, title)}
       onMouseEnter={h.onMouseEnter}
       onMouseLeave={h.onMouseLeave}
       style={{
@@ -1805,15 +2096,24 @@ function AssistCard({ issueNumber }: { issueNumber: number }) {
           }}
         />
       </div>
-    </a>
+    </div>
   );
 }
 
 function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTablet: boolean }) {
+  const [activeDoc, setActiveDoc] = useState<{ url: string; title: string } | null>(null);
   const cols = isMobile ? 2 : isTablet ? 3 : 5;
 
   return (
     <div>
+      {activeDoc && (
+        <VideoModal
+          url={activeDoc.url}
+          title={activeDoc.title}
+          onClose={() => setActiveDoc(null)}
+        />
+      )}
+
       <SectionBadge label="ASSIST ARTICLES" />
 
       {/* Subtitle */}
@@ -1829,7 +2129,7 @@ function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTa
           textTransform: "uppercase",
         }}
       >
-        {isMobile ? "( TAP AN ISSUE TO OPEN )" : "( HOVER OVER THE IMAGE TO SEE THE ARTICLES WITHIN )"}
+        {isMobile ? "( TAP AN ISSUE TO OPEN )" : "( CLICK AN ISSUE TO OPEN IN POPUP )"}
       </div>
 
       {/* Responsive grid */}
@@ -1845,6 +2145,7 @@ function AssistArticlesContent({ isMobile, isTablet }: { isMobile: boolean; isTa
           <AssistCard
             key={issue.id}
             issueNumber={issue.id}
+            onOpen={(url, title) => setActiveDoc({ url, title })}
           />
         ))}
       </div>

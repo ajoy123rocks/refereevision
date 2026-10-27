@@ -312,16 +312,16 @@ const EQUIPMENT_DOCS = [
 
 const REGULATIONS_DOCS = [
   { label: "FIBA GENERAL STATUES", version: "Valid as of 16th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-general-statutes-2025-eng.pdf" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - GENERAL PROVISIONS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-1.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - GENERAL PROVISIONS", version: "Valid as of 22nd April 2026", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-1.pdf" },
   { label: "FIBA INTERNAL REGULATIONS: BOOK 1 - ANNEX (Equipment)", version: "Valid as of 5th December 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-1---annex-equipment.pdf" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 2 - COMPETITIONS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-2.pdf" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 3 - PLAYERS AND OFFICIALS", version: "Valid as of 15th May 2025", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-3.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 2 - COMPETITIONS", version: "Valid as of 22nd April 2026", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-2.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 3 - PLAYERS AND OFFICIALS", version: "Valid as of 22nd April 2026", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-3.pdf" },
   { label: "FIBA INTERNAL REGULATIONS: BOOK 4 - ANTI-DOPING", version: "Valid as of 30th April 2023", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-4.pdf" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 5 - GOVERNINNG THE ZONES", version: "Valid as of 25th April 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-5.pdf" },
-  { label: "FIBA INTERNAL REGULATIONS: BOOK 6 - 3X3", version: "Valid as of 27th Feb 2026", link: "https://fiba3x3.com/docs/fiba-internal-regulations-book-6.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 5 - GOVERNINNG THE ZONES", version: "Valid as of 12th September 2026", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-5.pdf" },
+  { label: "FIBA INTERNAL REGULATIONS: BOOK 6 - 3X3", version: "Valid as of 22nd April 2026", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-regulations-internal-regulations-book-6.pdf" },
   { label: "FIBA VENUE RULES", version: "Valid as of May 2024", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-policys-and-rules-venue-rules-eng.pdf" },
   { label: "FIBA SAFEGUARDING POLICY", version: "Valid as of 2nd Dec 2022", link: "https://assets.fiba.basketball/image/upload/documents-corporate-fiba-policys-and-rules-safeguarding-policy-v20-2022.pdf" },
-  { label: "FIBA CONCUSSION GUIDELINES 2025", version: "Valid", link: "https://assets.fiba.basketball/image/upload/documents-corporate-medical-fiba-concussion-guidelines-2025.pdf" },
+  { label: "FIBA CONCUSSION GUIDELINES 2026", version: "Valid", link: "https://assets.fiba.basketball/image/upload/documents-corporate-medical-fiba-concussion-guidelines-2026.pdf" },
   { label: "MEDICAL RESOURCE FOR BASKETBALL TEAM PHYSICIANS", version: "Valid as of Nov 2017", link: "https://assets.fiba.basketball/image/upload/documents-corporate-medical-team-medical-support-staff-resources.pdf" },
 ];
 

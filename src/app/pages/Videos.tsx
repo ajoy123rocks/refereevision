@@ -178,6 +178,8 @@ function getYouTubeEmbedUrl(url: string): string {
 // ─── Video Modal ──────────────────────────────────────────────────────────────
 function VideoModal({ url, title, onClose }: { url: string; title?: string; onClose: () => void }) {
   const isImage = /\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?$/i.test(url) || url.startsWith("data:image");
+  const isSignal = isImage && /sig/i.test(url);
+  const [zoom, setZoom] = useState(1);
   const youtubeId = getYouTubeId(url);
   const embedSrc = youtubeId
     ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
@@ -195,7 +197,7 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
         justifyContent: "center",
         zIndex: 99999,
         backdropFilter: "blur(6px)",
-        padding: isImage ? "32px 16px" : "16px",
+        padding: isImage ? "24px 16px" : "16px",
         animation: "fadeInModal 0.22s ease",
       }}
     >
@@ -209,58 +211,241 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
       {isImage ? (
         <div
           onClick={(e) => e.stopPropagation()}
-          style={{
-            maxWidth: "92vw",
-            maxHeight: "88vh",
-            background: "#ffffff",
-            boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
-            position: "relative",
-            display: "inline-flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-            borderRadius: 4,
-          }}
+          style={
+            isSignal
+              ? {
+                  maxWidth: "92vw",
+                  maxHeight: "88vh",
+                  background: "#ffffff",
+                  boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                  position: "relative",
+                  display: "inline-flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden",
+                  borderRadius: 4,
+                }
+              : {
+                  width: "min(960px, 94vw)",
+                  height: "90vh",
+                  background: "#ffffff",
+                  boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  borderRadius: 4,
+                  overflow: "hidden",
+                }
+          }
         >
-          <button
-            onClick={onClose}
-            style={{
-              position: "absolute",
-              top: 8,
-              right: 8,
-              zIndex: 10,
-              background: T.orange,
-              border: "none",
-              color: "#fff",
-              fontSize: 20,
-              fontWeight: 700,
-              width: 34,
-              height: 34,
-              cursor: "pointer",
-              lineHeight: 1,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              borderRadius: "50%",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
-            }}
-          >
-            ✕
-          </button>
-          <img
-            src={url}
-            alt={title || "Document"}
-            style={{
-              maxWidth: "min(860px, 92vw)",
-              maxHeight: "88vh",
-              width: "auto",
-              height: "auto",
-              objectFit: "contain",
-              display: "block",
-            }}
-          />
+          {/* Header toolbar for non-signal documents (Article, Interpretation, Presentation) */}
+          {!isSignal && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "8px 16px",
+                background: "#1E1E1E",
+                borderBottom: `2px solid ${T.orange}`,
+                zIndex: 20,
+                flexShrink: 0,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                {title && (
+                  <span
+                    style={{
+                      fontFamily: BARLOW,
+                      fontWeight: 800,
+                      fontSize: 14,
+                      color: T.white,
+                      letterSpacing: "1px",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {title}
+                  </span>
+                )}
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {/* Zoom out */}
+                <button
+                  onClick={() => setZoom((z) => Math.max(0.5, +(z - 0.25).toFixed(2)))}
+                  title="Zoom Out"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: "#fff",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.15s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = T.orange)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2A2A2A")}
+                >
+                  −
+                </button>
+                {/* Zoom percentage */}
+                <button
+                  onClick={() => setZoom(1)}
+                  title="Reset Zoom"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: T.orange,
+                    fontFamily: BARLOW,
+                    fontWeight: 800,
+                    fontSize: 12,
+                    letterSpacing: "0.5px",
+                    padding: "0 10px",
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {Math.round(zoom * 100)}%
+                </button>
+                {/* Zoom in */}
+                <button
+                  onClick={() => setZoom((z) => Math.min(3, +(z + 0.25).toFixed(2)))}
+                  title="Zoom In"
+                  style={{
+                    background: "#2A2A2A",
+                    border: `1px solid ${T.border}`,
+                    color: "#fff",
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transition: "background 0.15s",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = T.orange)}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "#2A2A2A")}
+                >
+                  +
+                </button>
+                {/* Close button */}
+                <button
+                  onClick={onClose}
+                  title="Close"
+                  style={{
+                    background: T.orange,
+                    border: "none",
+                    color: "#fff",
+                    fontSize: 18,
+                    fontWeight: 700,
+                    width: 32,
+                    height: 32,
+                    borderRadius: 4,
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: 6,
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Close button for signal (standalone window fit card) */}
+          {isSignal && (
+            <button
+              onClick={onClose}
+              style={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                zIndex: 10,
+                background: T.orange,
+                border: "none",
+                color: "#fff",
+                fontSize: 20,
+                fontWeight: 700,
+                width: 34,
+                height: 34,
+                cursor: "pointer",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                borderRadius: "50%",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
+              }}
+            >
+              ✕
+            </button>
+          )}
+
+          {/* Image view: scrollable & zoomable for articles/interpretations/presentations; window-fit for signals */}
+          {isSignal ? (
+            <img
+              src={url}
+              alt={title || "Signal"}
+              style={{
+                maxWidth: "min(860px, 92vw)",
+                maxHeight: "88vh",
+                width: "auto",
+                height: "auto",
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                flex: 1,
+                overflow: "auto",
+                background: "#333",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "flex-start",
+                padding: "16px",
+              }}
+            >
+              <div
+                style={{
+                  transform: `scale(${zoom})`,
+                  transformOrigin: "top center",
+                  transition: "transform 0.15s ease",
+                  display: "inline-block",
+                  boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
+                  background: "#fff",
+                }}
+              >
+                <img
+                  src={url}
+                  alt={title || "Document"}
+                  style={{
+                    width: "100%",
+                    maxWidth: 900,
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       ) : (
         <div
