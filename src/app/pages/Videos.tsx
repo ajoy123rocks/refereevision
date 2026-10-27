@@ -197,7 +197,7 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
         justifyContent: "center",
         zIndex: 99999,
         backdropFilter: "blur(6px)",
-        padding: isImage ? "24px 16px" : "16px",
+        padding: isSignal ? "16px 12px" : isImage ? "24px 16px" : "16px",
         animation: "fadeInModal 0.22s ease",
       }}
     >
@@ -214,8 +214,8 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
           style={
             isSignal
               ? {
-                  maxWidth: "92vw",
-                  maxHeight: "88vh",
+                  maxWidth: "96vw",
+                  maxHeight: "92vh",
                   background: "#ffffff",
                   boxShadow: "0 8px 48px rgba(0,0,0,0.5)",
                   position: "relative",
@@ -403,9 +403,9 @@ function VideoModal({ url, title, onClose }: { url: string; title?: string; onCl
               src={url}
               alt={title || "Signal"}
               style={{
-                maxWidth: "min(860px, 92vw)",
-                maxHeight: "88vh",
-                width: "auto",
+                width: "min(350px, 92vw)",
+                maxWidth: "96vw",
+                maxHeight: "92vh",
                 height: "auto",
                 objectFit: "contain",
                 display: "block",
