@@ -2025,19 +2025,19 @@ Officiating of Wheel Chair Basketball - Don Steponchev`,
   {
     id: 7,
     tooltip: `Issue: Mar/Apr 2004
-      Training Courses for officials - Alison Muir
-      Factor affecting information processing in Officiating - Stavros Douvis & Antonis Travlos
-      Right or Wrong`,
+Training Courses for officials - Alison Muir
+Factor affecting information processing in Officiating - Stavros Douvis & Antonis Travlos
+Right or Wrong`,
   },
   {
     id: 8,
     tooltip: `Issue: May/Jun 2004
-      Tracking two and three officials with a computer - Mateja Loncar, Brane Dezman & Simon Licen
-      Right or Wrong`,
+Tracking two and three officials with a computer - Mateja Loncar, Brane Dezman & Simon Licen
+Right or Wrong`,
   },
   {
     id: 9,
-    tooltip: `ssue: Jul/Aug 2004
+    tooltip: `Issue: Jul/Aug 2004
 Tower Philosohy: Advantages and Disadvantages - Paul Loube
 Right or Wrong`,
   },
