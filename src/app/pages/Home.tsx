@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import { Book, FileText, Video, Monitor, Clipboard, Archive } from 'lucide-react';
 
 export default function Home() {
@@ -253,9 +254,20 @@ export default function Home() {
           </h2>
 
           <p style={{ fontFamily: "'DM Sans', sans-serif" }}
-            className="text-[14px] sm:text-[16px] md:text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto px-2">
+            className="text-[14px] sm:text-[16px] md:text-[18px] text-[#CCCCCC] max-w-[560px] mx-auto px-2 mb-6 md:mb-8">
             The definitive platform for basketball referees to sharpen their officiating edge
           </p>
+
+          <a
+            href="#resources"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: "2px",
+            }}
+            className="inline-block bg-[var(--orange)] hover:bg-[#d05513] text-white font-extrabold text-[15px] sm:text-[17px] uppercase px-8 py-3.5 transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 no-underline"
+          >
+            EXPLORE RESOURCES
+          </a>
         </div>
 
         {/* Bottom Orange Border */}
@@ -380,7 +392,7 @@ export default function Home() {
       </section>
 
       {/* PROGRAMS & RESOURCES */}
-      <section style={{ backgroundColor: 'var(--pure-white)' }} className="relative">
+      <section id="resources" style={{ backgroundColor: 'var(--pure-white)' }} className="relative scroll-mt-10">
         <div style={{ backgroundColor: 'var(--orange)' }} className="h-[3px] w-full"></div>
         <div style={{ backgroundColor: '#E8E8E8' }} className="h-[1px] w-full"></div>
 
@@ -398,16 +410,17 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
             {[
-              { icon: <Book className="w-6 h-6" />, title: 'PHYSICAL & MENTAL BOOKS', desc: 'Comprehensive guides covering referee fitness, nutrition, psychology, and peak performance' },
-              { icon: <FileText className="w-6 h-6" />, title: 'RULE BOOKS', desc: 'Latest FIBA rules, BFI regulations, and official interpretations for Indian referees' },
-              { icon: <Video className="w-6 h-6" />, title: 'VIDEOS ON RULES', desc: 'Visual rule explanations and mechanics demonstrations for practical learning' },
-              { icon: <Monitor className="w-6 h-6" />, title: 'WEBINARS ON RULES', desc: 'Live and recorded expert sessions for ongoing referee education' },
-              { icon: <Clipboard className="w-6 h-6" />, title: 'COACHES', desc: 'Dedicated coaching manuals, strategy guides, and officiating perspectives designed for coaches' },
-              { icon: <Archive className="w-6 h-6" />, title: 'VAULT', desc: 'A vast collection of basketball magazines, historical materials, and rare officiating resources' }
+              { icon: <Book className="w-6 h-6" />, title: 'PHYSICAL & MENTAL BOOKS', to: '/referees', desc: 'Comprehensive guides covering referee fitness, nutrition, psychology, and peak performance' },
+              { icon: <FileText className="w-6 h-6" />, title: 'RULE BOOKS', to: '/books', desc: 'Latest FIBA rules, BFI regulations, and official interpretations for Indian referees' },
+              { icon: <Video className="w-6 h-6" />, title: 'VIDEOS ON RULES', to: '/videos', desc: 'Visual rule explanations and mechanics demonstrations for practical learning' },
+              { icon: <Monitor className="w-6 h-6" />, title: 'WEBINARS ON RULES', to: '/webinars', desc: 'Live and recorded expert sessions for ongoing referee education' },
+              { icon: <Clipboard className="w-6 h-6" />, title: 'COACHES', to: '/coaches', desc: 'Dedicated coaching manuals, strategy guides, and officiating perspectives designed for coaches' },
+              { icon: <Archive className="w-6 h-6" />, title: 'VAULT', to: '/vault', desc: 'A vast collection of basketball magazines, historical materials, and rare officiating resources' }
             ].map((card, idx) => (
-              <div
+              <Link
                 key={idx}
-                className="bg-white border border-[var(--orange)] p-9 group hover:shadow-lg transition-all duration-200"
+                to={card.to}
+                className="bg-white border border-[var(--orange)] p-9 group hover:shadow-lg transition-all duration-200 block text-left no-underline cursor-pointer"
               >
                 <div className="w-[52px] h-[52px] rounded-full bg-[#F5F2EE] flex items-center justify-center mb-4 text-[#888888] group-hover:text-[var(--orange)] transition-colors">
                   {card.icon}
@@ -420,7 +433,7 @@ export default function Home() {
                   className="text-[14px] text-[#777777]">
                   {card.desc}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
