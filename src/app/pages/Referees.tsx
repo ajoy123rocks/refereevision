@@ -1029,11 +1029,13 @@ function VideoThumb({
   link,
   thumbnail,
   onPlay,
+  isMobile,
 }: {
   index: number;
   link?: string;
   thumbnail?: string;
   onPlay?: () => void;
+  isMobile?: boolean;
 }) {
   const h = useHover();
 
@@ -1046,9 +1048,10 @@ function VideoThumb({
       onMouseLeave={h.onMouseLeave}
       onClick={link ? onPlay : undefined}
       style={{
-        width: 130,
-        height: 95.1,
-        maxWidth: "100%",
+        width: isMobile ? "100%" : 130,
+        height: isMobile ? "auto" : 95.1,
+        aspectRatio: isMobile ? "130 / 95.1" : undefined,
+        maxWidth: isMobile ? "100%" : 130,
         background: THUMB_SHADES[index % THUMB_SHADES.length],
         border: h.on ? `1px solid ${T.orange}` : `1px solid ${T.border}`,
         borderRadius: 10,
@@ -1060,7 +1063,9 @@ function VideoThumb({
         filter: h.on && link ? "brightness(1.15)" : "brightness(1)",
         position: "relative",
         overflow: "hidden",
-        flexShrink: 0,
+        flex: isMobile ? "1 1 0" : "0 0 130px",
+        minWidth: 0,
+        boxSizing: "border-box",
       }}
     >
       {resolvedThumbnail && (
@@ -1417,6 +1422,7 @@ function DutiesContent({ isMobile }: { isMobile: boolean }) {
                 <VideoThumb
                   index={i}
                   link={col.link}
+                  isMobile={isMobile}
                   onPlay={col.link ? () => setActiveVideo(col.link) : undefined}
                 />
               ) : (
