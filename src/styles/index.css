@@ -2,12 +2,21 @@
 @import './tailwind.css';
 @import './theme.css';
 
+.section-badge-pill {
+  border-radius: 9999px !important;
+}
+
+.sub-section-badge-pill {
+  border-radius: 6px !important;
+}
+
 /* Responsive adjustments for Section Badges / Headings on Mobile */
 @media (max-width: 767px) {
   .section-badge-pill {
     font-size: 16px !important;
     padding: 6px 20px !important;
     letter-spacing: 2px !important;
+    border-radius: 9999px !important;
   }
 
   .sub-section-badge-pill {
@@ -15,6 +24,7 @@
     padding: 5px 16px !important;
     letter-spacing: 1px !important;
     margin: 18px 0 14px !important;
+    border-radius: 6px !important;
   }
 }
 
@@ -45,3 +55,103 @@
     aspect-ratio: auto !important;
   }
 }
+
+/* Basketball Letter O Animation */
+.bb {
+  display: inline-block;
+  width: 0.76em;
+  height: 0.76em;
+  border-radius: 50%;
+  vertical-align: 0em;
+  margin: 0 0.04em;
+  object-fit: cover;
+  animation: example 20s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes example {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  5% {
+    transform: rotate(36deg);
+  }
+
+  10% {
+    transform: rotate(72deg);
+  }
+
+  15% {
+    transform: rotate(108deg);
+  }
+
+  20% {
+    transform: rotate(144deg);
+  }
+
+  25% {
+    transform: rotate(180deg);
+  }
+
+  30% {
+    transform: rotate(216deg);
+  }
+
+  35% {
+    transform: rotate(252deg);
+  }
+
+  40% {
+    transform: rotate(288deg);
+  }
+
+  45% {
+    transform: rotate(324deg);
+  }
+
+  50% {
+    transform: rotate(360deg);
+  }
+
+  55% {
+    transform: rotate(324deg);
+  }
+
+  60% {
+    transform: rotate(288deg);
+  }
+
+  65% {
+    transform: rotate(252deg);
+  }
+
+  70% {
+    transform: rotate(216deg);
+  }
+
+  75% {
+    transform: rotate(180deg);
+  }
+
+  80% {
+    transform: rotate(144deg);
+  }
+
+  85% {
+    transform: rotate(108deg);
+  }
+
+  90% {
+    transform: rotate(72deg);
+  }
+
+  95% {
+    transform: rotate(36deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+

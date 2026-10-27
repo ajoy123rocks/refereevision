@@ -311,7 +311,7 @@ function SectionBadge({ label }: { label: string }) {
           letterSpacing: "3px",
           textTransform: "uppercase",
           padding: "10px 40px",
-          borderRadius: 0,
+          borderRadius: 30,
         }}
       >
         {label}
@@ -531,6 +531,7 @@ function DrillSectionBadge({ label }: { label: string }) {
         className="sub-section-badge-pill"
         style={{
           border: `2px solid ${T.orange}`,
+          borderRadius: 6,
           background: "transparent",
           fontFamily: BARLOW,
           fontWeight: 800,

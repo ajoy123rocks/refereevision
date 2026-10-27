@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { Youtube, Facebook, Instagram, MessageCircle, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 import logoImage from '../../imports/referee_vision_circle_logo.png';
+import basketballImage from '../../imports/basketball.jpg';
 import SearchModal from './SearchModal';
+import IndiaFlagBadge from './IndiaFlagBadge';
 
 const NAV_ROW_1 = ['ABOUT', 'REFEREES', 'BOOKS', 'VIDEOS'];
 const NAV_ROW_2 = ['WEBINARS', 'COACHES', 'VAULT'];
@@ -62,26 +64,29 @@ export default function SiteHeader() {
             alt="Referee Vision Logo"
             className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] shrink-0 drop-shadow-sm"
           />
-          <div className="flex flex-col text-left">
-            <h1
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontWeight: 800,
-                letterSpacing: '-0.5px',
-              }}
-              className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black"
-            >
-              REFEREE VISION
-            </h1>
-            <p
-              style={{
-                fontFamily: "'North Wave', cursive, sans-serif",
-                color: 'var(--orange)',
-              }}
-              className="text-[13px] md:text-[15px] tracking-wide mt-1 leading-none"
-            >
-              One  Stop  To  "Rule"  Them  All
-            </p>
+          <div className="flex items-center gap-2 md:gap-3">
+            <div className="flex flex-col">
+              <h1
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontWeight: 800,
+                  letterSpacing: '-0.5px',
+                }}
+                className="text-[28px] md:text-[38px] text-white uppercase leading-none font-black"
+              >
+                REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'North Wave', cursive, sans-serif",
+                  color: 'var(--orange)',
+                }}
+                className="text-[13px] md:text-[15px] tracking-wide mt-1 leading-none text-right"
+              >
+                One  stop  to  "rule"  them  all
+              </p>
+            </div>
+            <IndiaFlagBadge width={22} height={15} />
           </div>
         </Link>
 
@@ -190,11 +195,10 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${
-                    active
+                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'
-                  }`}
+                    }`}
                 >
                   <span className="truncate">{item}</span>
                   {active && (
@@ -221,11 +225,10 @@ export default function SiteHeader() {
                     fontWeight: 700,
                     letterSpacing: '1px',
                   }}
-                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${
-                    active
+                  className={`h-full px-1 text-center flex items-center justify-center text-[13px] uppercase relative transition-colors ${active
                       ? 'text-[var(--orange)] bg-[#252525]'
                       : 'text-white/85 hover:text-white hover:bg-[#222222]'
-                  }`}
+                    }`}
                 >
                   <span className="truncate">{item}</span>
                   {active && (

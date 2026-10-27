@@ -1,6 +1,8 @@
 import { Youtube, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router';
 import logoImage from '../../imports/referee_vision_circle_logo.png';
+import basketballImage from '../../imports/basketball.jpg';
+import IndiaFlagBadge from './IndiaFlagBadge';
 
 export default function SiteFooter() {
   const links = [
@@ -28,8 +30,9 @@ export default function SiteFooter() {
                 className="h-[52px] w-[52px] shrink-0"
               />
               <h3 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 800 }}
-                className="text-white text-[22px] uppercase">
-                REFEREE VISION
+                className="text-white text-[22px] uppercase flex items-center">
+                <span>REFEREE VISI<img src={basketballImage} alt="O" className="bb" />N</span>
+                <IndiaFlagBadge className="ml-2" width={18} height={12} />
               </h3>
             </div>
             <div className="flex items-center gap-4">

@@ -796,7 +796,7 @@ function SectionBadge({ label }: { label: string }) {
         style={{
           background: T.orange, color: "var(--off-white)", fontFamily: BARLOW,
           fontWeight: 800, fontSize: 22, letterSpacing: "3px",
-          textTransform: "uppercase", padding: "10px 40px", borderRadius: 0,
+          textTransform: "uppercase", padding: "10px 40px", borderRadius: 30,
         }}
       >
         {label}
@@ -814,7 +814,7 @@ function SubSectionBadge({ label }: { label: string }) {
         style={{
           background: "transparent",
           border: `2px solid ${T.orange}`,
-          borderRadius: 30,
+          borderRadius: 6,
           padding: "8px 40px",
           margin: "32px 0 24px",
         }}
@@ -3731,10 +3731,10 @@ function AlternatingPossessionContent({ isMobile, isTablet }: { isMobile: boolea
       <CylinderSectionHeader label="FIBA EDUCATIONAL VIDEOS" />
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: isMobile ? "repeat(2,1fr)" : isTablet ? "repeat(4,1fr)" : "repeat(8,1fr)",
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
           gap: 12,
-          maxWidth: 800,
           margin: "0 auto",
         }}
       >

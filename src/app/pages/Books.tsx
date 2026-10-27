@@ -573,7 +573,7 @@ function SectionBadge({ label }: { label: string }) {
           letterSpacing: "3px",
           textTransform: "uppercase",
           padding: "10px 40px",
-          borderRadius: 0,
+          borderRadius: 30,
         }}
       >
         {label}
