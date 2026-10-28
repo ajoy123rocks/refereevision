@@ -253,12 +253,12 @@ const WHEELCHAIR_DOCS = [
   },
   {
     label: "IWBF PLAYER CLASSIFICATION RULES",
-    version: "Version 3 - Valid as of 12 December 2022",
+    version: "Version 3 - Valid as of 12th December 2022",
     link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb45/66d82b2058f119dd6521c699_2021-IWBF-Classification-Rules-Version-2022-12-12-vers-2-small.pdf",
   },
   {
     label: "IWBF PLAYER CLASSIFICATION MANUAL",
-    version: "Version 2 - Valid as of 12 December 2022",
+    version: "Version 2 - Valid as of 12th December 2022",
     link: "https://cdn.prod.website-files.com/66a7ad387e177bc7c659bb87/67950b8e8a8182399d31d0c5_2021-IWBF-Classification-Manual-Version-202212-12%20small.pdf",
   },
   {
