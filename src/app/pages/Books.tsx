@@ -150,12 +150,12 @@ const FIVE_ON_FIVE_DOCS = [
 const THREE_ON_THREE_DOCS = [
   {
     label: "OFFICIAL 3x3 BASKETBALL RULES",
-    version: "Valid as of 1 January 2026",
+    version: "Valid as of 1st January 2026",
     link: "https://fiba3x3.com/docs/fiba-3x3-basketball-rules-full-version.pdf",
   },
   {
     label: "OFFICIAL 3x3 BASKETBALL INTERPRETATIONS",
-    version: "Valid as of 1 January 2026",
+    version: "Valid as of 1st January 2026",
     link: "https://fiba3x3.com/docs/fiba-3x3-basketball-rules-interpretations-yellow-version.pdf",
   },
   {
@@ -195,27 +195,27 @@ const THREE_ON_THREE_DOCS = [
   },
   {
     label: "FIBA 3x3 REFEREE MANUAL",
-    version: "Valid as of 15 February 2025",
+    version: "Valid as of 15th February 2025",
     link: "https://fiba3x3.com/docs/fiba-3x3-referee-manual.pdf",
   },
   {
     label: "FIBA 3x3 POOL OF REFEREES",
-    version: "Valid as of 1 February 2025",
+    version: "Valid as of 1st February 2025",
     link: "https://fiba3x3.com/docs/FIBA-3x3-Pool-Of-Referees.pdf",
   },
   {
     label: "REFEREE INSTRUCTORS 3x3",
-    version: "Valid as of 1 March 2024",
+    version: "Valid as of 1st March 2024",
     link: "https://fiba3x3.com/docs/referee-instructors-fiba-3x3.pdf",
   },
   {
     label: "FIBA 3x3 NATIONAL TEAM HANDBOOK",
-    version: "Valid as of 1 January 2025",
+    version: "Valid as of 1st January 2025",
     link: "https://fiba3x3.com/docs/national-team-handbook.pdf",
   },
   {
     label: "ANNEX I TO FIBA 3x3 HANDBOOKS - FEES, FINES AND SANCTION CATALOGUE",
-    version: "Valid as of 1 January 2025",
+    version: "Valid as of 1st January 2025",
     link: "https://fiba3x3.com/docs/fiba-3x3-administrative-fines-catalogue.pdf",
   },
   {
