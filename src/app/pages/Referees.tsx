@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
+import { renderWithOrdinals } from "../utils/renderWithOrdinals";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -393,16 +394,11 @@ function DocRow({ doc, isMobile }: { doc: (typeof DOCS)[number]; isMobile: boole
           minWidth: 0,
         }}
       >
-        {isFourth ? (
-          <>
-            4<sup style={{ fontSize: "0.65em", verticalAlign: "super", lineHeight: 0 }}>TH</sup>{" "}
-            REFEREE – AN ADDED VALUE
-          </>
-        ) : (
-          doc.label
-        )}
+        {isFourth
+          ? renderWithOrdinals("4TH REFEREE – AN ADDED VALUE")
+          : renderWithOrdinals(doc.label)}
         {"  "}
-        <span style={{ color: T.mutedText, fontSize: isMobile ? 11 : 13, fontWeight: 400 }}>({doc.version})</span>
+        <span style={{ color: T.mutedText, fontSize: isMobile ? 11 : 13, fontWeight: 400 }}>({renderWithOrdinals(doc.version)})</span>
       </span>
 
       {/* Download button */}
@@ -1498,7 +1494,7 @@ function FitnessRow({
           minWidth: 0,
         }}
       >
-        {item.label}
+        {renderWithOrdinals(item.label)}
       </span>
       <Tag
         onMouseEnter={h.onMouseEnter}

@@ -5,6 +5,7 @@ import coverImage from "../../imports/image.png";
 import financePlanningImg from "../../imports/finance_planning.png";
 import budgetingImg from "../../imports/budgeting.png";
 import gamblingImg from "../../imports/gambling.png";
+import { renderWithOrdinals } from "../utils/renderWithOrdinals";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -616,7 +617,7 @@ function DocRow({
           minWidth: 0,
         }}
       >
-        {doc.label}
+        {renderWithOrdinals(doc.label)}
         {doc.version && doc.version !== "Valid" && (
           <>
             {"  "}
@@ -627,7 +628,7 @@ function DocRow({
                 fontWeight: 400,
               }}
             >
-              ({doc.version})
+              ({renderWithOrdinals(doc.version)})
             </span>
           </>
         )}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
+import { renderWithOrdinals } from "../utils/renderWithOrdinals";
 
 // ─── Design tokens (matches Videos.tsx T object) ────────────────────────────
 const TV = {
@@ -1061,7 +1062,7 @@ function RulebooksContent({ isMobile }: { isMobile?: boolean }) {
               }}
             >
               <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 15, color: TV.orange, letterSpacing: "0.8px", textTransform: "uppercase" }}>
-                {item.title}
+                {renderWithOrdinals(item.title)}
               </span>
               <a
                 href={item.link}

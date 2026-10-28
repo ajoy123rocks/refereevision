@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
+import { renderWithOrdinals } from "../utils/renderWithOrdinals";
 const preGameTiming = "https://www.refereevision.com/tbloffl35.png";
 const arrivalDoc = "https://www.refereevision.com/common_arrival.jpg";
 const arrivalPhotoImg = "https://www.refereevision.com/tbloffl1.png";
@@ -883,7 +884,21 @@ function ThreeColBadges({ items }: { items: string[] }) {
 }
 
 // ─── Image thumbnail ──────────────────────────────────────────────────────────
-function ContentImage({ src, alt, openUrl }: { src: string; alt: string; openUrl?: string }) {
+function ContentImage({
+  src,
+  alt,
+  openUrl,
+  imgStyle,
+  containerStyle,
+  alwaysBorderOrange,
+}: {
+  src: string;
+  alt: string;
+  openUrl?: string;
+  imgStyle?: React.CSSProperties;
+  containerStyle?: React.CSSProperties;
+  alwaysBorderOrange?: boolean;
+}) {
   const h = useHover();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -894,18 +909,28 @@ function ContentImage({ src, alt, openUrl }: { src: string; alt: string; openUrl
         onMouseLeave={h.onMouseLeave}
         onClick={() => setIsOpen(true)}
         style={{
-          border: `2px solid ${h.on ? T.orange : T.border}`,
+          border: `2px solid ${alwaysBorderOrange || h.on ? T.orange : T.border}`,
+          borderRadius: 8,
           overflow: "hidden",
-          transition: "border-color 0.2s ease, transform 0.2s ease",
+          transition: "border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease",
           transform: h.on ? "scale(1.03)" : "scale(1)",
+          boxShadow: h.on ? `0 6px 20px rgba(245, 166, 35, 0.25)` : "none",
           cursor: "pointer",
           flexShrink: 0,
+          ...containerStyle,
         }}
       >
         <img
           src={src}
           alt={alt}
-          style={{ display: "block", height: 130, width: "auto", maxWidth: 200, objectFit: "cover" }}
+          style={{
+            display: "block",
+            height: 130,
+            width: "auto",
+            maxWidth: 200,
+            objectFit: "cover",
+            ...imgStyle,
+          }}
         />
       </div>
       {isOpen && <VideoModal url={openUrl || src} title={alt} onClose={() => setIsOpen(false)} />}
@@ -1752,43 +1777,43 @@ function CommunicationProtocolsContent() {
       </div>
 
       {/* SECTION 2: COMMUNICATION WITH PARTICIPANTS */}
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20, width: "100%" }}>
-        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 32px", textAlign: "center" }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24, width: "100%" }}>
+        <div style={{ background: "transparent", border: `2px solid ${T.orange}`, borderRadius: 30, padding: "8px 36px", textAlign: "center" }}>
+          <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 16, color: T.orange, letterSpacing: "1.5px", textTransform: "uppercase" }}>
             COMMUNICATION WITH PARTICIPANTS
           </span>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 32, flexWrap: "wrap", width: "100%" }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 56, flexWrap: "wrap", width: "100%", maxWidth: 1000 }}>
+          {/* Card 1: BEFORE THE GAME */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 14, minHeight: 44, display: "flex", alignItems: "center", justifyContent: "center", textTransform: "uppercase" }}>
               BEFORE THE GAME
             </span>
             <ContentImage
               src="https://www.refereevision.com/tbloffl35.png"
               openUrl="https://library.fibairef.basketball/cdn/TOM600_EN?autoplay=1"
               alt="Before the Game"
+              alwaysBorderOrange
+              containerStyle={{ borderRadius: 8, background: "#000" }}
+              imgStyle={{ height: 180, width: "auto", maxWidth: "100%", objectFit: "contain" }}
             />
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 260, textAlign: "center" }}>
-            <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12, minHeight: 40, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE 3RD AND 4TH QUARTER
+
+          {/* Card 2: IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE 3RD AND 4TH QUARTER */}
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span style={{ fontFamily: BARLOW, fontWeight: 800, fontSize: 15, color: T.orange, letterSpacing: "1px", marginBottom: 14, minHeight: 44, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textTransform: "uppercase", lineHeight: 1.3 }}>
+              <span>{renderWithOrdinals("IN THE INTERVAL BETWEEN THE 1ST AND 2ND QUARTER & THE")}</span>
+              <span>{renderWithOrdinals("3RD AND 4TH QUARTER")}</span>
             </span>
             <ContentImage
               src="https://www.refereevision.com/tbloffl15.png"
               openUrl="https://library.fibairef.basketball/cdn/TOM601_EN?autoplay=1"
-              alt="Interval between quarters"
+              alt="In the interval between quarters"
+              alwaysBorderOrange
+              containerStyle={{ borderRadius: 8, background: "#000" }}
+              imgStyle={{ height: 180, width: "auto", maxWidth: "100%", objectFit: "contain" }}
             />
           </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", width: 220, textAlign: "center", marginTop: 12 }}>
-          <span style={{ fontFamily: BARLOW, fontWeight: 700, fontSize: 14, color: T.orange, letterSpacing: "1px", marginBottom: 12 }}>
-            WHO
-          </span>
-          <ContentImage
-            src="https://www.refereevision.com/tbloffl13.png"
-            openUrl="https://library.fibairef.basketball/cdn/TOM300_EN?autoplay=1"
-            alt="Who"
-          />
         </div>
       </div>
 

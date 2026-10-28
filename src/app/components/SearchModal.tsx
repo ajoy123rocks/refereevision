@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router';
 import { Search, X, ArrowRight, Video, BookOpen, Users, Tv, Shield, Archive, Sparkles, CornerDownLeft } from 'lucide-react';
 import { SEARCH_ITEMS, SearchItem } from '../data/searchData';
+import { renderWithOrdinals } from '../utils/renderWithOrdinals';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -313,7 +314,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                             isSelected ? 'text-[#E8651A]' : 'text-white group-hover:text-[#E8651A]'
                           }`}
                         >
-                          {item.title}
+                          {renderWithOrdinals(item.title)}
                         </span>
                         <span
                           className={`text-[10px] uppercase font-bold px-1.5 py-0.5 rounded border shrink-0 ${getCategoryColor(
@@ -325,7 +326,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       </div>
                       {item.description && (
                         <p className="text-xs text-[#888888] line-clamp-1 mt-0.5 font-sans">
-                          {item.description}
+                          {renderWithOrdinals(item.description)}
                         </p>
                       )}
                       {item.section && (

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useSearchParams } from "react-router";
+import { renderWithOrdinals } from "../utils/renderWithOrdinals";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const T = {
@@ -57,7 +58,7 @@ type WebinarItem = {
 const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
   RULES: [
     { title: "RULE CHANGES 2024", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/4d81a1fc754e37efc5ef54f12f0fdeee/Rec_2024_Rules_Changes.mp4", popup: true },
-    { title: "RULE CHANGES 2022", presenter: "Mike Thomson", action: "watch", link: "http://library.fibairef.basketball/images/documents/0d6c5660a964de7951b08de8a6fec868/FIBA_RULE_CHANGES_2022_MS_v2.mp4", popup: true },
+    { title: "RULE CHANGES 2022", presenter: "Mike Thomson", action: "watch", link: "https://library.fibairef.basketball/images/documents/0d6c5660a964de7951b08de8a6fec868/FIBA_RULE_CHANGES_2022_MS_v2.mp4", popup: true },
     { title: "RULE CHANGES 2020", presenter: "Mike Thomson", action: "watch", link: "https://youtu.be/FlNM0oq_72k", popup: true },
     { title: "RULE CHANGES 2020", presenter: "Roberto Chiari", action: "watch", link: "https://youtu.be/5-aF1joAiVE", popup: true },
     { title: "RULE CHANGES 2020", presenter: "Roberto Chiari", action: "watch", link: "https://www.youtube.com/watch?v=iSyNA30oPhs", popup: true },
@@ -107,29 +108,29 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
     { title: "BREAKING BARRIERS: STRATEGIES FOR ADDRESSING BIASES (Nov 28, 2024)", presenter: "Dubravka Martinovic (CRO)", action: "watch", link: "https://library.fibairef.basketball/images/documents/a848d5449f7e8ad6ec93c4cdc98d2bfb/Wio_Recording_Addressing_Biases_S3.mp4?autoplay=1", popup: true },
     { title: "BACK TO REFEREEING (Apr 18,2024)", presenter: "Maripier Malo (CAN)\nYasmina Alcaraz (ESP)", action: "watch", link: "https://library.fibairef.basketball/images/documents/287ac6a5a9ef46de1302fcc373ae0eee/Wio_Recording_Back_To_Refereeing_S2.mp4?autoplay=1", popup: true },
     { title: "THE WOMEN'S GAME (Feb 29, 2024)", presenter: "Nadine Crowley (CAN)\nChantal Julien (FRA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/fe23ebfb488261d49eab0ce521111e7a/WiO_Recording__The_Womens_Game__S1.mp4?autoplay=1", popup: true },
-    { title: "MY JOURNEY (Dec 14, 2023)", presenter: "Cecilia Toth (HUN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/eaa2f0660d434ca24cb0f8a0d6077825/WiO_Recording__Taking_the_Next_Step__S5.mp4?autoplay=1", popup: true },
-    { title: "WOMEN IN BASKETBALL - COACHING WOMEN'S NATIONAL TEAM (Apr 20, 2023)", presenter: "Victor Lapena (CAN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/442db987dd6a7cdf28ce4f13f3eef359/WiO_Rec_COACHING_NT__S4.mp4?autoplay=1", popup: true },
-    { title: "WOMEN IN BASKETBALL - PLAYER'S PERSPECTIVE (Mar 23, 2023)", presenter: "Michelle Gonzalez (PRI)", action: "watch", link: "http://library.fibairef.basketball/images/documents/b18bea944ef9fa4233db67281cfb7774/WiO_Recording__WOMEN_in_BASKETBALL__S3.mp4?autoplay=1", popup: true },
-    { title: "WOMEN REFEREEING IN FOOTBALL (Feb 16, 2023)", presenter: "Natalie Qaqaya\nLina Lehtovaara", action: "watch", link: "http://library.fibairef.basketball/images/documents/e792512bb68ee6d2f9da6e154a2db2a9//WiO_UEFA_REFEREEING_S2_2023.mp4?autoplay=1", popup: true },
-    { title: "REFEREE MATERNITY PLAN (Dec 22, 2022)", presenter: "Fiba Referee Operations", action: "watch", link: "http://library.fibairef.basketball/images/documents/59bc9066c9785c3cf59931fd0c454fd3/WiO_Recording_MATERNITY_PLAN_S8.mp4?autoplay=1", popup: true },
+    { title: "MY JOURNEY (Dec 14, 2023)", presenter: "Cecilia Toth (HUN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/eaa2f0660d434ca24cb0f8a0d6077825/WiO_Recording__Taking_the_Next_Step__S5.mp4?autoplay=1", popup: true },
+    { title: "WOMEN IN BASKETBALL - COACHING WOMEN'S NATIONAL TEAM (Apr 20, 2023)", presenter: "Victor Lapena (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/442db987dd6a7cdf28ce4f13f3eef359/WiO_Rec_COACHING_NT__S4.mp4?autoplay=1", popup: true },
+    { title: "WOMEN IN BASKETBALL - PLAYER'S PERSPECTIVE (Mar 23, 2023)", presenter: "Michelle Gonzalez (PRI)", action: "watch", link: "https://library.fibairef.basketball/images/documents/b18bea944ef9fa4233db67281cfb7774/WiO_Recording__WOMEN_in_BASKETBALL__S3.mp4?autoplay=1", popup: true },
+    { title: "WOMEN REFEREEING IN FOOTBALL (Feb 16, 2023)", presenter: "Natalie Qaqaya\nLina Lehtovaara", action: "watch", link: "https://library.fibairef.basketball/images/documents/e792512bb68ee6d2f9da6e154a2db2a9/WiO_UEFA_REFEREEING_S2_2023.mp4?autoplay=1", popup: true },
+    { title: "REFEREE MATERNITY PLAN (Dec 22, 2022)", presenter: "Fiba Referee Operations", action: "watch", link: "https://library.fibairef.basketball/images/documents/59bc9066c9785c3cf59931fd0c454fd3/WiO_Recording_MATERNITY_PLAN_S8.mp4?autoplay=1", popup: true },
     { title: "FIBA MATERNITY PLAN - Handbook for Female Referees (November 2022 Version 1.0)", action: "download", link: "https://drive.google.com/file/d/1fI3wD94DMaNM0EUoJ9ccHoFIff5vE7V6/view" },
     { title: "FIBA MATERNITY PLAN - Guidelines for National Federations (November 2022 Version 1.0)", action: "download", link: "https://drive.google.com/file/d/1fGphlpbkERj-b40M6GWYY9YycCx1Bk6k/view" },
-    { title: "DOWN UNDER (Sep 29, 2022)", presenter: "Amy Bonner (USA)\nViola Gyorgyi (NOR)\nSara Elsharnouby (EGY)", action: "watch", link: "http://library.fibairef.basketball/images/documents/e66c7f21d1ff0f3950498bbf560739d3/WiO_Recording_DOWN_UNDER_S7.mp4?autoplay=1", popup: true },
-    { title: "WITH MENTAL FLEXIBILITY ON THE WAY TO THE TOP (Aug 18, 2022)", presenter: "Dubravka Martinovic\nJacquiline Dover (AUS)", action: "watch", link: "http://library.fibairef.basketball/images/documents/a08b5d8ba610c605ad1fe0c043a91327/WiO_BUILDING_LEGACY_21July2022.mp4?autoplay=1", popup: true },
-    { title: "WOMEN IN BASKETBALL 2022-23 (Jun 23, 2022)", presenter: "Elisabeth Cebrian Scheurer", action: "watch", link: "http://library.fibairef.basketball/images/documents/658f67494f208f554105acb6ec4ac25d/WiO_23June2022__S4.mp4?autoplay=1", popup: true },
-    { title: "FAMILY AFFAIRS (May 19, 2022)", presenter: "Susana Gomez (ESP)\nLuis Miguel Castillo (ESP)", action: "watch", link: "http://library.fibairef.basketball/images/documents/995bbb2993a38f0feee0a45134fc19c6/WiO_Recording_Family_Affairs_S3.mp4?autoplay=1", popup: true },
-    { title: "IN CHARGE (NBA G-LEAGUE) (Apr 27, 2022)", presenter: "Maripier Malo (CAN)\nHortenica Sanchez (MEX)\nBianca Burns (USA)\nAshley Gloss (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/5c6756382faa046ddab755d016eda374/WiO_Recording_In_Charge_S2_720p.mp4?autoplay=1", popup: true },
-    { title: "LEVEL UP (Mar 24, 2022)", presenter: "Yana Nikogossyan (KAZ)\nYasmina Alcaraz (ESP)\nSara Gamal (EGY)\nAriadna Cheuca (FIN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/8a05516279454e6c49d1f484b26271f5/WiO23March22_Level_Up_720p.mp4?autoplay=1", popup: true },
-    { title: "MENTORING PROGRAMME - CASE STUDY:EUROPE (Nov 10, 2021)", presenter: "Elisabeth Cebrian-Scheurer (ESP)\nKati Nynas (FIN)\nDubravka Martinovic (CRO)\nLaure Coanus (FRA)\nAriadna Cheuca Moreno (FIN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/4c922a4e4defb0766ea686b4a9999b40/WiO_15Nov_2021_MP_Europe.mp4?autoplay=1", popup: true },
-    { title: "OFFICIATING IN AFRICA (Sep 30, 2021)", presenter: "Mendoza Esperanza (ESP)\nAhmed Aya (EGY)\nZouzou Nadege\nBoussetta Chahinaz\nLea Kane", action: "watch", link: "http://library.fibairef.basketball/images/documents/2e8d05514939bfb56591e63f9e1d0ad3/WiO_Recording_Officiating_in_FIBA_Africa.mp4?autoplay=1", popup: true },
-    { title: "DEVELOPMENT AND BEST PRACTICES (Jun 17, 2021)", presenter: "Nadine Crowley (CAN)\nChantal Julien (FRA)\nJasmina Juras (SRB)", action: "watch", link: "http://library.fibairef.basketball/images/documents/e25052455cd2514b0791451d61b1a2b7/WiO_17June_BestPractices.mp4?autoplay=1", popup: true },
-    { title: "BUILDING CONFIDENCE FOR BETTER PERFORMANCE (May 12, 2021)", presenter: "Dubravka Martinovic", action: "watch", link: "http://library.fibairef.basketball/images/documents/d22232bc30cf8eeb257cbc27a111bf1d/Recording_WiO_F3_BC4BP_12May2021.mp4?autoplay=1", popup: true },
-    { title: "MOTIVATION AND INSPIRATION (Apr 22, 2021)", presenter: "Lauren Holtkamp-Sterling (USA)\nMaj Forsberg (DEN/USA)\nOzlem Yalman (TUR)", action: "watch", link: "http://library.fibairef.basketball/images/documents/2df565bc8e47663d244ca06928e687a6/Recording_22Apr2021_WiO_F2_MI.mp4?autoplay=1", popup: true },
-    { title: "WOMEN IN OFFICIATING (Mar 8, 2021)", presenter: "Andreas Zagkklis\nAurellie Vidot\nNadine Crowley (CAN)\nAlejandro Vaquera (ESP)\nDubravka Martinovic", action: "watch", link: "http://library.fibairef.basketball/images/documents/cefd27bad3e651a1377caa09602688c3//W2021_WiO_F1_8March_Recording.mp4?autoplay=1", popup: true }
+    { title: "DOWN UNDER (Sep 29, 2022)", presenter: "Amy Bonner (USA)\nViola Gyorgyi (NOR)\nSara Elsharnouby (EGY)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e66c7f21d1ff0f3950498bbf560739d3/WiO_Recording_DOWN_UNDER_S7.mp4?autoplay=1", popup: true },
+    { title: "WITH MENTAL FLEXIBILITY ON THE WAY TO THE TOP (Aug 18, 2022)", presenter: "Dubravka Martinovic\nJacquiline Dover (AUS)", action: "watch", link: "https://library.fibairef.basketball/images/documents/a08b5d8ba610c605ad1fe0c043a91327/WiO_BUILDING_LEGACY_21July2022.mp4?autoplay=1", popup: true },
+    { title: "WOMEN IN BASKETBALL 2022-23 (Jun 23, 2022)", presenter: "Elisabeth Cebrian Scheurer", action: "watch", link: "https://library.fibairef.basketball/images/documents/658f67494f208f554105acb6ec4ac25d/WiO_23June2022__S4.mp4?autoplay=1", popup: true },
+    { title: "FAMILY AFFAIRS (May 19, 2022)", presenter: "Susana Gomez (ESP)\nLuis Miguel Castillo (ESP)", action: "watch", link: "https://library.fibairef.basketball/images/documents/995bbb2993a38f0feee0a45134fc19c6/WiO_Recording_Family_Affairs_S3.mp4?autoplay=1", popup: true },
+    { title: "IN CHARGE (NBA G-LEAGUE) (Apr 27, 2022)", presenter: "Maripier Malo (CAN)\nHortenica Sanchez (MEX)\nBianca Burns (USA)\nAshley Gloss (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/5c6756382faa046ddab755d016eda374/WiO_Recording_In_Charge_S2_720p.mp4?autoplay=1", popup: true },
+    { title: "LEVEL UP (Mar 24, 2022)", presenter: "Yana Nikogossyan (KAZ)\nYasmina Alcaraz (ESP)\nSara Gamal (EGY)\nAriadna Cheuca (FIN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/8a05516279454e6c49d1f484b26271f5/WiO23March22_Level_Up_720p.mp4?autoplay=1", popup: true },
+    { title: "MENTORING PROGRAMME - CASE STUDY:EUROPE (Nov 10, 2021)", presenter: "Elisabeth Cebrian-Scheurer (ESP)\nKati Nynas (FIN)\nDubravka Martinovic (CRO)\nLaure Coanus (FRA)\nAriadna Cheuca Moreno (FIN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/4c922a4e4defb0766ea686b4a9999b40/WiO_15Nov_2021_MP_Europe.mp4?autoplay=1", popup: true },
+    { title: "OFFICIATING IN AFRICA (Sep 30, 2021)", presenter: "Mendoza Esperanza (ESP)\nAhmed Aya (EGY)\nZouzou Nadege\nBoussetta Chahinaz\nLea Kane", action: "watch", link: "https://library.fibairef.basketball/images/documents/2e8d05514939bfb56591e63f9e1d0ad3/WiO_Recording_Officiating_in_FIBA_Africa.mp4?autoplay=1", popup: true },
+    { title: "DEVELOPMENT AND BEST PRACTICES (Jun 17, 2021)", presenter: "Nadine Crowley (CAN)\nChantal Julien (FRA)\nJasmina Juras (SRB)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e25052455cd2514b0791451d61b1a2b7/WiO_17June_BestPractices.mp4?autoplay=1", popup: true },
+    { title: "BUILDING CONFIDENCE FOR BETTER PERFORMANCE (May 12, 2021)", presenter: "Dubravka Martinovic", action: "watch", link: "https://library.fibairef.basketball/images/documents/d22232bc30cf8eeb257cbc27a111bf1d/Recording_WiO_F3_BC4BP_12May2021.mp4?autoplay=1", popup: true },
+    { title: "MOTIVATION AND INSPIRATION (Apr 22, 2021)", presenter: "Lauren Holtkamp-Sterling (USA)\nMaj Forsberg (DEN/USA)\nOzlem Yalman (TUR)", action: "watch", link: "https://library.fibairef.basketball/images/documents/2df565bc8e47663d244ca06928e687a6/Recording_22Apr2021_WiO_F2_MI.mp4?autoplay=1", popup: true },
+    { title: "WOMEN IN OFFICIATING (Mar 8, 2021)", presenter: "Andreas Zagkklis\nAurellie Vidot\nNadine Crowley (CAN)\nAlejandro Vaquera (ESP)\nDubravka Martinovic", action: "watch", link: "https://library.fibairef.basketball/images/documents/cefd27bad3e651a1377caa09602688c3/W2021_WiO_F1_8March_Recording.mp4?autoplay=1", popup: true }
   ],
   "FIBA MONDAY": [
     { title: "OBR 2026 - PRACTICAL CASES (Oct 5, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/e5e9cbc651060ac5ecc6d6366ecd5736/Rec_MS2026_27_S1_OBR_2026_Practical_Cases.mp4?autoplay=1", popup: true },
-    { title: "2026 FIBA OFFICIAL BASKETBALL RULES CHANGES (Sep 7, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "http://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
+    { title: "2026 FIBA OFFICIAL BASKETBALL RULES CHANGES (Sep 7, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/cdn/OBR2026_Webinar_Recording?autoplay=1", popup: true },
     { title: "CLEAR AND CONCLUSIVE - UNSPORTSMANLIKE FOUL (Apr 6, 2026)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/9e1587bd388ad4022c52cc9ad3caa52d/Recording_MS2026_S4_Clear__Conclusive_UF.mp4?autoplay=1", popup: true },
     { title: "HOW TO COVER HELP DEFENDER (Mar 2, 2026)", presenter: "Roberto Chiari (ITA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/b47d8cf3a971eb85632cc840d9af8b6c/Recording_MS2026_S3_Cover_Help_Defender.mp4?autoplay=1", popup: true },
     { title: "SCOUTING THE TEAMS (Feb 2, 2026)", presenter: "Wojciech Liszka (POL)\nWaseem Husainy (CAN)", action: "watch", link: "https://library.fibairef.basketball/doc/bnpJVjhjNU1CbU13MDUvSjMzUG5Ydz09?autoplay=1", popup: true },
@@ -141,35 +142,35 @@ const WEBINAR_DATA: Record<Tab, WebinarItem[]> = {
     { title: "2024 HIGHLIGHTS - WHAT'S NEXT IN 2025 (Dec 2, 2024)", presenter: "Carl Jungebrand", action: "watch", link: "https://library.fibairef.basketball/images/documents/872c6ee9bcf11ce524b7a8c3908c459a/Recording_MS_2024_Highlights_Whats_Next_2025.mp4?autoplay=1", popup: true },
     { title: "OBRI 2024 - Practical Cases (Nov 4, 2024)", presenter: "FIBA Referee Operations", action: "watch", link: "https://library.fibairef.basketball/images/documents/65f263ad0318c1d9e054af65d3f75525/Recording_MS_NOV2024_OBRI2024_CASES.mp4?autoplay=1", popup: true },
     { title: "LISTENING & LEARNING (Mar 4, 2024)", presenter: "Ferdinand Pascual (PHI)\nJose Carrion (PUR)\nAriadna Chueca (ESP)\nYann Davidson (MAD)", action: "watch", link: "https://library.fibairef.basketball/images/documents/8ae96871d49870bd3541d7e55fda4d71/Recording_MS_MAR2024_LISTENING__LEARNING.mp4?autoplay=1", popup: true },
-    { title: "MONEY TIME COMMUNICATION (Dec 4, 2023)", presenter: "Dubravka Martinovic", action: "watch", link: "http://library.fibairef.basketball/images/documents/cc5283938ad7f236af8594eb0a540796/Recording__Moneytime_Communication_.mp4?autoplay=1", popup: true },
-    { title: "BASIC PROTOCOLS - PART I (Nov 6, 2023)", presenter: "Roberto Chiari", action: "watch", link: "http://library.fibairef.basketball/images/documents/f81a7ae51009cd40c32932f4abe08e1d//Recording__BASIC_PROTOCOLS_part_1__V2.mp4?autoplay=1", popup: true },
-    { title: "WORLD CUP 2023 - TRAILBLAZING SUCCESS (Oct 2, 2023)", presenter: "Referee Operations", action: "watch", link: "http://library.fibairef.basketball/images/documents/89fb68dcc5c9d6c239a92e5188ce048c/Recording__FIBA_World_Cup_2023__Session_5.mp4?autoplay=1", popup: true },
-    { title: "EXPECTATIONS FROM HIGH LEVEL REFEREES (Apr 3, 2023)", presenter: "Terry Moore (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/04388bd3c9ecec030ad3f61afc875a82/Recording_MS_April_2023_EXPECTATIONS.mp4?autoplay=1", popup: true },
-    { title: "SIMPLE STEPS TO BETTER CALLS (Mar 6, 2023)", presenter: "Mike Thomson (CAN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/21bd9e0daf91c254d775f21fb23f343f/MS2023_SIMPLE_STEPS_TO_BETTER_CALLS__S3.mp4?autoplay=1", popup: true },
-    { title: "INJURY PREVENTION AND RECOVERY (Feb 6, 2023)", presenter: "Crystal Dupuche (AUS)", action: "watch", link: "http://library.fibairef.basketball/images/documents/17deca057ac59cd99bea3c363bd62fed/MS2023_S2_INJURY_RECOVERY_Feb2023.mp4?autoplay=1", popup: true },
-    { title: "BODY LANGUAGE (Jan 9, 2023)", presenter: "Dr. Jose Maria Buceta", action: "watch", link: "http://library.fibairef.basketball/images/documents/f09a80989e89441f79716d69c59d182c/MS2023Jan__BODY_LANGUAGE.mp4?autoplay=1", popup: true },
-    { title: "RECAP OF 2022 (Dec 5, 2022)", presenter: "Greydy Diaz\nCarl Jungebrand", action: "watch", link: "http://library.fibairef.basketball/images/documents/4c2747cf1c421a031b35d7b420402c62/Recording__RECAP_OF_2022__Session_12.mp4?autoplay=1", popup: true },
-    { title: "FIBA GOL2023-25 - 4TH EDITION (Nov 7, 2022)", presenter: "Tomas Rimkus (LTU)", action: "watch", link: "http://library.fibairef.basketball/images/documents/8fee714adc423640ed9e5babbc06f3f0/Recording__FIBA_GOL2023_25__Session_11.mp4?autoplay=1", popup: true },
-    { title: "VIVA LAS VEGAS - NBA SUMMER CAMP 2022 (Aug 1, 2022)", presenter: "Manuel Mazzoni (ITA)\nRoberto Vazquez (PUR)\nBoris Krejic (SLO)\nMartins Koslovzkis (LAT)\nYohan Rosso (FRA)\nGrant Todey (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/6bcd548ecc15238370f895e7dc0c252a/MS1AUG_LAS_VEGAS_S8.mp4?autoplay=1", popup: true },
-    { title: "TALK & WALK - INSIDE OF FIBA U17 WORLD CUP PREPARATION (Jul 4, 2022)", presenter: "Albert Joseph (FIBA)\nMike Thomson (CAN)\nBianca Burns (USA)\nGatis Salins (LAT)\nScott Beker (AUS)\nKyounghwan Lee (KOR)\nJeanna Reneau (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/efab20f6e0861c618f9b43f3487772a3/Recording_TALK__WALK_Session_7.mp4?autoplay=1", popup: true },
-    { title: "UNDER THE SURFACE IN FIBA REFEREE OPERATIONS (Jun 6, 2022)", presenter: "FIBA Referee Operations", action: "watch", link: "http://library.fibairef.basketball/images/documents/97f33fa7aeeb6148114ab193be6af380/MSJune2022_UNDER_SURFACE_S6.mp4?autoplay=1", popup: true },
-    { title: "SEASON END - A SELF-REFLECTION OF A JOURNEY (May 2, 2022)", presenter: "Dubravka Martinovic", action: "watch", link: "http://library.fibairef.basketball/images/documents/9e63789ec6b6e6fa343067dd62603c14/Recording_SEASON_END_Session_5.mp4?autoplay=1", popup: true },
-    { title: "SEE FAST - DECIDE SLOW (Mar 7, 2022)", presenter: "Matt Kallio (CAN)\nJulio Anaya (PAN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/220c16434300ed747d2b9ad97907469f/Recording_SEE_FAST___DECIDE_SLOW_Session_3.mp4?autoplay=1", popup: true },
-    { title: "BEING A PROFESSIONAL (Apr 4, 2022)", presenter: "France & Japan National Federations", action: "watch", link: "http://library.fibairef.basketball/images/documents/0f37b39fac5d19cfa21cfb7875cebc5f/Recording_BEING_A_PROFESSIONAL_Session_4.mp4?autoplay=1", popup: true },
-    { title: "THEN & NOW (Feb 7, 2022)", presenter: "Chantal Julien (FRA)\nTerry Moore (USA)\nAbreu Muhimua (MOZ)\nCostas Rigas (GRE)", action: "watch", link: "http://library.fibairef.basketball/images/documents/a123b7dce60be3887bd1dcb2ea980afd/Recording_THEN__NOW_MNS_Session_2_720p.mp4?autoplay=1", popup: true },
-    { title: "MODERN BASKETBALL & ITS INTERRELATIONSHIP WITH REFEREEING (Jan 3, 2022)", presenter: "Nelson Isley (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/8f4c894f64f9df5bcd5a133a11dc1fae/Recording_MS1_2022_MODERN_BASKETBALL_720p.mp4?autoplay=1", popup: true },
-    { title: "INVISIBLE TRAINING (Dec 6, 2021)", presenter: "Dr. Chema Buceta", action: "watch", link: "http://library.fibairef.basketball/images/documents/56ba1d87d5e080af3e8c979470810f8c/Recording_INVISIBLE_TRAINING_MS12_720p.mp4?autoplay=1", popup: true },
-    { title: "HEARING AND LISTENING (Nov 8, 2021)", presenter: "FIBA Referee Operations", action: "watch", link: "http://library.fibairef.basketball/images/documents/1fd4ae58f66f7b03e81d407fc51535fd/MNS_HEARING_LISTENING_S11_8Nov2021.mp4?autoplay=1", popup: true },
-    { title: "RUN & CALL (Oct 4, 2021)", presenter: "Alejandro Vaquera (ESP)\nDavid Suarez (ESP)\nHaris Pojskic (SWE)\nMaria Munoz (GUA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/40ba074a0eef17da88dd73f5ea0b59b3/Recording_RUN__CALL_MNS_Session_10.mp4?autoplay=1", popup: true },
-    { title: "\"SO WHAT?\" / SCOUTING THE TEAMS (Sep 6, 2021)", presenter: "Dubravka Martinovic\nAdemir Zurapovic (BIH)", action: "watch", link: "http://library.fibairef.basketball/images/documents/99d8d229b006118eb323db3b15a54d2b/MS_S19_SO_WHAT_SCOUTING_TEAMS.mp4?autoplay=1", popup: true },
-    { title: "TOKYO 2020 - BUBBLE LIFE (Aug 2, 2021)", presenter: "Officating Team", action: "watch", link: "http://library.fibairef.basketball/images/documents/47e1c515ff60fb93425eaee33a4d5647/MS_Session_08_Tokyo2020_720p.mp4?autoplay=1", popup: true },
-    { title: "INSIDE THE COMPETITION (Jul 5, 2021)", presenter: "Officating Team", action: "watch", link: "http://library.fibairef.basketball/images/documents/0944f66d30c833f2bd43a488b91d11af/MS_INSIDE_COMPETITION_720p.mp4?autoplay=1", popup: true },
-    { title: "MENTOR PROGRAMME FOR REFEREES (Jun 7, 2021)", presenter: "Cristiano Maranho (BRA)\nAntonio Conde (ESP)\nImene Tahimi (ALG)\nEdwin Quiles (PUR)", action: "watch", link: "http://library.fibairef.basketball/images/documents/f4398ef366cd9213b6c97b60b23a19b4/MS_7June_MP_Recording.mp4?autoplay=1", popup: true },
-    { title: "MY PREPARATION FOR THE COMPETITION (May 3, 2021)", presenter: "Samir Abaakil (MOR)\nAmy Bonner (USA)\nJames Boyer (AUS)\nViola Gyorgyi (NOR)\nTakaki Kato (JPN)", action: "watch", link: "http://library.fibairef.basketball/images/documents/2b324c01a33bea39da8665a6e4771272/Recording_MS__MyPrep_3May2021.mp4?autoplay=1", popup: true },
-    { title: "STEPS TO SUCCESS - CASE STUDY: OFFICIATING PLAN BY TBF (Apr 12, 2021)", presenter: "Rustu Nuran (TUR)\nYener Yilmaz (TUR)\nOzlem Yalman (TUR)\nMehmet Karabilecen (TUR)\nSinem Tetik (TUR)", action: "watch", link: "http://library.fibairef.basketball/images/documents/3be860c989d92b48a4b7f7a6cad97b74/Recording_TBF_STEPS_TO_SUCCESS_MNS_Session_04.mp4?autoplay=1", popup: true },
-    { title: "COMMON SENSE COMMUNICATION - PART I (Mar 8, 2021)", presenter: "JD Collins (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/b5acf024a16eb73d5efd8aa6f1a99dbc/Recording_WB21_MS7_P1.mp4?autoplay=1", popup: true },
-    { title: "COMMON SENSE COMMUNICATION - PART II (Mar 8, 2021)", presenter: "JD Collins (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/50c0cb6e42cfc8fcc0a5456834cefb02/Recording_WB21_MS7_P2.mp4?autoplay=1", popup: true },
-    { title: "FINAL PRE-GAME - WORLD CUP 2019 FINAL CREW (Feb 1, 2021)", presenter: "Cristiano Maranho (BRA)\nYohan Rosso (FRA)\nSteven Anderson (USA)", action: "watch", link: "http://library.fibairef.basketball/images/documents/bc1e330a3245248510add399bc7c78a2/MS_1Feb2021_FPG_Recording.mp4?autoplay=1", popup: true }
+    { title: "MONEY TIME COMMUNICATION (Dec 4, 2023)", presenter: "Dubravka Martinovic", action: "watch", link: "https://library.fibairef.basketball/images/documents/cc5283938ad7f236af8594eb0a540796/Recording__Moneytime_Communication_.mp4?autoplay=1", popup: true },
+    { title: "BASIC PROTOCOLS - PART I (Nov 6, 2023)", presenter: "Roberto Chiari", action: "watch", link: "https://library.fibairef.basketball/images/documents/f81a7ae51009cd40c32932f4abe08e1d/Recording__BASIC_PROTOCOLS_part_1__V2.mp4?autoplay=1", popup: true },
+    { title: "WORLD CUP 2023 - TRAILBLAZING SUCCESS (Oct 2, 2023)", presenter: "Referee Operations", action: "watch", link: "https://library.fibairef.basketball/images/documents/89fb68dcc5c9d6c239a92e5188ce048c/Recording__FIBA_World_Cup_2023__Session_5.mp4?autoplay=1", popup: true },
+    { title: "EXPECTATIONS FROM HIGH LEVEL REFEREES (Apr 3, 2023)", presenter: "Terry Moore (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/04388bd3c9ecec030ad3f61afc875a82/Recording_MS_April_2023_EXPECTATIONS.mp4?autoplay=1", popup: true },
+    { title: "SIMPLE STEPS TO BETTER CALLS (Mar 6, 2023)", presenter: "Mike Thomson (CAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/21bd9e0daf91c254d775f21fb23f343f/MS2023_SIMPLE_STEPS_TO_BETTER_CALLS__S3.mp4?autoplay=1", popup: true },
+    { title: "INJURY PREVENTION AND RECOVERY (Feb 6, 2023)", presenter: "Crystal Dupuche (AUS)", action: "watch", link: "https://library.fibairef.basketball/images/documents/17deca057ac59cd99bea3c363bd62fed/MS2023_S2_INJURY_RECOVERY_Feb2023.mp4?autoplay=1", popup: true },
+    { title: "BODY LANGUAGE (Jan 9, 2023)", presenter: "Dr. Jose Maria Buceta", action: "watch", link: "https://library.fibairef.basketball/images/documents/f09a80989e89441f79716d69c59d182c/MS2023Jan__BODY_LANGUAGE.mp4?autoplay=1", popup: true },
+    { title: "RECAP OF 2022 (Dec 5, 2022)", presenter: "Greydy Diaz\nCarl Jungebrand", action: "watch", link: "https://library.fibairef.basketball/images/documents/4c2747cf1c421a031b35d7b420402c62/Recording__RECAP_OF_2022__Session_12.mp4?autoplay=1", popup: true },
+    { title: "FIBA GOL2023-25 - 4TH EDITION (Nov 7, 2022)", presenter: "Tomas Rimkus (LTU)", action: "watch", link: "https://library.fibairef.basketball/images/documents/8fee714adc423640ed9e5babbc06f3f0/Recording__FIBA_GOL2023_25__Session_11.mp4?autoplay=1", popup: true },
+    { title: "VIVA LAS VEGAS - NBA SUMMER CAMP 2022 (Aug 1, 2022)", presenter: "Manuel Mazzoni (ITA)\nRoberto Vazquez (PUR)\nBoris Krejic (SLO)\nMartins Koslovzkis (LAT)\nYohan Rosso (FRA)\nGrant Todey (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/6bcd548ecc15238370f895e7dc0c252a/MS1AUG_LAS_VEGAS_S8.mp4?autoplay=1", popup: true },
+    { title: "TALK & WALK - INSIDE OF FIBA U17 WORLD CUP PREPARATION (Jul 4, 2022)", presenter: "Albert Joseph (FIBA)\nMike Thomson (CAN)\nBianca Burns (USA)\nGatis Salins (LAT)\nScott Beker (AUS)\nKyounghwan Lee (KOR)\nJeanna Reneau (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/efab20f6e0861c618f9b43f3487772a3/Recording_TALK__WALK_Session_7.mp4?autoplay=1", popup: true },
+    { title: "UNDER THE SURFACE IN FIBA REFEREE OPERATIONS (Jun 6, 2022)", presenter: "FIBA Referee Operations", action: "watch", link: "https://library.fibairef.basketball/images/documents/97f33fa7aeeb6148114ab193be6af380/MSJune2022_UNDER_SURFACE_S6.mp4?autoplay=1", popup: true },
+    { title: "SEASON END - A SELF-REFLECTION OF A JOURNEY (May 2, 2022)", presenter: "Dubravka Martinovic", action: "watch", link: "https://library.fibairef.basketball/images/documents/9e63789ec6b6e6fa343067dd62603c14/Recording_SEASON_END_Session_5.mp4?autoplay=1", popup: true },
+    { title: "SEE FAST - DECIDE SLOW (Mar 7, 2022)", presenter: "Matt Kallio (CAN)\nJulio Anaya (PAN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/220c16434300ed747d2b9ad97907469f/Recording_SEE_FAST___DECIDE_SLOW_Session_3.mp4?autoplay=1", popup: true },
+    { title: "BEING A PROFESSIONAL (Apr 4, 2022)", presenter: "France & Japan National Federations", action: "watch", link: "https://library.fibairef.basketball/images/documents/0f37b39fac5d19cfa21cfb7875cebc5f/Recording_BEING_A_PROFESSIONAL_Session_4.mp4?autoplay=1", popup: true },
+    { title: "THEN & NOW (Feb 7, 2022)", presenter: "Chantal Julien (FRA)\nTerry Moore (USA)\nAbreu Muhimua (MOZ)\nCostas Rigas (GRE)", action: "watch", link: "https://library.fibairef.basketball/images/documents/a123b7dce60be3887bd1dcb2ea980afd/Recording_THEN__NOW_MNS_Session_2_720p.mp4?autoplay=1", popup: true },
+    { title: "MODERN BASKETBALL & ITS INTERRELATIONSHIP WITH REFEREEING (Jan 3, 2022)", presenter: "Nelson Isley (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/8f4c894f64f9df5bcd5a133a11dc1fae/Recording_MS1_2022_MODERN_BASKETBALL_720p.mp4?autoplay=1", popup: true },
+    { title: "INVISIBLE TRAINING (Dec 6, 2021)", presenter: "Dr. Chema Buceta", action: "watch", link: "https://library.fibairef.basketball/images/documents/56ba1d87d5e080af3e8c979470810f8c/Recording_INVISIBLE_TRAINING_MS12_720p.mp4?autoplay=1", popup: true },
+    { title: "HEARING AND LISTENING (Nov 8, 2021)", presenter: "FIBA Referee Operations", action: "watch", link: "https://library.fibairef.basketball/images/documents/1fd4ae58f66f7b03e81d407fc51535fd/MNS_HEARING_LISTENING_S11_8Nov2021.mp4?autoplay=1", popup: true },
+    { title: "RUN & CALL (Oct 4, 2021)", presenter: "Alejandro Vaquera (ESP)\nDavid Suarez (ESP)\nHaris Pojskic (SWE)\nMaria Munoz (GUA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/40ba074a0eef17da88dd73f5ea0b59b3/Recording_RUN__CALL_MNS_Session_10.mp4?autoplay=1", popup: true },
+    { title: "\"SO WHAT?\" / SCOUTING THE TEAMS (Sep 6, 2021)", presenter: "Dubravka Martinovic\nAdemir Zurapovic (BIH)", action: "watch", link: "https://library.fibairef.basketball/images/documents/99d8d229b006118eb323db3b15a54d2b/MS_S19_SO_WHAT_SCOUTING_TEAMS.mp4?autoplay=1", popup: true },
+    { title: "TOKYO 2020 - BUBBLE LIFE (Aug 2, 2021)", presenter: "Officating Team", action: "watch", link: "https://library.fibairef.basketball/images/documents/47e1c515ff60fb93425eaee33a4d5647/MS_Session_08_Tokyo2020_720p.mp4?autoplay=1", popup: true },
+    { title: "INSIDE THE COMPETITION (Jul 5, 2021)", presenter: "Officating Team", action: "watch", link: "https://library.fibairef.basketball/images/documents/0944f66d30c833f2bd43a488b91d11af/MS_INSIDE_COMPETITION_720p.mp4?autoplay=1", popup: true },
+    { title: "MENTOR PROGRAMME FOR REFEREES (Jun 7, 2021)", presenter: "Cristiano Maranho (BRA)\nAntonio Conde (ESP)\nImene Tahimi (ALG)\nEdwin Quiles (PUR)", action: "watch", link: "https://library.fibairef.basketball/images/documents/f4398ef366cd9213b6c97b60b23a19b4/MS_7June_MP_Recording.mp4?autoplay=1", popup: true },
+    { title: "MY PREPARATION FOR THE COMPETITION (May 3, 2021)", presenter: "Samir Abaakil (MOR)\nAmy Bonner (USA)\nJames Boyer (AUS)\nViola Gyorgyi (NOR)\nTakaki Kato (JPN)", action: "watch", link: "https://library.fibairef.basketball/images/documents/2b324c01a33bea39da8665a6e4771272/Recording_MS__MyPrep_3May2021.mp4?autoplay=1", popup: true },
+    { title: "STEPS TO SUCCESS - CASE STUDY: OFFICIATING PLAN BY TBF (Apr 12, 2021)", presenter: "Rustu Nuran (TUR)\nYener Yilmaz (TUR)\nOzlem Yalman (TUR)\nMehmet Karabilecen (TUR)\nSinem Tetik (TUR)", action: "watch", link: "https://library.fibairef.basketball/images/documents/3be860c989d92b48a4b7f7a6cad97b74/Recording_TBF_STEPS_TO_SUCCESS_MNS_Session_04.mp4?autoplay=1", popup: true },
+    { title: "COMMON SENSE COMMUNICATION - PART I (Mar 8, 2021)", presenter: "JD Collins (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/b5acf024a16eb73d5efd8aa6f1a99dbc/Recording_WB21_MS7_P1.mp4?autoplay=1", popup: true },
+    { title: "COMMON SENSE COMMUNICATION - PART II (Mar 8, 2021)", presenter: "JD Collins (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/50c0cb6e42cfc8fcc0a5456834cefb02/Recording_WB21_MS7_P2.mp4?autoplay=1", popup: true },
+    { title: "FINAL PRE-GAME - WORLD CUP 2019 FINAL CREW (Feb 1, 2021)", presenter: "Cristiano Maranho (BRA)\nYohan Rosso (FRA)\nSteven Anderson (USA)", action: "watch", link: "https://library.fibairef.basketball/images/documents/bc1e330a3245248510add399bc7c78a2/MS_1Feb2021_FPG_Recording.mp4?autoplay=1", popup: true }
   ],
   STATISTICS: [
     { title: "BASIC STATISTICS DEFINITIONS", presenter: "Trish Nicholl", action: "watch", link: "https://youtu.be/ps12xdaj_vk", popup: true },
@@ -332,12 +333,19 @@ function getYouTubeId(url: string): string | null {
   try {
     const parsed = new URL(url);
     if (parsed.hostname === "youtu.be") return parsed.pathname.slice(1).split("?")[0];
-    if (parsed.hostname.includes("youtube.com")) return parsed.searchParams.get("v");
+    if (parsed.hostname.includes("youtube.com")) {
+      if (parsed.pathname.startsWith("/embed/")) {
+        return parsed.pathname.split("/")[2]?.split("?")[0] || null;
+      }
+      return parsed.searchParams.get("v");
+    }
   } catch { /* ignore */ }
   return null;
 }
 
 function VideoModal({ url, title, onClose }: { url: string; title: string; onClose: () => void }) {
+  const [loadError, setLoadError] = useState(false);
+
   // Close on Escape key
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -345,7 +353,13 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
     return () => window.removeEventListener("keydown", handler);
   }, [onClose]);
 
-  const youtubeId = getYouTubeId(url);
+  // Clean URL to ensure HTTPS and eliminate any accidental duplicate slashes
+  const cleanUrl = (url || "")
+    .trim()
+    .replace(/^http:\/\//i, "https://")
+    .replace(/([^:])\/\//g, "$1/");
+
+  const youtubeId = getYouTubeId(cleanUrl);
   const embedSrc = youtubeId
     ? `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`
     : null;
@@ -385,27 +399,49 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
           padding: "14px 20px",
           borderBottom: `1px solid ${T.border}`,
           background: T.charcoal,
+          gap: 12,
         }}>
           <span style={{
             fontFamily: BARLOW, fontWeight: 700, fontSize: 17,
             color: T.orange, letterSpacing: "2px", textTransform: "uppercase",
+            flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
           }}>
             {title}
           </span>
-          <button
-            onClick={onClose}
-            style={{
-              background: "transparent", border: `1px solid ${T.border}`,
-              color: T.inactive, fontSize: 18, cursor: "pointer",
-              width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center",
-              borderRadius: 2, transition: "border-color 0.15s, color 0.15s",
-            }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = T.orange; (e.currentTarget as HTMLButtonElement).style.color = T.orange; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = T.border; (e.currentTarget as HTMLButtonElement).style.color = T.inactive; }}
-            aria-label="Close video"
-          >
-            ✕
-          </button>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <a
+              href={cleanUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open video in new tab"
+              style={{
+                background: "transparent", border: `1px solid ${T.border}`,
+                color: T.inactive, fontSize: 13, cursor: "pointer",
+                padding: "6px 12px", display: "inline-flex", alignItems: "center", gap: 5,
+                borderRadius: 2, textDecoration: "none", transition: "border-color 0.15s, color 0.15s",
+                fontFamily: BARLOW, fontWeight: 700, letterSpacing: "1px",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = T.orange; (e.currentTarget as HTMLAnchorElement).style.color = T.orange; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.borderColor = T.border; (e.currentTarget as HTMLAnchorElement).style.color = T.inactive; }}
+            >
+              <span>OPEN</span>
+              <span style={{ fontSize: 13 }}>↗</span>
+            </a>
+            <button
+              onClick={onClose}
+              style={{
+                background: "transparent", border: `1px solid ${T.border}`,
+                color: T.inactive, fontSize: 18, cursor: "pointer",
+                width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center",
+                borderRadius: 2, transition: "border-color 0.15s, color 0.15s",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = T.orange; (e.currentTarget as HTMLButtonElement).style.color = T.orange; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = T.border; (e.currentTarget as HTMLButtonElement).style.color = T.inactive; }}
+              aria-label="Close video"
+            >
+              ✕
+            </button>
+          </div>
         </div>
         {/* Video — iframe for YouTube, native <video> for direct URLs */}
         <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, background: "#000" }}>
@@ -422,15 +458,60 @@ function VideoModal({ url, title, onClose }: { url: string; title: string; onClo
               }}
             />
           ) : (
-            <video
-              src={url}
-              controls
-              autoPlay
-              style={{
-                position: "absolute", top: 0, left: 0,
-                width: "100%", height: "100%",
-              }}
-            />
+            <>
+              <video
+                key={cleanUrl}
+                src={cleanUrl}
+                controls
+                autoPlay
+                playsInline
+                preload="metadata"
+                onError={() => setLoadError(true)}
+                style={{
+                  position: "absolute", top: 0, left: 0,
+                  width: "100%", height: "100%",
+                }}
+              />
+              {loadError && (
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "rgba(0,0,0,0.85)",
+                    padding: 24,
+                    textAlign: "center",
+                    zIndex: 2,
+                  }}
+                >
+                  <p style={{ color: "#fff", fontSize: 14, marginBottom: 16 }}>
+                    This video could not be played directly inside the embedded player.
+                  </p>
+                  <a
+                    href={cleanUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      background: T.orange,
+                      color: "#fff",
+                      padding: "8px 20px",
+                      borderRadius: 3,
+                      fontFamily: BARLOW,
+                      fontWeight: 700,
+                      fontSize: 14,
+                      letterSpacing: "1px",
+                      textDecoration: "none",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Open / Download Video ↗
+                  </a>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -485,7 +566,7 @@ function WebinarRow({
           alignItems: "center",
         }}
       >
-        {item.title}
+        {renderWithOrdinals(item.title)}
       </div>
 
       {/* Column 2: Presenter (only render if presenter exists, or render empty cell on desktop) */}
